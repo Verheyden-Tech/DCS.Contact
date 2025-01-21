@@ -12,12 +12,12 @@
 
         public bool IsActive { get; set; }
 
-        public Adress Adress { get; set; }
+        public IList<Adress> Adresses { get; set; }
 
-        public Phone Phone { get; set; }
+        public IList<Phone> PhoneNumbers { get; set; }
 
-        public Email Email { get; set; }
+        public IList<Email> EmailAdresses { get; set; }
 
-        public Company Company { get; set; }
+        public IList<Company> Companies { get; set; }
     }
 }
