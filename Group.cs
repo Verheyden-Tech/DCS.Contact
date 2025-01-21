@@ -1,4 +1,4 @@
-﻿namespace ContactLibrary
+﻿namespace DCS.Contact
 {
     public class Group
     {
@@ -11,5 +11,9 @@
         public string Description { get; set; }
 
         public bool IsActive { get; set; }
+
+        public Guid UserGuid { get; set; }
+
+        public Guid CompanyGuid { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ContactLibrary
+﻿namespace DCS.Contact
 {
     public class Company
     {
@@ -16,6 +16,10 @@
 
         public Email Email { get; set; }
 
-        public string ContactName { get; set; }
+        public Guid? CompanyContact { get; set; }
+
+        public Guid UserGuid { get; set; }
+
+        public Guid? CompanyGuid { get; set; }
     }
 }
