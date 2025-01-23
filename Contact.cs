@@ -14,6 +14,8 @@ namespace DCS.Contact
 
         public bool IsActive { get; set; }
 
+        public Guid UserGuid { get; set; }
+
         public ObservableCollection<Adress>? Adresses { get; set; }
 
         public ObservableCollection<Phone>? PhoneNumbers { get; set; }
