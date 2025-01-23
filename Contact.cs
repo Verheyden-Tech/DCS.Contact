@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace DCS.Contact
+﻿namespace DCS.Contact
 {
     public class Contact
     {
@@ -15,13 +13,5 @@ namespace DCS.Contact
         public bool IsActive { get; set; }
 
         public Guid UserGuid { get; set; }
-
-        public ObservableCollection<Adress>? Adresses { get; set; }
-
-        public ObservableCollection<Phone>? PhoneNumbers { get; set; }
-
-        public ObservableCollection<Email>? EmailAdresses { get; set; }
-
-        public ObservableCollection<Company>? Companies { get; set; }
     }
 }
