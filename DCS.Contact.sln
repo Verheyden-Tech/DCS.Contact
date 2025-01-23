@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactLibrary", "ContactLibrary.csproj", "{B9CB4D54-DEEA-4A31-BEC1-0418FAE15F50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCS.Contact", "DCS.Contact.csproj", "{B9CB4D54-DEEA-4A31-BEC1-0418FAE15F50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,6 @@
-﻿namespace ContactLibrary
+﻿using System.Collections.ObjectModel;
+
+namespace DCS.Contact
 {
     public class Contact
     {
@@ -12,12 +14,12 @@
 
         public bool IsActive { get; set; }
 
-        public IList<Adress> Adresses { get; set; }
+        public ObservableCollection<Adress>? Adresses { get; set; }
 
-        public IList<Phone> PhoneNumbers { get; set; }
+        public ObservableCollection<Phone>? PhoneNumbers { get; set; }
 
-        public IList<Email> EmailAdresses { get; set; }
+        public ObservableCollection<Email>? EmailAdresses { get; set; }
 
-        public IList<Company> Companies { get; set; }
+        public ObservableCollection<Company>? Companies { get; set; }
     }
 }

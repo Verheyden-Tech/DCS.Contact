@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-	  <Version>1.0.1</Version>
+	  <Version>1.0.8</Version>
 	  <Authors>Tobias Verheyden</Authors>
-	  <Description>Simple Contact-Model library. Contains Models to create contacts.</Description>
+	  <PackageTags>DCS.Contact</PackageTags>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
