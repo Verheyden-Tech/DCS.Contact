@@ -10,16 +10,10 @@
 
         public string Type { get; set; }
 
-        public Adress Adress { get; set; }
-
-        public Phone Phone { get; set; }
-
-        public Email Email { get; set; }
-
         public Guid? CompanyContact { get; set; }
 
-        public Guid UserGuid { get; set; }
+        public Guid? ContactGuid { get; set; }
 
-        public Guid? CompanyGuid { get; set; }
+        public Guid UserGuid { get; set; }
     }
 }
