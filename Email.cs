@@ -8,7 +8,7 @@
 
         public string Type { get; set; }
 
-        public string MailAddress { get; set; }
+        public string MailAdress { get; set; }
 
         public bool IsActive { get; set; }
 
