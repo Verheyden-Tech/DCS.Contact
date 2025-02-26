@@ -9,6 +9,7 @@
         public string Type { get; set; }
 
         public string PhoneNumber { get; set; }
+        public bool IsActive { get; set; }
 
         public Guid UserGuid { get; set; }
 

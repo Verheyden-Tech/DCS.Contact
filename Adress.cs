@@ -18,6 +18,8 @@
 
         public string Country { get; set; }
 
+        public bool IsActive { get; set; }
+
         public Guid UserGuid { get; set; }
 
         public Guid? ContactGuid { get; set; }
