@@ -1,12 +1,11 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.Services.Interfaces;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using DCS.DefaultTemplates;
 using System.Windows;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
+    /// <summary>
+    /// ViewModel for EmailAdress.
+    /// </summary>
     public class EmailAdressViewModel : IViewModelBase<Email>
     {
         private IEmailAdressService emailAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
@@ -16,6 +15,9 @@ namespace DCSBase.Contacts
         private Email model;
         private DefaultCollection<Email> collection;
 
+        /// <summary>
+        /// Constructor for EmailAdressViewModel.
+        /// </summary>
         public EmailAdressViewModel() : base()
         {
             Collection = new DefaultCollection<Email>();
@@ -23,11 +25,19 @@ namespace DCSBase.Contacts
             addedEmailAdresses = new DefaultCollection<Email>();
         }
 
+        /// <summary>
+        /// Constructor for EmailAdressViewModel.
+        /// </summary>
+        /// <param name="email"></param>
         public EmailAdressViewModel(Email email) : this()
         {
             this.model = email;
         }
 
+        /// <summary>
+        /// Constructor for EmailAdressViewModel.
+        /// </summary>
+        /// <param name="contact"></param>
         public EmailAdressViewModel(Contact contact) : this()
         {
             this.SelectedContact = contact;
@@ -139,16 +149,31 @@ namespace DCSBase.Contacts
             return false;
         }
 
+        /// <summary>
+        /// Adds new EmailAdress to the Contacts EmailCollection.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Add(Email obj)
         {
             return AddEmailAdress(obj);
         }
 
+        /// <summary>
+        /// Edits the EmailAdress.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Edit(Email obj)
         {
             return EditEmailAdress(obj);
         }
 
+        /// <summary>
+        /// Removes the EmailAdress.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Remove(Email obj)
         {
             if(obj != null)
@@ -171,6 +196,9 @@ namespace DCSBase.Contacts
         }
 
         #region Public Props
+        /// <summary>
+        /// Gets or sets the guid of a email adress.
+        /// </summary>
         public Guid Guid
         {
             get
@@ -183,6 +211,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the type of a email adress.
+        /// </summary>
         public string Type
         {
             get
@@ -195,6 +226,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the mail adress.
+        /// </summary>
         public string MailAdress
         {
             get
@@ -208,6 +242,9 @@ namespace DCSBase.Contacts
         }
         #endregion
 
+        /// <summary>
+        /// Gets or sets the collection of email adresses.
+        /// </summary>
         public DefaultCollection<Email> Collection
         {
             get
@@ -220,8 +257,14 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected contact.
+        /// </summary>
         public Contact SelectedContact { get; set; }
 
+        /// <summary>
+        /// Gets the model.
+        /// </summary>
         public Email Model => model;
     }
 }

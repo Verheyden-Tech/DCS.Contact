@@ -1,58 +1,92 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
-using DCSBase.Services.Interfaces;
+﻿using DCS.DefaultTemplates;
+using DCS.User;
 
-namespace DCSBase.Services
+namespace DCS.Contact.Services
 {
+    /// <summary>
+    /// Phone Service to handle phone data on the table.
+    /// </summary>
     public class PhoneService : IServiceBase<Phone, IPhoneManagementRepository>, IPhoneService
     {
         private Phone model;
 
+        /// <summary>
+        /// Repository to handle phone data on the table.
+        /// </summary>
         public IPhoneManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneManagementRepository>();
 
+        /// <summary>
+        /// Model for phone data.
+        /// </summary>
         public Phone Model => model;
 
+        /// <summary>
+        /// Constructor for <see cref="PhoneService"/>.
+        /// </summary>
         public PhoneService()
         {
             
         }
 
+        /// <summary>
+        /// Constructor for <see cref="PhoneService"/>.
+        /// </summary>
+        /// <param name="phone"></param>
         public PhoneService(Phone phone) : this()
         {
             this.model = phone;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Delete phone data by guid.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public bool Delete(Guid guid)
         {
             return Repository.Delete(guid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Get phone data by guid.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public Phone Get(Guid guid)
         {
             return Repository.Get(guid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Get all phone data.
+        /// </summary>
+        /// <returns></returns>
         public DefaultCollection<Phone> GetAll()
         {
             return Repository.GetAll();
         }
 
+        /// <inheritdoc/>
         public DefaultCollection<Phone> GetAllByContact(Guid contactGuid)
         {
             return Repository.GetAllByContact(contactGuid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Insert new phone data.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool New(Phone obj)
         {
             return Repository.New(obj);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Update phone data.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Update(Phone obj)
         {
             return Repository.Update(obj);

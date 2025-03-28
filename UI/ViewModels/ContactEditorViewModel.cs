@@ -1,10 +1,11 @@
-﻿using DCS.Contact;
+﻿using DCS.User;
 using DCS.DefaultTemplates;
-using DCS.User;
-using DCSBase.Services.Interfaces;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
+    /// <summary>
+    /// ViewModel for the contact editor.
+    /// </summary>
     public class ContactEditorViewModel : ViewModelBase<Contact>
     {
         private IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
@@ -21,6 +22,9 @@ namespace DCSBase.Contacts
         private Email selectedEmailAdress;
         private Phone selectedPhoneNumber;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactEditorViewModel"/> class.
+        /// </summary>
         public ContactEditorViewModel()
         {
             Collection = new DefaultCollection<Contact>();
@@ -37,6 +41,10 @@ namespace DCSBase.Contacts
             phoneNumberViewModel = new PhoneNumberViewModel();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactEditorViewModel"/> class.
+        /// </summary>
+        /// <param name="contact"></param>
         public ContactEditorViewModel(Contact contact) : this()
         {
             this.Model = contact;
@@ -68,6 +76,11 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Adds a new adress to the contact.
+        /// </summary>
+        /// <param name="newAdress"></param>
+        /// <returns></returns>
         public bool AddNewAdress(Adress newAdress)
         {
             if(newAdress == null)
@@ -82,6 +95,11 @@ namespace DCSBase.Contacts
             return false;
         }
 
+        /// <summary>
+        /// Adds a new phone number to the contact.
+        /// </summary>
+        /// <param name="newPhone"></param>
+        /// <returns></returns>
         public bool AddNewPhoneNumber(Phone newPhone)
         {
             if(newPhone == null)
@@ -96,6 +114,11 @@ namespace DCSBase.Contacts
             return false;
         }
 
+        /// <summary>
+        /// Adds a new email adress to the contact.
+        /// </summary>
+        /// <param name="newEmail"></param>
+        /// <returns></returns>
         public bool AddNewEmailAdress(Email newEmail)
         {
             if(newEmail == null)
@@ -111,6 +134,9 @@ namespace DCSBase.Contacts
         }
 
         #region Public Props
+        /// <summary>
+        /// Gets or sets the unique identifier of the contact.
+        /// </summary>
         public Guid Guid
         {
             get
@@ -124,6 +150,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the first name of the contact.
+        /// </summary>
         public string FirstName
         {
             get
@@ -137,6 +166,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the last name of the contact.
+        /// </summary>
         public string LastName
         {
             get
@@ -150,6 +182,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Indicates whether the contact is active.
+        /// </summary>
         public bool IsActive
         {
             get
@@ -163,6 +198,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected adresses.
+        /// </summary>
         public Adress SelectedAdress
         {
             get => selectedAdress;
@@ -176,6 +214,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected email adress.
+        /// </summary>
         public Email SelectedEmailAdress
         {
             get => selectedEmailAdress;
@@ -189,6 +230,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected phone number.
+        /// </summary>
         public Phone SelectedPhoneNumber
         {
             get => selectedPhoneNumber;

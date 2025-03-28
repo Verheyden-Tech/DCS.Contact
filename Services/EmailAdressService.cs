@@ -1,17 +1,23 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
-using DCSBase.Services.Interfaces;
+﻿using DCS.DefaultTemplates;
+using DCS.User;
 
-namespace DCSBase.Services
+namespace DCS.Contact.Services
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// EmailAdressService to manipulate emailadress data.
+    /// </summary>
     public class EmailAdressService : IServiceBase<Email, IEmailAdressManagementRepository>, IEmailAdressService
     {
         private Email model;
 
+        /// <summary>
+        /// Repository for email data.
+        /// </summary>
         public IEmailAdressManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressManagementRepository>();
 
+        /// <summary>
+        /// Model for email data.
+        /// </summary>
         public Email Model => model;
 
         /// <summary>
@@ -30,19 +36,30 @@ namespace DCSBase.Services
             this.model = email;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Delete email by guid.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public bool Delete(Guid guid)
         {
             return Repository.Delete(guid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Get email by guid.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public Email Get(Guid guid)
         {
             return Repository.Get(guid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Get all emails.
+        /// </summary>
+        /// <returns></returns>
         public DefaultCollection<Email> GetAll()
         {
             return Repository.GetAll();
@@ -60,19 +77,34 @@ namespace DCSBase.Services
             return Repository.GetAllByUser(userGuid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Create new email.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool New(Email obj)
         {
             return Repository.New(obj);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Update email.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Update(Email obj)
         {
             return Repository.Update(obj);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Creates new email instance.
+        /// </summary>
+        /// <param name="mailAdress"></param>
+        /// <param name="contactGuid"></param>
+        /// <param name="isActive"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public Email CreateEmailAdress(string mailAdress, Guid contactGuid, bool isActive = true, string type = "")
         {
             var newEmail = new Email

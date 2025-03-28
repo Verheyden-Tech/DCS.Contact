@@ -1,9 +1,10 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
+﻿using DCS.DefaultTemplates;
 
-namespace DCSBase.Services.Interfaces
+namespace DCS.Contact
 {
+    /// <summary>
+    /// Phone Service to handle phone data on the table.
+    /// </summary>
     public interface IPhoneService : IServiceBase<Phone, IPhoneManagementRepository>
     {
         /// <summary>
@@ -17,6 +18,11 @@ namespace DCSBase.Services.Interfaces
         /// <returns>New instance of <see cref="Phone"/>.</returns>
         Phone CreateNewPhone(string phoneNumber, string type = "", bool isActive = true, Guid? contactGuid = null, Guid? companyGuid = null);
 
+        /// <summary>
+        /// Get phone data by contact guid.
+        /// </summary>
+        /// <param name="contactGuid"></param>
+        /// <returns></returns>
         DefaultCollection<Phone> GetAllByContact(Guid contactGuid);
     }
 }

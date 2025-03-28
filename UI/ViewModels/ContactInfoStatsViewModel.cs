@@ -1,14 +1,20 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
+﻿using DCS.DefaultTemplates;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
+    /// <summary>
+    /// ViewModel for the contact info stats.
+    /// </summary>
     public class ContactInfoStatsViewModel : ViewModelBase<Contact>
     {
         private DefaultCollection<Adress> adresses;
         private DefaultCollection<Phone> phoneNumbers;
         private DefaultCollection<Email> emails;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactInfoStatsViewModel"/> class.
+        /// </summary>
+        /// <param name="contact"></param>
         public ContactInfoStatsViewModel(Contact contact)
         {
             this.Model = contact;
@@ -19,6 +25,9 @@ namespace DCSBase.Contacts
         }
 
         #region Public Props
+        /// <summary>
+        /// Gets or sets the first name of the contact.
+        /// </summary>
         public string FirstName
         {
             get => Model.FirstName;
@@ -29,6 +38,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the last name of the contact.
+        /// </summary>
         public string LastName
         {
             get => Model.LastName;
@@ -39,18 +51,27 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the adresses of the contact.
+        /// </summary>
         public DefaultCollection<Adress> Adresses
         {
             get => adresses;
             set => adresses = value;
         }
 
+        /// <summary>
+        /// Gets or sets the phone numbers of the contact.
+        /// </summary>
         public DefaultCollection<Phone> PhoneNumbers
         {
             get => phoneNumbers;
             set => phoneNumbers = value;
         }
 
+        /// <summary>
+        /// Gets or sets the email adresses of the contact.
+        /// </summary>
         public DefaultCollection<Email> EmailAdresses
         {
             get => emails;

@@ -1,8 +1,6 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
+﻿using DCS.DefaultTemplates;
 
-namespace DCSBase.Services.Interfaces
+namespace DCS.Contact
 {
     /// <summary>
     /// EmailAdressService to manipulate emailadress data.
@@ -19,8 +17,18 @@ namespace DCSBase.Services.Interfaces
         /// <returns>New instance of <see cref="Email"/>.</returns>
         Email CreateEmailAdress(string mailAdress, Guid contactGuid, bool isActive = true, string type = "");
 
+        /// <summary>
+        /// Get all emails by contact guid.
+        /// </summary>
+        /// <param name="contactGuid"></param>
+        /// <returns></returns>
         DefaultCollection<Email> GetAllByContact(Guid contactGuid);
 
+        /// <summary>
+        /// Get all emails by user guid.
+        /// </summary>
+        /// <param name="userGuid"></param>
+        /// <returns></returns>
         DefaultCollection<Email> GetAllByUser(Guid userGuid);
     }
 }

@@ -1,53 +1,86 @@
-﻿using DCS.Contact;
+﻿using DCS.User;
 using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
-using DCSBase.Services.Interfaces;
 
-namespace DCSBase.Services
+namespace DCS.Contact.Services
 {
+    /// <summary>
+    /// DCS RoleService to manipulate role data.
+    /// </summary>
     public class RoleService : IServiceBase<Role, IRoleManagementRepository>, IRoleService
     {
         private Role model;
 
+        /// <summary>
+        /// Repository for RoleService.
+        /// </summary>
         public IRoleManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IRoleManagementRepository>();
 
+        /// <summary>
+        /// Model for role data.
+        /// </summary>
         public Role Model => model;
 
+        /// <summary>
+        /// Constructor for RoleService.
+        /// </summary>
         public RoleService()
         {
             
         }
 
+        /// <summary>
+        /// Copy constructor with parameters.
+        /// </summary>
+        /// <param name="role"></param>
         public RoleService(Role role) : this()
         {
             this.model = role;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Deletes a role by guid.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public bool Delete(Guid guid)
         {
             return Repository.Delete(guid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets a role by guid.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public Role Get(Guid guid)
         {
             return Repository.Get(guid);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets all roles.
+        /// </summary>
+        /// <returns></returns>
         public DefaultCollection<Role> GetAll()
         {
             return Repository.GetAll();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Creates a new role.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool New(Role obj)
         {
             return Repository.New(obj);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Updates a role.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Update(Role obj)
         {
             return Repository.Update(obj);

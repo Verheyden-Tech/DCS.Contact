@@ -1,9 +1,10 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
+﻿using DCS.DefaultTemplates;
 
-namespace DCSBase.Services.Interfaces
+namespace DCS.Contact
 {
+    /// <summary>
+    /// DCS RoleService to manipulate role data.
+    /// </summary>
     public interface IRoleService : IServiceBase<Role, IRoleManagementRepository>
     {
         /// <summary>

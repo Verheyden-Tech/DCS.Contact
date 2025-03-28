@@ -1,9 +1,10 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.Services.Interfaces;
+﻿using DCS.DefaultTemplates;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
+    /// <summary>
+    /// ViewModel for contact management.
+    /// </summary>
     public class ContactManagementViewModel : ViewModelBase<Contact>
     {
         private IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
@@ -17,6 +18,9 @@ namespace DCSBase.Contacts
         private PhoneNumberViewModel phoneNumberViewModel;
         private DefaultCollection<Contact> selectedContacts;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactManagementViewModel"/> class.
+        /// </summary>
         public ContactManagementViewModel()
         {
             Collection = new DefaultCollection<Contact>();
@@ -31,6 +35,10 @@ namespace DCSBase.Contacts
         }
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactManagementViewModel"/> class.
+        /// </summary>
+        /// <param name="contact"></param>
         public ContactManagementViewModel(Contact contact) : this()
         {
             this.Model = contact;
@@ -42,6 +50,9 @@ namespace DCSBase.Contacts
         #endregion
 
         #region Public Props
+        /// <summary>
+        /// Gets or sets the contact's guid.
+        /// </summary>
         public Guid Guid
         {
             get
@@ -54,6 +65,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the contact's first name.
+        /// </summary>
         public string FirstName
         {
             get
@@ -66,6 +80,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the contact's last name.
+        /// </summary>
         public string LastName
         {
             get
@@ -78,6 +95,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Indicates if the contact is active.
+        /// </summary>
         public bool IsActive
         {
             get
@@ -92,30 +112,45 @@ namespace DCSBase.Contacts
         #endregion
 
         #region Public Lists
+        /// <summary>
+        /// Gets or sets the contact's adresses.
+        /// </summary>
         public DefaultCollection<Adress> Adresses
         {
             get => adresses;
             set => adresses = value;
         }
 
+        /// <summary>
+        /// Gets or sets the contact's emails.
+        /// </summary>
         public DefaultCollection<Email> Emails
         {
             get => emails;
             set => emails = value;
         }
 
+        /// <summary>
+        /// Gets or sets the contact's phone numbers.
+        /// </summary>
         public DefaultCollection<Phone> PhoneNumbers
         {
             get => phoneNumbers;
             set => phoneNumbers = value;
         }
 
+        /// <summary>
+        /// Gets or sets the contact's companies.
+        /// </summary>
         public DefaultCollection<Company> Companies
         {
             get => companies;
             set => companies = value;
         }
 
+        /// <summary>
+        /// Gets or sets the selected contacts.
+        /// </summary>
         public DefaultCollection<Contact> SelectedContacts
         {
             get => selectedContacts;

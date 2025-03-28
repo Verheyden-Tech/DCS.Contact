@@ -1,9 +1,7 @@
-﻿using DCS.Contact;
+﻿using DCS.User;
 using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
-using DCSBase.Services.Interfaces;
 
-namespace DCSBase.Services
+namespace DCS.Contact.Services
 {
     /// <summary>
     /// DCS PhysicalAdressService to manipulate adress data.
@@ -12,6 +10,9 @@ namespace DCSBase.Services
     {
         private Adress model;
 
+        /// <summary>
+        /// Repository for PhysicalAdressService.
+        /// </summary>
         public IPhysicalAdressManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressManagementRepository>();
 
         /// <summary>
@@ -36,16 +37,16 @@ namespace DCSBase.Services
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// Deletes a physical adress by guid.
         /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public bool Delete(Guid guid)
         {
             return Repository.Delete(guid);
         }
 
-        /// <summary>
         /// <inheritdoc/>
-        /// </summary>
         public Adress CreateNewAdress(Contact ownerContact, string streetName, string houseNumber, string adressAddon, string city, string postalCode, string country, bool isActive = true, Company? ownerCompany = null)
         {
             Adress newAdress = new Adress
@@ -67,40 +68,45 @@ namespace DCSBase.Services
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// Gets a physical adress by guid.
         /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public Adress Get(Guid guid)
         {
             return Repository.Get(guid);
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// Gets all physical adresses.
         /// </summary>
+        /// <returns></returns>
         public DefaultCollection<Adress> GetAll()
         {
             return Repository.GetAll();
         }
 
-        /// <summary>
         /// <inheritdoc/>
-        /// </summary>
         public DefaultCollection<Adress> GetAllByContact(Contact contact)
         {
             return Repository.GetAllByContact(contact.Guid);
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// Creates a new physical adress.
         /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool New(Adress obj)
         {
             return Repository.New(obj);
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// Updates a physical adress.
         /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Update(Adress obj)
         {
             return Repository.Update(obj);

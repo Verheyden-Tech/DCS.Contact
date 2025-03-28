@@ -1,8 +1,6 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCSBase.DataDB.Interfaces;
+﻿using DCS.DefaultTemplates;
 
-namespace DCSBase.Services.Interfaces
+namespace DCS.Contact
 {
     /// <summary>
     /// DCS PhysicalAdressService to manipulate adress data.
