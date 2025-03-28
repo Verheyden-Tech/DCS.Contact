@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Telerik.Windows.Controls;
 
-namespace DCS.Contact
+namespace DCS.Contact.UI
 {
     /// <summary>
     /// Interaction logic for ContactEditor.xaml
@@ -21,6 +21,9 @@ namespace DCS.Contact
         private bool? isSaved;
         private bool? isCreate;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactEditor"/> class.
+        /// </summary>
         public ContactEditor()
         {
             InitializeComponent();
@@ -51,11 +54,18 @@ namespace DCS.Contact
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactEditor"/> class.
+        /// </summary>
+        /// <param name="contact"></param>
         public ContactEditor(Contact contact) : this()
         {
             this.SelectedContact = contact;
         }
 
+        /// <summary>
+        /// Gets or sets the current data context from the view model.
+        /// </summary>
         public ContactEditorViewModel Current
         {
             get
@@ -64,6 +74,10 @@ namespace DCS.Contact
             }
         }
 
+        /// <summary>
+        /// Adds paging objects to the window.
+        /// </summary>
+        /// <param name="models"></param>
         public void Edit(IList<Contact> models)
         {
             PagingObjects.Clear();
@@ -78,6 +92,10 @@ namespace DCS.Contact
                 this.DataContext = new ContactEditorViewModel(models.FirstOrDefault());
         }
 
+        /// <summary>
+        /// Creates a new contact with pre given names.
+        /// </summary>
+        /// <returns></returns>
         public Contact NewContactFromCurrentInput()
         {
             var firstName = string.Empty;
@@ -103,6 +121,9 @@ namespace DCS.Contact
             return contactService.CreateNewContact(firstName, lastName);
         }
 
+        /// <summary>
+        /// Gets or sets the current contact.
+        /// </summary>
         public Contact? SelectedContact { get; set; }
 
         #region ButtonClicks

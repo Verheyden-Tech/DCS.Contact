@@ -1,5 +1,4 @@
 ﻿using DCS.DefaultTemplates;
-using DCSBase.Services.Interfaces;
 using DCS.User;
 
 namespace DCS.Contact.Services

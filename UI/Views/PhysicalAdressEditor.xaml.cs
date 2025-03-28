@@ -1,9 +1,8 @@
-﻿using DCS.Contact;
-using DCS.DefaultViewControls;
+﻿using DCS.DefaultViewControls;
 using System.Windows;
-using System.Windows.Controls;
+using DCS.User;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
     /// <summary>
     /// Interaction logic for PhysicalAdressEditor.xaml
@@ -12,6 +11,9 @@ namespace DCSBase.Contacts
     {
         private PhysicalAddressViewModel viewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PhysicalAdressEditor"/> class.
+        /// </summary>
         public PhysicalAdressEditor()
         {
             InitializeComponent();
@@ -21,12 +23,20 @@ namespace DCSBase.Contacts
             this.DataContext = viewModel;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PhysicalAdressEditor"/> class.
+        /// </summary>
+        /// <param name="contact"></param>
         public PhysicalAdressEditor(Contact contact) : this()
         {
             viewModel = new PhysicalAddressViewModel(contact);
             this.DataContext = viewModel;
         }
 
+        /// <summary>
+        /// Adds a new adress to the contact.
+        /// </summary>
+        /// <returns></returns>
         public bool AddNewAdress()
         {
             Adress newAdress = new Adress()
@@ -54,6 +64,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected contact.
+        /// </summary>
         public Contact? SelectedContact { get; set; }
     }
 }

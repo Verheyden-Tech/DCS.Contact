@@ -1,11 +1,10 @@
-﻿<local:DefaultAppControl x:Class="DCSBase.Contacts.EmailAdressEditor"
+﻿<win:DefaultAppControl x:Class="DCS.Contact.UI.EmailAdressEditor"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DCSBase"
-             xmlns:contact="clr-namespace:DCSBase.Contacts"
-             xmlns:windows="clr-namespace:DCSBase"
+             xmlns:local="clr-namespace:DCS.Contact"
+             xmlns:win="clr-namespace:DCS.DefaultViewControls;assembly=DCS.DefaultViewControls"
              mc:Ignorable="d" 
              MinHeight="150" MinWidth="350" Width="auto" Height="auto">
 
@@ -36,4 +35,4 @@
 
     </Grid>
     
-</local:DefaultAppControl>
+</win:DefaultAppControl>

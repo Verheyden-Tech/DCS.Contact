@@ -1,18 +1,16 @@
-﻿using DCS.Contact;
-using DCS.DefaultTemplates;
-using DCS.User;
-using DCSBase.Contacts.ContactWindows;
+﻿using DCS.DefaultTemplates;
+using DCS.DefaultViewControls;
 using DCS.Resource;
+using DCS.User;
 using System.Windows.Controls;
-using System.Windows.Controls.Ribbon;
 using Telerik.Windows.Controls;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
     /// <summary>
     /// Interaction logic for CustomerManagement.xaml
     /// </summary>
-    public partial class ContactManagement : UserControl
+    public partial class ContactManagement : DefaultAppControl
     {
         private IIconService iconService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IIconService>();
         private Contact contact;

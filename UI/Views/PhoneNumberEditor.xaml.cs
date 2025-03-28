@@ -1,9 +1,7 @@
-﻿using DCS.Contact;
-using DCS.User;
+﻿using DCS.DefaultViewControls;
 using System.Windows;
-using System.Windows.Controls;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
     /// <summary>
     /// Interaction logic for PhoneNumberEditor.xaml
@@ -12,6 +10,9 @@ namespace DCSBase.Contacts
     {
         private PhoneNumberViewModel viewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PhoneNumberEditor"/> class.
+        /// </summary>
         public PhoneNumberEditor()
         {
             InitializeComponent();
@@ -21,6 +22,10 @@ namespace DCSBase.Contacts
             this.DataContext = viewModel;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PhoneNumberEditor"/> class.
+        /// </summary>
+        /// <param name="contact"></param>
         public PhoneNumberEditor(Contact contact)
         {
             InitializeComponent();
@@ -40,6 +45,9 @@ namespace DCSBase.Contacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the selected contact.
+        /// </summary>
         public Contact? SelectedContact { get; set; }
     }
 }

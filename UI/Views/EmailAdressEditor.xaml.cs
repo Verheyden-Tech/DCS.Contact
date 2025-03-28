@@ -1,11 +1,7 @@
 ﻿using System.Windows;
-using DCS.DefaultTemplates;
-using DCS.Contact;
-using DCSBase;
-using System.Windows.Controls;
-using DCS.User;
+using DCS.DefaultViewControls;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
     /// <summary>
     /// Interaction logic for EmailAdressEditor.xaml
@@ -14,6 +10,9 @@ namespace DCSBase.Contacts
     {
         private EmailAdressViewModel viewModel;
 
+        /// <summary>
+        /// Constructor for EmailAdressEditor.
+        /// </summary>
         public EmailAdressEditor()
         {
             InitializeComponent();
@@ -23,6 +22,10 @@ namespace DCSBase.Contacts
             this.DataContext = (EmailAdressViewModel)viewModel;
         }
 
+        /// <summary>
+        /// Constructor for EmailAdressEditor.
+        /// </summary>
+        /// <param name="contact"></param>
         public EmailAdressEditor(Contact contact)
         {
             InitializeComponent();

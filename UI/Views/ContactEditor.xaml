@@ -1,12 +1,11 @@
-﻿<local:DefaultObjectEditorWindow x:Class="DCSBase.Contacts.ContactEditor"
+﻿<win:DefaultEditorWindow x:Class="DCS.Contact.UI.ContactEditor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-        xmlns:local="clr-namespace:DCSBase"
-        xmlns:contact="clr-namespace:DCSBase.Contacts"
-        xmlns:service="clr-namespace:DCSBase.Services"
+        xmlns:local="clr-namespace:DCS.Contact"
+        xmlns:win="clr-namespace:DCS.DefaultViewControls;assembly=DCS.DefaultViewControls"
         mc:Ignorable="d" Title="Neuen Kontakt anlegen"
         MinHeight="220" MinWidth="600" SizeToContent="WidthAndHeight">
 
@@ -211,4 +210,4 @@
 
     </Grid>
 
-</local:DefaultObjectEditorWindow>
+</win:DefaultEditorWindow>

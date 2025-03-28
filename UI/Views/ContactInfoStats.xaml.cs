@@ -1,9 +1,6 @@
-﻿using DCSBase;
-using DCS.DefaultTemplates;
-using DCS.Contact;
-using System.Windows.Controls;
+﻿using DCS.DefaultViewControls;
 
-namespace DCSBase.Contacts
+namespace DCS.Contact.UI
 {
     /// <summary>
     /// Interaction logic for ContactInfoStats.xaml
@@ -12,6 +9,10 @@ namespace DCSBase.Contacts
     {
         private ContactInfoStatsViewModel viewModel;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactInfoStats"/> class.
+        /// </summary>
+        /// <param name="contact"></param>
         public ContactInfoStats(Contact contact)
         {
             InitializeComponent();
