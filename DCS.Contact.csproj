@@ -1,14 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
 	  <Version>1.1.4</Version>
+	  <ApplicationVersion>1.1.4</ApplicationVersion>
 	  <Authors>Tobias Verheyden</Authors>
 	  <Description>Simple contact library.</Description>
 	  <PackageTags>DCS.Contact</PackageTags>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>C:\Users\verhe\Desktop\Local.Nuget</PackageOutputPath>
   </PropertyGroup>
 
 </Project>
