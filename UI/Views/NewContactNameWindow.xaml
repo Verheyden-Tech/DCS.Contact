@@ -1,0 +1,44 @@
+﻿<local:DefaultObjectEditorWindow x:Class="DCSBase.Contacts.ContactWindows.NewContactNameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DCSBase"
+        xmlns:contact="clr-namespace:DCSBase.Contacts"
+        mc:Ignorable="d"
+        Height="150" Width="350" SizeToContent="WidthAndHeight">
+
+    <local:DefaultObjectEditorWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/ResourceDictionarys/ApplicationResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </local:DefaultObjectEditorWindow.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Vorname: " Grid.Row="0" Grid.Column="0" Style="{DynamicResource Label}"/>
+        <TextBox x:Name="FirstNameTextBox" Style="{DynamicResource TextBox}" Grid.Row="0" Grid.Column="1"/>
+
+        <Label Content="Nachname: " Grid.Row="1" Grid.Column="0" Style="{DynamicResource Label}"/>
+        <TextBox x:Name="LastNameTextBox" Style="{DynamicResource TextBox}" Grid.Row="1" Grid.Column="1"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+            <Button Content="Übernehmen" x:Name="AcceptButton" Click="AcceptButton_Click" Style="{DynamicResource ButtonAcc/Dec}"/>
+        </StackPanel>
+
+    </Grid>
+    
+</local:DefaultObjectEditorWindow>

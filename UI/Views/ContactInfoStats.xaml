@@ -1,0 +1,46 @@
+﻿<local:DefaultAppControl x:Class="DCSBase.Contacts.ContactInfoStats"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DCSBase"
+             xmlns:contact="clr-namespace:DCSBase.Contacts"
+             mc:Ignorable="d" 
+             MinHeight="150" MinWidth="300">
+    
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" Grid.Row="0" Grid.Column="1"/>
+
+        <GroupBox Header="Adressen" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ListView x:Name="adressListView" ItemsSource="{Binding Adresses, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" BorderBrush="{x:Null}">
+                
+            </ListView>
+        </GroupBox>
+
+        <GroupBox Header="Telefonnummern" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ListView x:Name="phoneNumbersListView" ItemsSource="{Binding PhoneNumbers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" BorderBrush="{x:Null}">
+
+            </ListView>
+        </GroupBox>
+
+        <GroupBox Header="Email Adressen" Grid.Row="2" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ListView x:Name="emailAdressListView" ItemsSource="{Binding Emails, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" BorderBrush="{x:Null}">
+
+            </ListView>
+        </GroupBox>
+
+    </Grid>
+    
+</local:DefaultAppControl>
