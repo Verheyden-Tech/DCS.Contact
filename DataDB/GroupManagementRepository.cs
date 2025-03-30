@@ -51,7 +51,7 @@ namespace DCS.Contact.DataDB
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Group Get(Guid guid)
+        public Group Get(Group guid)
         {
             var sql = $"SELECT * FROM {TableName} WHERE {PrimaryKeyColumn} = @guid";
 

@@ -55,7 +55,7 @@ namespace DCS.Contact.DataDB
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Email Get(Guid guid)
+        public Email Get(Email guid)
         {
             var sql = $"SELECT * FROM {TableName} WHERE {PrimaryKeyColumn} = @guid";
             

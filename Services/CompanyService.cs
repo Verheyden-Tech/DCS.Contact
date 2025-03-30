@@ -11,14 +11,14 @@ namespace DCS.Contact.Services
         private Company model;
 
         /// <summary>
-        /// Repository for company management.
-        /// </summary>
-        public ICompanyManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<ICompanyManagementRepository>();
-
-        /// <summary>
         /// Model of the company.
         /// </summary>
         public Company Model => model;
+
+        /// <summary>
+        /// Repository for company management.
+        /// </summary>
+        public ICompanyManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<ICompanyManagementRepository>();
 
         /// <summary>
         /// Default constructor.
@@ -68,9 +68,9 @@ namespace DCS.Contact.Services
         /// <param name="guid"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Company Get(Guid guid)
+        public Company Get(Company guid)
         {
-            return Repository.Get(guid);
+            return repository.Get(guid);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public DefaultCollection<Company> GetAll()
         {
-            return Repository.GetAll();
+            return repository.GetAll();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool New(Company obj)
         {
-            return Repository.New(obj);
+            return repository.New(obj);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace DCS.Contact.Services
         /// <exception cref="NotImplementedException"></exception>
         public bool Update(Company obj)
         {
-            return Repository.Update(obj);
+            return repository.Update(obj);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Delete(Guid guid)
         {
-            return Repository.Delete(guid);
+            return repository.Delete(guid);
         }
     }
 }

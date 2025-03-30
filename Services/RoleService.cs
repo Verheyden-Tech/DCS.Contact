@@ -13,7 +13,7 @@ namespace DCS.Contact.Services
         /// <summary>
         /// Repository for RoleService.
         /// </summary>
-        public IRoleManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IRoleManagementRepository>();
+        public IRoleManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IRoleManagementRepository>();
 
         /// <summary>
         /// Model for role data.
@@ -44,7 +44,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Delete(Guid guid)
         {
-            return Repository.Delete(guid);
+            return repository.Delete(guid);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace DCS.Contact.Services
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Role Get(Guid guid)
+        public Role Get(Role guid)
         {
-            return Repository.Get(guid);
+            return repository.Get(guid);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public DefaultCollection<Role> GetAll()
         {
-            return Repository.GetAll();
+            return repository.GetAll();
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool New(Role obj)
         {
-            return Repository.New(obj);
+            return repository.New(obj);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Update(Role obj)
         {
-            return Repository.Update(obj);
+            return repository.Update(obj);
         }
 
         /// <inheritdoc/>

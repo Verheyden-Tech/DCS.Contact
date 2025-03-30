@@ -60,7 +60,7 @@ namespace DCS.Contact.DataDB
         /// </summary>
         /// <param name="guid"></param>
         /// <returns>Contact instance by Guid.</returns>
-        public Contact Get(Guid guid)
+        public Contact Get(Contact guid)
         {
             var sql = $"SELECT * FROM {TableName} WHERE {PrimaryKeyColumn} = @guid";
 

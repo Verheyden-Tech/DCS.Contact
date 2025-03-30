@@ -13,7 +13,7 @@ namespace DCS.Contact.Services
         /// <summary>
         /// Repository to handle phone data on the table.
         /// </summary>
-        public IPhoneManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneManagementRepository>();
+        public IPhoneManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneManagementRepository>();
 
         /// <summary>
         /// Model for phone data.
@@ -44,7 +44,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Delete(Guid guid)
         {
-            return Repository.Delete(guid);
+            return repository.Delete(guid);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace DCS.Contact.Services
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Phone Get(Guid guid)
+        public Phone Get(Phone guid)
         {
-            return Repository.Get(guid);
+            return repository.Get(guid);
         }
 
         /// <summary>
@@ -63,13 +63,13 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public DefaultCollection<Phone> GetAll()
         {
-            return Repository.GetAll();
+            return repository.GetAll();
         }
 
         /// <inheritdoc/>
         public DefaultCollection<Phone> GetAllByContact(Guid contactGuid)
         {
-            return Repository.GetAllByContact(contactGuid);
+            return repository.GetAllByContact(contactGuid);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool New(Phone obj)
         {
-            return Repository.New(obj);
+            return repository.New(obj);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Update(Phone obj)
         {
-            return Repository.Update(obj);
+            return repository.Update(obj);
         }
 
         /// <inheritdoc/>

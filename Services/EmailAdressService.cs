@@ -13,7 +13,7 @@ namespace DCS.Contact.Services
         /// <summary>
         /// Repository for email data.
         /// </summary>
-        public IEmailAdressManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressManagementRepository>();
+        public IEmailAdressManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressManagementRepository>();
 
         /// <summary>
         /// Model for email data.
@@ -43,7 +43,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Delete(Guid guid)
         {
-            return Repository.Delete(guid);
+            return repository.Delete(guid);
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace DCS.Contact.Services
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Email Get(Guid guid)
+        public Email Get(Email guid)
         {
-            return Repository.Get(guid);
+            return repository.Get(guid);
         }
 
         /// <summary>
@@ -62,19 +62,19 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public DefaultCollection<Email> GetAll()
         {
-            return Repository.GetAll();
+            return repository.GetAll();
         }
 
         /// <inheritdoc/>
         public DefaultCollection<Email> GetAllByContact(Guid contactGuid)
         {
-            return Repository.GetAllByContact(contactGuid);
+            return repository.GetAllByContact(contactGuid);
         }
 
         /// <inheritdoc/>
         public DefaultCollection<Email> GetAllByUser(Guid userGuid)
         {
-            return Repository.GetAllByUser(userGuid);
+            return repository.GetAllByUser(userGuid);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool New(Email obj)
         {
-            return Repository.New(obj);
+            return repository.New(obj);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Update(Email obj)
         {
-            return Repository.Update(obj);
+            return repository.Update(obj);
         }
 
         /// <summary>

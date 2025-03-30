@@ -13,7 +13,7 @@ namespace DCS.Contact.Services
         /// <summary>
         /// Repository for group data management on the table.
         /// </summary>
-        public IGroupManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IGroupManagementRepository>();
+        public IGroupManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IGroupManagementRepository>();
 
         /// <summary>
         /// Model for group data.
@@ -44,7 +44,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Delete(Guid guid)
         {
-            return Repository.Delete(guid);
+            return repository.Delete(guid);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace DCS.Contact.Services
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Group Get(Guid guid)
+        public Group Get(Group guid)
         {
-            return Repository.Get(guid);
+            return repository.Get(guid);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public DefaultCollection<Group> GetAll()
         {
-            return Repository.GetAll();
+            return repository.GetAll();
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool New(Group obj)
         {
-            return Repository.New(obj);
+            return repository.New(obj);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Update(Group obj)
         {
-            return Repository.Update(obj);
+            return repository.Update(obj);
         }
 
         /// <summary>

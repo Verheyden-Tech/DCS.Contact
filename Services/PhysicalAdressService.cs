@@ -13,7 +13,7 @@ namespace DCS.Contact.Services
         /// <summary>
         /// Repository for PhysicalAdressService.
         /// </summary>
-        public IPhysicalAdressManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressManagementRepository>();
+        public IPhysicalAdressManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressManagementRepository>();
 
         /// <summary>
         /// Physical adress model.
@@ -43,7 +43,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Delete(Guid guid)
         {
-            return Repository.Delete(guid);
+            return repository.Delete(guid);
         }
 
         /// <inheritdoc/>
@@ -72,9 +72,9 @@ namespace DCS.Contact.Services
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Adress Get(Guid guid)
+        public Adress Get(Adress guid)
         {
-            return Repository.Get(guid);
+            return repository.Get(guid);
         }
 
         /// <summary>
@@ -83,13 +83,13 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public DefaultCollection<Adress> GetAll()
         {
-            return Repository.GetAll();
+            return repository.GetAll();
         }
 
         /// <inheritdoc/>
         public DefaultCollection<Adress> GetAllByContact(Contact contact)
         {
-            return Repository.GetAllByContact(contact.Guid);
+            return repository.GetAllByContact(contact.Guid);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool New(Adress obj)
         {
-            return Repository.New(obj);
+            return repository.New(obj);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Update(Adress obj)
         {
-            return Repository.Update(obj);
+            return repository.Update(obj);
         }
     }
 }

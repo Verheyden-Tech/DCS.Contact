@@ -13,7 +13,7 @@ namespace DCS.Contact.Services
         /// <summary>
         /// Repository for contact management.
         /// </summary>
-        public IContactManagementRepository Repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactManagementRepository>();
+        public IContactManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactManagementRepository>();
 
         /// <summary>
         /// Model of the contact.
@@ -44,7 +44,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Delete(Guid guid)
         {
-            return Repository.Delete(guid);
+            return repository.Delete(guid);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace DCS.Contact.Services
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public Contact Get(Guid guid)
+        public Contact Get(Contact guid)
         {
-            return Repository.Get(guid);
+            return repository.Get(guid);
         }
 
         /// <inheritdoc/>
@@ -66,11 +66,11 @@ namespace DCS.Contact.Services
             var foundContacts = new DefaultCollection<Contact>();
 
             //Get all contacts with matching firstname.
-            foundContacts = Repository.GetByFirstName(contactName);
+            foundContacts = repository.GetByFirstName(contactName);
             if(foundContacts == null || foundContacts.Count == 0)
             {
                 //If no contact could be fund by firstname, checks on the lastname.
-                foundContacts = Repository.GetByLastName(contactName);
+                foundContacts = repository.GetByLastName(contactName);
                 if(foundContacts != null && foundContacts.Count != 0)
                 {
                     return foundContacts;
@@ -108,7 +108,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public DefaultCollection<Contact> GetAll()
         {
-            return Repository.GetAll();
+            return repository.GetAll();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool New(Contact obj)
         {
-            return Repository.New(obj);
+            return repository.New(obj);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace DCS.Contact.Services
         /// <returns></returns>
         public bool Update(Contact obj)
         {
-            return Repository.Update(obj);
+            return repository.Update(obj);
         }
     }
 }
