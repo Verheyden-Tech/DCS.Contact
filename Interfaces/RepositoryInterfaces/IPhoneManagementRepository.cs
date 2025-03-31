@@ -1,17 +1,18 @@
 ﻿using DCS.DefaultTemplates;
+using System.Collections.ObjectModel;
 
 namespace DCS.Contact
 {
     /// <summary>
     /// Phone Management Repository to handle phone data on the table.
     /// </summary>
-    public interface IPhoneManagementRepository : IRepositoryBase<Phone>
+    public interface IPhoneManagementRepository : IRepositoryBase<Guid, Phone>
     {
         /// <summary>
         /// Get phone data by contact guid.
         /// </summary>
         /// <param name="contactGuid"></param>
         /// <returns></returns>
-        DefaultCollection<Phone> GetAllByContact(Guid contactGuid);
+        ObservableCollection<Phone> GetAllByContact(Guid contactGuid);
     }
 }

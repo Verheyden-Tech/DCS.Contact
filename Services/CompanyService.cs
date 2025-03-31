@@ -1,4 +1,5 @@
-﻿using DCS.DefaultTemplates;
+﻿using DCS.Contact.DataDB;
+using DCS.DefaultTemplates;
 using DCS.User;
 
 namespace DCS.Contact.Services
@@ -6,35 +7,16 @@ namespace DCS.Contact.Services
     /// <summary>
     /// Company service to handle company data.
     /// </summary>
-    public class CompanyService : IServiceBase<Company, ICompanyManagementRepository>, ICompanyService
+    public class CompanyService : ServiceBase<Guid, Company, ICompanyManagementRepository>, ICompanyService
     {
-        private Company model;
-
-        /// <summary>
-        /// Model of the company.
-        /// </summary>
-        public Company Model => model;
-
-        /// <summary>
-        /// Repository for company management.
-        /// </summary>
-        public ICompanyManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<ICompanyManagementRepository>();
+        private readonly ICompanyManagementRepository repository;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public CompanyService()
+        public CompanyService(ICompanyManagementRepository repository) : base(repository)
         {
-            
-        }
-
-        /// <summary>
-        /// Constructor with company model.
-        /// </summary>
-        /// <param name="company"></param>
-        public CompanyService(Company company) : this()
-        {
-            this.model = company;
+            this.repository = repository;
         }
 
         /// <summary>

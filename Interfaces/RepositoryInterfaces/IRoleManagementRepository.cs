@@ -5,7 +5,7 @@ namespace DCS.Contact
     /// <summary>
     /// Interface for RoleManagementRepository to handle role data on the table.
     /// </summary>
-    public interface IRoleManagementRepository : IRepositoryBase<Role>
+    public interface IRoleManagementRepository : IRepositoryBase<Guid, Role>
     {
     }
 }

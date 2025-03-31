@@ -5,7 +5,7 @@ namespace DCS.Contact
     /// <summary>
     /// Repository for group data management on the table.
     /// </summary>
-    public interface IGroupManagementRepository : IRepositoryBase<Group>
+    public interface IGroupManagementRepository : IRepositoryBase<Guid, Group>
     {
     }
 }
