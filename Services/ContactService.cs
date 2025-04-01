@@ -1,69 +1,34 @@
 ﻿using DCS.DefaultTemplates;
 using DCS.User;
+using System.Collections.ObjectModel;
 
 namespace DCS.Contact.Services
 {
     /// <summary>
     /// DCS ContactService to manipulate contact data.
     /// </summary>
-    public class ContactService : IServiceBase<Contact, IContactManagementRepository>, IContactService
+    public class ContactService : ServiceBase<Guid, Contact, IContactManagementRepository>, IContactService
     {
-        private Contact model;
-
         /// <summary>
         /// Repository for contact management.
         /// </summary>
-        public IContactManagementRepository repository => CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactManagementRepository>();
-
-        /// <summary>
-        /// Model of the contact.
-        /// </summary>
-        public Contact Model => model;
+        private IContactManagementRepository repository;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ContactService()
+        public ContactService(IContactManagementRepository repository) : base(repository)
         {
-
-        }
-
-        /// <summary>
-        /// Constructor with contact model.
-        /// </summary>
-        /// <param name="contact"></param>
-        public ContactService(Contact contact) : this()
-        {
-            this.model = contact;
-        }
-
-        /// <summary>
-        /// Deletes a contact by given guid.
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        public bool Delete(Guid guid)
-        {
-            return repository.Delete(guid);
-        }
-
-        /// <summary>
-        /// Gets a contact by given guid.
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        public Contact Get(Contact guid)
-        {
-            return repository.Get(guid);
+            this.repository = repository;
         }
 
         /// <inheritdoc/>
-        public DefaultCollection<Contact> GetByName(string contactName)
+        public ObservableCollection<Contact> GetByName(string contactName)
         {
             if (contactName == null)
                 throw new ArgumentNullException(nameof(contactName));
 
-            var foundContacts = new DefaultCollection<Contact>();
+            var foundContacts = new ObservableCollection<Contact>();
 
             //Get all contacts with matching firstname.
             foundContacts = repository.GetByFirstName(contactName);
@@ -77,7 +42,7 @@ namespace DCS.Contact.Services
                 }
 
                 //If still no matching contact could be fund returns an empty list.
-                return new DefaultCollection<Contact>();
+                return new ObservableCollection<Contact>();
             }
             else
             {
