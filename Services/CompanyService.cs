@@ -43,56 +43,5 @@ namespace DCS.Contact.Services
 
             return newCompany;
         }
-
-        /// <summary>
-        /// Get company by guid.
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public Company Get(Company guid)
-        {
-            return repository.Get(guid);
-        }
-
-        /// <summary>
-        /// Get all companies.
-        /// </summary>
-        /// <returns></returns>
-        public DefaultCollection<Company> GetAll()
-        {
-            return repository.GetAll();
-        }
-
-        /// <summary>
-        /// Create a new company.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public bool New(Company obj)
-        {
-            return repository.New(obj);
-        }
-
-        /// <summary>
-        /// Update company.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public bool Update(Company obj)
-        {
-            return repository.Update(obj);
-        }
-
-        /// <summary>
-        /// Delete company by guid.
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        public bool Delete(Guid guid)
-        {
-            return repository.Delete(guid);
-        }
     }
 }

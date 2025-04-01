@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DCS.DefaultTemplates" Version="1.2.3" />
+    <PackageReference Include="DCS.DefaultTemplates" Version="1.2.4" />
     <PackageReference Include="DCS.DefaultViewControls" Version="1.0.2" />
     <PackageReference Include="DCS.LogManager" Version="1.0.5" />
     <PackageReference Include="DCS.Resource" Version="1.0.1" />
