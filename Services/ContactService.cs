@@ -7,19 +7,18 @@ namespace DCS.Contact.Services
     /// <summary>
     /// DCS ContactService to manipulate contact data.
     /// </summary>
-    public class ContactService : ServiceBase<Guid, Contact, IContactManagementRepository>, IContactService
+    public class ContactService : ServiceBase<Guid, Contact>, IContactService
     {
         /// <summary>
         /// Repository for contact management.
         /// </summary>
-        private IContactManagementRepository repository;
+        private IContactManagementRepository repository = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactManagementRepository>();
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public ContactService(IContactManagementRepository repository) : base(repository)
+        public ContactService() : base()
         {
-            this.repository = repository;
         }
 
         /// <inheritdoc/>

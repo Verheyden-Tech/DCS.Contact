@@ -6,9 +6,9 @@ namespace DCS.Contact.UI
     /// <summary>
     /// ViewModel for the contact editor.
     /// </summary>
-    public class ContactEditorViewModel : ViewModelBase<Contact>
+    public class ContactEditorViewModel : ViewModelBase<Guid, Contact>
     {
-        private IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
+        private readonly IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
 
         private DefaultCollection<Adress> adresses;
         private DefaultCollection<Email> emails;
@@ -35,10 +35,6 @@ namespace DCS.Contact.UI
 
             if (Model == null)
                 Model = new Contact();
-
-            physicalAddressViewModel = new PhysicalAddressViewModel();
-            emailAdressViewModel = new EmailAdressViewModel();
-            phoneNumberViewModel = new PhoneNumberViewModel();
         }
 
         /// <summary>
@@ -48,10 +44,6 @@ namespace DCS.Contact.UI
         public ContactEditorViewModel(Contact contact) : this()
         {
             this.Model = contact;
-
-            physicalAddressViewModel = new PhysicalAddressViewModel(contact);
-            emailAdressViewModel = new EmailAdressViewModel(contact);
-            phoneNumberViewModel = new PhoneNumberViewModel(contact);
 
             foreach (var loadedAdress in physicalAddressViewModel.GetContactAdresses(contact))
             {
@@ -89,7 +81,7 @@ namespace DCS.Contact.UI
             if(!this.ContactAdresses.Contains(newAdress))
             {
                 ContactAdresses.Add(newAdress);
-                if(physicalAddressViewModel.New(newAdress))
+                if(physicalAddressViewModel.Add(newAdress))
                     return true;
             }
             return false;
@@ -108,7 +100,7 @@ namespace DCS.Contact.UI
             if(!this.ContactPhoneNumbers.Contains(newPhone))
             {
                 ContactPhoneNumbers.Add(newPhone);
-                if(phoneNumberViewModel.New(newPhone))
+                if(phoneNumberViewModel.Add(newPhone))
                     return true;
             }
             return false;

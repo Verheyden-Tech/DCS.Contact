@@ -1,37 +1,35 @@
 ﻿using DCS.DefaultTemplates;
+using System.Collections.ObjectModel;
 
 namespace DCS.Contact.UI
 {
     /// <summary>
     /// ViewModel for contact management.
     /// </summary>
-    public class ContactManagementViewModel : ViewModelBase<Contact>
+    public class ContactManagementViewModel : ViewModelBase<Guid, Contact>
     {
         private IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
-        private DefaultCollection<Adress> adresses;
-        private DefaultCollection<Email> emails;
-        private DefaultCollection<Phone> phoneNumbers;
-        private DefaultCollection<Company> companies;
+        private ObservableCollection<Adress> adresses;
+        private ObservableCollection<Email> emails;
+        private ObservableCollection<Phone> phoneNumbers;
+        private ObservableCollection<Company> companies;
 
-        private PhysicalAddressViewModel physicalAddressViewModel;
-        private EmailAdressViewModel emailAdressViewModel;
-        private PhoneNumberViewModel phoneNumberViewModel;
-        private DefaultCollection<Contact> selectedContacts;
+        private ObservableCollection<Contact> selectedContacts;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactManagementViewModel"/> class.
         /// </summary>
         public ContactManagementViewModel()
         {
-            Collection = new DefaultCollection<Contact>();
+            Collection = new ObservableCollection<Contact>();
             Collection = contactService.GetAll();
 
-            Adresses = new DefaultCollection<Adress>();
-            Emails = new DefaultCollection<Email>();
-            PhoneNumbers = new DefaultCollection<Phone>();
-            Companies = new DefaultCollection<Company>();
+            Adresses = new ObservableCollection<Adress>();
+            Emails = new ObservableCollection<Email>();
+            PhoneNumbers = new ObservableCollection<Phone>();
+            Companies = new ObservableCollection<Company>();
 
-            SelectedContacts = new DefaultCollection<Contact>();
+            SelectedContacts = new ObservableCollection<Contact>();
         }
 
         #region Constructor
@@ -42,10 +40,6 @@ namespace DCS.Contact.UI
         public ContactManagementViewModel(Contact contact) : this()
         {
             this.Model = contact;
-
-            physicalAddressViewModel = new PhysicalAddressViewModel(contact);
-            emailAdressViewModel = new EmailAdressViewModel(contact);
-            phoneNumberViewModel = new PhoneNumberViewModel(contact);
         }
         #endregion
 
@@ -115,7 +109,7 @@ namespace DCS.Contact.UI
         /// <summary>
         /// Gets or sets the contact's adresses.
         /// </summary>
-        public DefaultCollection<Adress> Adresses
+        public ObservableCollection<Adress> Adresses
         {
             get => adresses;
             set => adresses = value;
@@ -124,7 +118,7 @@ namespace DCS.Contact.UI
         /// <summary>
         /// Gets or sets the contact's emails.
         /// </summary>
-        public DefaultCollection<Email> Emails
+        public ObservableCollection<Email> Emails
         {
             get => emails;
             set => emails = value;
@@ -133,7 +127,7 @@ namespace DCS.Contact.UI
         /// <summary>
         /// Gets or sets the contact's phone numbers.
         /// </summary>
-        public DefaultCollection<Phone> PhoneNumbers
+        public ObservableCollection<Phone> PhoneNumbers
         {
             get => phoneNumbers;
             set => phoneNumbers = value;
@@ -142,7 +136,7 @@ namespace DCS.Contact.UI
         /// <summary>
         /// Gets or sets the contact's companies.
         /// </summary>
-        public DefaultCollection<Company> Companies
+        public ObservableCollection<Company> Companies
         {
             get => companies;
             set => companies = value;
@@ -151,7 +145,7 @@ namespace DCS.Contact.UI
         /// <summary>
         /// Gets or sets the selected contacts.
         /// </summary>
-        public DefaultCollection<Contact> SelectedContacts
+        public ObservableCollection<Contact> SelectedContacts
         {
             get => selectedContacts;
             set

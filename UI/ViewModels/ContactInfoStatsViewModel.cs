@@ -5,7 +5,7 @@ namespace DCS.Contact.UI
     /// <summary>
     /// ViewModel for the contact info stats.
     /// </summary>
-    public class ContactInfoStatsViewModel : ViewModelBase<Contact>
+    public class ContactInfoStatsViewModel : ViewModelBase<Guid, Contact>
     {
         private DefaultCollection<Adress> adresses;
         private DefaultCollection<Phone> phoneNumbers;

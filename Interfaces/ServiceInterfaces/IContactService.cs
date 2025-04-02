@@ -3,9 +3,9 @@
 namespace DCS.Contact
 {
     /// <summary>
-    /// DCS ContactService to manipulate contact data.
+    /// Represents the contact service to handle and manipulate contact data on the table.
     /// </summary>
-    public interface IContactService : IServiceBase<Contact, IContactManagementRepository>
+    public interface IContactService : IServiceBase<Guid, Contact>, IContactManagementRepository
     {
         /// <summary>
         /// Gets a collection of contacts matching on given name.
