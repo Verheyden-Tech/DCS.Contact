@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.1.0</Version>
-	  <AssemblyVersion>1.0.1.0</AssemblyVersion>
+	  <Version>1.0.101.0</Version>
+	  <AssemblyVersion>1.0.101.0</AssemblyVersion>
 	  <ApplicationVersion>1.2.1.0</ApplicationVersion>
 	  <OutputType>Library</OutputType>
 	  <Authors>Tobias Verheyden</Authors>
@@ -19,7 +19,7 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <Nullable>enable</Nullable>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageOutputPath>C:\Users\t.verheyden\Desktop\Local.Nuget_Verheyden</PackageOutputPath>
+	  <PackageOutputPath>C:\Users\verhe\Desktop\Local.Nuget</PackageOutputPath>
 	  <EnableNETAnalyzers>True</EnableNETAnalyzers>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	  <DocumentationFile>Documentation\API.Documentation</DocumentationFile>
@@ -33,8 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DCS.DefaultTemplates" Version="1.3.5" />
-    <PackageReference Include="DCS.SQLService" Version="1.1.1" />
+    <PackageReference Include="DCS.CoreLib" Version="1.0.101" />
+    <PackageReference Include="DCS.Data" Version="1.0.101" />
+    <PackageReference Include="DCS.User" Version="1.0.201" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.201" />
   </ItemGroup>
 
   <ItemGroup>

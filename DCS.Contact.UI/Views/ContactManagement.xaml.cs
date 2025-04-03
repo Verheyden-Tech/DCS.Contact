@@ -1,6 +1,6 @@
-﻿using DCS.DefaultViewControls;
+﻿using DCS.CoreLib.View;
 using DCS.Resource;
-using DCS.User;
+using DCS.User.Service;
 using System.Windows.Controls;
 using Telerik.Windows.Controls;
 

@@ -1,5 +1,5 @@
-﻿using DCS.User;
-using DCS.DefaultTemplates;
+﻿using DCS.User.Service;
+using DCS.CoreLib.BaseClass;
 using System.Collections.ObjectModel;
 
 namespace DCS.Contact.Service

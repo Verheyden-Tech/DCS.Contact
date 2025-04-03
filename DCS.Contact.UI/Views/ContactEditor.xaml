@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:local="clr-namespace:DCS.Contact.UI"
-        xmlns:win="clr-namespace:DCS.DefaultViewControls;assembly=DCS.DefaultViewControls"
+        xmlns:win="clr-namespace:DCS.CoreLib.View;assembly=DCS.CoreLib.View"
         mc:Ignorable="d" Title="Neuen Kontakt anlegen"
         MinHeight="220" MinWidth="600" SizeToContent="WidthAndHeight">
 

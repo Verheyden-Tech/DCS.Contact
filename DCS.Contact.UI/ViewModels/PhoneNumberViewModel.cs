@@ -1,4 +1,4 @@
-﻿using DCS.DefaultTemplates;
+﻿using DCS.CoreLib.BaseClass;
 using System.Collections.ObjectModel;
 
 namespace DCS.Contact.UI

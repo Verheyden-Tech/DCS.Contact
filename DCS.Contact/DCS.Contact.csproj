@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.1.0</Version>
-		<AssemblyVersion>1.0.1.0</AssemblyVersion>
+	  <Version>1.0.101.0</Version>
+		<AssemblyVersion>1.0.101.0</AssemblyVersion>
 		<ApplicationVersion>1.2.1.0</ApplicationVersion>
 	  <ProjectGuid>{92928B41-155D-45DF-B72A-8C100867442F}</ProjectGuid>
 	  <OutputType>Library</OutputType>
@@ -20,7 +20,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageOutputPath>C:\Users\t.verheyden\Desktop\Local.Nuget_Verheyden</PackageOutputPath>
+	  <PackageOutputPath>C:\Users\verhe\Desktop\Local.Nuget</PackageOutputPath>
 	  <EnableNETAnalyzers>True</EnableNETAnalyzers>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	  <DocumentationFile>Documentation\API.Documentation</DocumentationFile>
@@ -46,12 +46,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DCS.DefaultTemplates" Version="1.3.5" />
-    <PackageReference Include="DCS.DefaultViewControls" Version="1.0.2" />
+    <PackageReference Include="DCS.CoreLib" Version="1.0.101" />
+    <PackageReference Include="DCS.Data" Version="1.0.101" />
     <PackageReference Include="DCS.LogManager" Version="1.0.5" />
     <PackageReference Include="DCS.Resource" Version="1.0.1" />
-    <PackageReference Include="DCS.SQLService" Version="1.1.1" />
-    <PackageReference Include="DCS.User" Version="1.2.2" />
+    <PackageReference Include="DCS.User" Version="1.0.201" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.201" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

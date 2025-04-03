@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-        xmlns:local="clr-namespace:DCS.Contact"
-        xmlns:win="clr-namespace:DCS.DefaultViewControls;assembly=DCS.DefaultViewControls"
+        xmlns:local="clr-namespace:DCS.Contact.UI"
+        xmlns:win="clr-namespace:DCS.CoreLib.View;assembly=DCS.CoreLib.View"
         mc:Ignorable="d"
         MinHeight="450" MinWidth="800" Height="auto" Width="auto">
 

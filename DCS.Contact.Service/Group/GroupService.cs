@@ -1,5 +1,5 @@
-﻿using DCS.DefaultTemplates;
-using DCS.User;
+﻿using DCS.CoreLib.BaseClass;
+using DCS.User.Service;
 
 namespace DCS.Contact.Service
 {

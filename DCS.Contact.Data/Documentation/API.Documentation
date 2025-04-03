@@ -19,7 +19,7 @@
             Primary key column for the company data.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.CompanyManagementRepository.#ctor(DCS.SQLService.ISqlService)">
+        <member name="M:DCS.Contact.Data.CompanyManagementRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Constructor for the company management repository.
             </summary>
@@ -39,7 +39,7 @@
             Primary key column for the contact data.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.ContactRepository.#ctor(DCS.SQLService.ISqlService)">
+        <member name="M:DCS.Contact.Data.ContactRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Constructor for the contact management repository.
             </summary>
@@ -65,7 +65,7 @@
             Primary key column for the repository.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.EmailRepository.#ctor(DCS.SQLService.ISqlService)">
+        <member name="M:DCS.Contact.Data.EmailRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Constructor for the repository.
             </summary>
@@ -91,7 +91,7 @@
             Primary key column for the repository.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.GroupRepository.#ctor(DCS.SQLService.ISqlService)">
+        <member name="M:DCS.Contact.Data.GroupRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Constructor for the repository.
             </summary>
@@ -111,7 +111,7 @@
             Primary key column for PhoneManagementRepository.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.PhoneRepository.#ctor(DCS.SQLService.ISqlService)">
+        <member name="M:DCS.Contact.Data.PhoneRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Constructor for PhoneManagementRepository.
             </summary>
@@ -134,7 +134,7 @@
             Primary key column for PhysicalAdressManagementRepository.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.PhysicalAdressRepository.#ctor(DCS.SQLService.ISqlService)">
+        <member name="M:DCS.Contact.Data.PhysicalAdressRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Constructor for PhysicalAdressManagementRepository.
             </summary>
@@ -157,7 +157,7 @@
             Primary key column for RoleManagementRepository.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.RoleRepository.#ctor(DCS.SQLService.ISqlService)">
+        <member name="M:DCS.Contact.Data.RoleRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Constructor for RoleManagementRepository.
             </summary>
