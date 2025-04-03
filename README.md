@@ -12,7 +12,7 @@ The DCS.Contact solution is designed to efficiently manage and organize contact 
 
 ## Language
 
-This solution is entirely wrote in C#.
+This solution is entirely written in C#.
 
 ## License
 
