@@ -6,7 +6,7 @@ namespace DCS.Contact
     /// <summary>
     /// DCS ContactManagementRepository to manipulate contact data on the table.
     /// </summary>
-    public interface IContactManagementRepository : IRepositoryBase<Guid, Contact>
+    public interface IContactRepository : IRepositoryBase<Guid, Contact>
     {
         /// <summary>
         /// Gets a collection of contacts matching on given firstname.

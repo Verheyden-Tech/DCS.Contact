@@ -5,7 +5,7 @@ namespace DCS.Contact
     /// <summary>
     /// Company service to handle company data.
     /// </summary>
-    public interface ICompanyService : IServiceBase<Guid, Company, ICompanyManagementRepository>
+    public interface ICompanyService : IServiceBase<Guid, Company, ICompanyRepository>
     {
         /// <summary>
         /// Creates a new instance of <see cref="Company"/>.

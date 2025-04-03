@@ -6,7 +6,7 @@ namespace DCS.Contact
     /// <summary>
     /// Phone Management Repository to handle phone data on the table.
     /// </summary>
-    public interface IPhoneManagementRepository : IRepositoryBase<Guid, Phone>
+    public interface IPhoneRepository : IRepositoryBase<Guid, Phone>
     {
         /// <summary>
         /// Get phone data by contact guid.

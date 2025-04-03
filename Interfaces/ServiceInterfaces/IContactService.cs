@@ -1,17 +1,18 @@
 ﻿using DCS.DefaultTemplates;
+using System.Collections.ObjectModel;
 
 namespace DCS.Contact
 {
     /// <summary>
     /// DCS ContactService to manipulate contact data.
     /// </summary>
-    public interface IContactService : IServiceBase<Contact, IContactManagementRepository>
+    public interface IContactService : IServiceBase<Guid, Contact, IContactRepository>
     {
         /// <summary>
         /// Gets a collection of contacts matching on given name.
         /// </summary>
         /// <param name="contactName">Given contact name to search for.</param>
-        DefaultCollection<Contact> GetByName(string contactName);
+        ObservableCollection<Contact> GetByName(string contactName);
 
         /// <summary>
         /// Creates a new contact entity.

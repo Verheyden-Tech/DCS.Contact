@@ -6,20 +6,20 @@ namespace DCS.Contact
     /// <summary>
     /// Repository for email data management on the table.
     /// </summary>
-    public interface IEmailAdressManagementRepository : IRepositoryBase<Guid, Email>
+    public interface IEmailAdressRepository : IRepositoryBase<Guid, Email>
     {
         /// <summary>
-        /// Delete email by guid.
+        /// Get all emails by contact guid.
         /// </summary>
-        /// <param name="contactGuid"></param>
-        /// <returns></returns>
+        /// <param name="contactGuid">Selected contact unique identifier.</param>
+        /// <returns>List of all contact related email adresses.</returns>
         ObservableCollection<Email> GetAllByContact(Guid contactGuid);
 
         /// <summary>
         /// Get all emails by user guid.
         /// </summary>
-        /// <param name="userGuid"></param>
-        /// <returns></returns>
+        /// <param name="userGuid">Selected user unique identifier.</param>
+        /// <returns>List of all user related email addresses.</returns>
         ObservableCollection<Email> GetAllByUser(Guid userGuid);
     }
 }

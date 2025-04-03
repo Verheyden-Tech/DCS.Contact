@@ -5,7 +5,7 @@ namespace DCS.Contact
     /// <summary>
     /// DCS RoleService to manipulate role data.
     /// </summary>
-    public interface IRoleService : IServiceBase<Role, IRoleManagementRepository>
+    public interface IRoleService : IServiceBase<Guid, Role, IRoleRepository>
     {
         /// <summary>
         /// Creates a new instance of <see cref="Role"/>.

@@ -1,0 +1,543 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DCS.Contact</name>
+    </assembly>
+    <members>
+        <member name="T:DCS.Contact.ICompanyRepository">
+            <summary>
+            Company management repository to handle company data on the table.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.IContactRepository">
+            <summary>
+            DCS ContactManagementRepository to manipulate contact data on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IContactRepository.GetByFirstName(System.String)">
+            <summary>
+            Gets a collection of contacts matching on given firstname.
+            </summary>
+            <param name="contactFirstName">Contacts firstname.</param>
+        </member>
+        <member name="M:DCS.Contact.IContactRepository.GetByLastName(System.String)">
+            <summary>
+            Gets a collection of contacts matching on given lastname.
+            </summary>
+            <param name="contactLastName">Contacts lastname.</param>
+        </member>
+        <member name="T:DCS.Contact.IEmailAdressRepository">
+            <summary>
+            Repository for email data management on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IEmailAdressRepository.GetAllByContact(System.Guid)">
+            <summary>
+            Get all emails by contact guid.
+            </summary>
+            <param name="contactGuid">Selected contact unique identifier.</param>
+            <returns>List of all contact related email adresses.</returns>
+        </member>
+        <member name="M:DCS.Contact.IEmailAdressRepository.GetAllByUser(System.Guid)">
+            <summary>
+            Get all emails by user guid.
+            </summary>
+            <param name="userGuid">Selected user unique identifier.</param>
+            <returns>List of all user related email addresses.</returns>
+        </member>
+        <member name="T:DCS.Contact.IGroupRepository">
+            <summary>
+            Repository for group data management on the table.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.IPhoneRepository">
+            <summary>
+            Phone Management Repository to handle phone data on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IPhoneRepository.GetAllByContact(System.Guid)">
+            <summary>
+            Get phone data by contact guid.
+            </summary>
+            <param name="contactGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DCS.Contact.IPhysicalAdressRepository">
+            <summary>
+            Physical Adress Management Repository to handle physical adress data on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IPhysicalAdressRepository.GetAllByContact(System.Guid)">
+            <summary>
+            Get all physical adress data by contact guid.
+            </summary>
+            <param name="contactGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DCS.Contact.IRoleRepository">
+            <summary>
+            Interface for RoleManagementRepository to handle role data on the table.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.ICompanyService">
+            <summary>
+            Company service to handle company data.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.ICompanyService.CreateNewCompany(System.String,System.String,System.Boolean,System.Nullable{System.Guid},System.Nullable{System.Guid})">
+            <summary>
+            Creates a new instance of <see cref="T:DCS.Contact.Company"/>.
+            </summary>
+            <param name="name">Company name.</param>
+            <param name="type">Company type.</param>
+            <param name="isActive">Company active flag.</param>
+            <param name="companyContact"></param>
+            <param name="contactGuid"></param>
+            <returns>New instance of <see cref="T:DCS.Contact.Company"/>.</returns>
+        </member>
+        <member name="T:DCS.Contact.IContactService">
+            <summary>
+            DCS ContactService to manipulate contact data.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IContactService.GetByName(System.String)">
+            <summary>
+            Gets a collection of contacts matching on given name.
+            </summary>
+            <param name="contactName">Given contact name to search for.</param>
+        </member>
+        <member name="M:DCS.Contact.IContactService.CreateNewContact(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a new contact entity.
+            </summary>
+            <param name="firstName">Contact firstname.</param>
+            <param name="lastName">Contact lastname.</param>
+            <param name="isActive">Contact is active flag.</param>
+            <returns>New contact entity.</returns>
+        </member>
+        <member name="T:DCS.Contact.IEmailAdressService">
+            <summary>
+            EmailAdressService to manipulate emailadress data.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IEmailAdressService.CreateEmailAdress(System.String,System.Guid,System.Boolean,System.String)">
+            <summary>
+            Creates new email instance.
+            </summary>
+            <param name="mailAdress">Contact email adress.</param>
+            <param name="contactGuid">Contact guid.</param>
+            <param name="isActive">Email is active flag.</param>
+            <param name="type">Email type.</param>
+            <returns>New instance of <see cref="T:DCS.Contact.Email"/>.</returns>
+        </member>
+        <member name="T:DCS.Contact.IGroupService">
+            <summary>
+            Service for group data management on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IGroupService.CreateNewGroup(System.String,System.Guid,System.String,System.Boolean)">
+            <summary>
+            Creates a new instance of <see cref="T:DCS.Contact.Group"/>.
+            </summary>
+            <param name="name">Group name.</param>
+            <param name="companyGuid">Company group is assigned to.</param>
+            <param name="description">Company description.</param>
+            <param name="isActive">Company is active flag.</param>
+            <returns>New instance of <see cref="T:DCS.Contact.Group"/>.</returns>
+        </member>
+        <member name="T:DCS.Contact.IPhoneService">
+            <summary>
+            Phone Service to handle phone data on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IPhoneService.CreateNewPhone(System.String,System.String,System.Boolean,System.Nullable{System.Guid},System.Nullable{System.Guid})">
+            <summary>
+            Creates a new instance of <see cref="T:DCS.Contact.Phone"/>.
+            </summary>
+            <param name="phoneNumber">Contact phonenumber.</param>
+            <param name="type">Phonenumber type.</param>
+            <param name="isActive">Phonenumber is active flag.</param>
+            <param name="contactGuid">Contact phonenumber is assigned to.</param>
+            <param name="companyGuid">Company phonenumber is assigned to.</param>
+            <returns>New instance of <see cref="T:DCS.Contact.Phone"/>.</returns>
+        </member>
+        <member name="T:DCS.Contact.IPhysicalAdressService">
+            <summary>
+            Physical Adress Service to handle contact adress data on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IPhysicalAdressService.CreateNewAdress(DCS.Contact.Contact,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,DCS.Contact.Company)">
+            <summary>
+            Creates a new address for the specified contact and company.
+            </summary>
+            <param name="ownerContact">The contact who owns the address.</param>
+            <param name="streetName">The street name of the address.</param>
+            <param name="houseNumber">The house number of the address.</param>
+            <param name="adressAddon">Additional address information.</param>
+            <param name="city">The city of the address.</param>
+            <param name="postalCode">The postal code of the address.</param>
+            <param name="country">The country of the address.</param>
+            <param name="isActive">Indicates whether the address is active.</param>
+            <param name="ownerCompany">The company that owns the address (optional).</param>
+            <returns>The newly created address.</returns>
+        </member>
+        <member name="M:DCS.Contact.IPhysicalAdressService.GetAllByContact(DCS.Contact.Contact)">
+            <summary>
+            Gets all contact assigned adresses.
+            </summary>
+            <param name="contact">Selected contact.</param>
+            <returns>Collection of all adresses assigned to given contact.</returns>
+        </member>
+        <member name="T:DCS.Contact.IRoleService">
+            <summary>
+            DCS RoleService to manipulate role data.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.IRoleService.CreateNewRole(System.String,System.Guid,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new instance of <see cref="T:DCS.Contact.Role"/>.
+            </summary>
+            <param name="name">Role name.</param>
+            <param name="companyGuid">Company role is assigned to.</param>
+            <param name="description">Role description.</param>
+            <param name="isAdmin">Role has admin rights flag.</param>
+            <param name="isActive">Role is active flag.</param>
+            <returns>New instance of <see cref="T:DCS.Contact.Role"/>.</returns>
+        </member>
+        <member name="T:DCS.Contact.Adress">
+            <summary>
+            Represents an physical adress.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Adress.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.Adress"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.Guid">
+            <summary>
+            Gets or sets the unique identifier of the adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.StreetName">
+            <summary>
+            Gets or sets the street name of the adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.HouseNumber">
+            <summary>
+            Gets or sets the house number of the adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.AdressAddon">
+            <summary>
+            Gets or sets the adress addon of the adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.City">
+            <summary>
+            Gets or sets the city of a adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.PostalCode">
+            <summary>
+            Gets or sets the postal code of a adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.Country">
+            <summary>
+            Gets or sets the country of a adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.IsActive">
+            <summary>
+            Indicates whether the adress is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.UserGuid">
+            <summary>
+            Gets or sets the user guid of the adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.ContactGuid">
+            <summary>
+            Gets or sets the contact guid of the adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Adress.CompanyGuid">
+            <summary>
+            Gets or sets the company guid of the adress.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.Company">
+            <summary>
+            Represents a company.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Company.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.Company"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Company.Guid">
+            <summary>
+            Gets or sets the unique identifier of the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Company.Name">
+            <summary>
+            Gets or sets the name of the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Company.Type">
+            <summary>
+            Gets or sets the type of the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Company.IsActive">
+            <summary>
+            Indicates whether the company is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Company.CompanyContact">
+            <summary>
+            Gets or sets the unique identifier of the primary contact person of a company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Company.ContactGuid">
+            <summary>
+            Gets or sets the unique identifier of the contact who created the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Company.UserGuid">
+            <summary>
+            Gets or sets the unique identifier of the user who created the company.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.Contact">
+            <summary>
+            Represents a contact.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Contact.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.Contact"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.Guid">
+            <summary>
+            Gets or sets the unique identifier of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.FirstName">
+            <summary>
+            Gets or sets the first name of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.LastName">
+            <summary>
+            Gets or sets the last name of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.IsActive">
+            <summary>
+            Indicates whether the contact is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.CreationDate">
+            <summary>
+            Gets or sets the date of creation of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.LastModificationDate">
+            <summary>
+            Gets or sets the date of the last modification of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.DeleteDate">
+            <summary>
+            Gets or sets the date of deletion of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Contact.UserGuid">
+            <summary>
+            Gets or sets the unique identifier of the user who created the contact.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.Email">
+            <summary>
+            Email class for the email model.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Email.#ctor">
+            <summary>
+            Constructor for the email class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Email.Guid">
+            <summary>
+            Gets or sets the Guid of the email.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Email.Type">
+            <summary>
+            Gets or sets the type of the email address.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Email.MailAdress">
+            <summary>
+            Gets or sets the email address.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Email.IsActive">
+            <summary>
+            Indicates wether the email address is active or not.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Email.UserGuid">
+            <summary>
+            Gets or sets the user guid.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Email.ContactGuid">
+            <summary>
+            Gets or sets the contact guid.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Email.CompanyGuid">
+            <summary>
+            Gets or sets the company guid.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.Group">
+            <summary>
+            Group class for group assignements of contacts and users.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Group.#ctor">
+            <summary>
+            Default constructor for Group class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Group.Guid">
+            <summary>
+            Gets or sets the Guid of the group.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Group.Name">
+            <summary>
+            Gets or sets the name of the group.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Group.Description">
+            <summary>
+            Gets or sets the description of the group.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Group.IsActive">
+            <summary>
+            Indicates wether the group is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Group.UserGuid">
+            <summary>
+            Gets or sets the Guid of the user who created the group.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Group.CompanyGuid">
+            <summary>
+            Gets or sets the Guid of the company associated to the group.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.Phone">
+            <summary>
+            Phone class model for phone number data on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Phone.#ctor">
+            <summary>
+            Constructor for the Phone class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Phone.Guid">
+            <summary>
+            Gets or sets the Guid of the phone number.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Phone.Type">
+            <summary>
+            Gets or sets the type of the phone number.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Phone.PhoneNumber">
+            <summary>
+            Gets or sets the phone number.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Phone.IsActive">
+            <summary>
+            Gets or sets wether the phone number is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Phone.UserGuid">
+            <summary>
+            Gets or sets the Guid of the user.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Phone.ContactGuid">
+            <summary>
+            Gets or sets the Guid of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Phone.CompanyGuid">
+            <summary>
+            Gets or sets the Guid of the company.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.Role">
+            <summary>
+            Represents a role for users in the system.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Role.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.Role"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Role.Guid">
+            <summary>
+            Gets or sets the unique identifier for the role.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Role.Name">
+            <summary>
+            Gets or sets the name of the role.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Role.Description">
+            <summary>
+            Gets or sets the description of the role.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Role.IsAdmin">
+            <summary>
+            Gets or sets a value indicating whether the role is an administrator role.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Role.IsActive">
+            <summary>
+            Gets or sets a value indicating whether the role is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Role.UserGuid">
+            <summary>
+            Gets or sets the unique identifier for the user who created the role.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.Role.CompanyGuid">
+            <summary>
+            Gets or sets the unique identifier for the company associated with the role.
+            </summary>
+        </member>
+    </members>
+</doc>

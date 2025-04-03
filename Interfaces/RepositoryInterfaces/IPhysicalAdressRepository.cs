@@ -6,7 +6,7 @@ namespace DCS.Contact
     /// <summary>
     /// Physical Adress Management Repository to handle physical adress data on the table.
     /// </summary>
-    public interface IPhysicalAdressManagementRepository : IRepositoryBase<Guid, Adress>
+    public interface IPhysicalAdressRepository : IRepositoryBase<Guid, Adress>
     {
         /// <summary>
         /// Get all physical adress data by contact guid.

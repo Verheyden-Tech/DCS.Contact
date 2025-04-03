@@ -1,11 +1,12 @@
 ﻿using DCS.DefaultTemplates;
+using System.Collections.ObjectModel;
 
 namespace DCS.Contact
 {
     /// <summary>
     /// Phone Service to handle phone data on the table.
     /// </summary>
-    public interface IPhoneService : IServiceBase<Phone, IPhoneManagementRepository>
+    public interface IPhoneService : IServiceBase<Guid, Phone, IPhoneRepository>
     {
         /// <summary>
         /// Creates a new instance of <see cref="Phone"/>.
@@ -17,12 +18,5 @@ namespace DCS.Contact
         /// <param name="companyGuid">Company phonenumber is assigned to.</param>
         /// <returns>New instance of <see cref="Phone"/>.</returns>
         Phone CreateNewPhone(string phoneNumber, string type = "", bool isActive = true, Guid? contactGuid = null, Guid? companyGuid = null);
-
-        /// <summary>
-        /// Get phone data by contact guid.
-        /// </summary>
-        /// <param name="contactGuid"></param>
-        /// <returns></returns>
-        DefaultCollection<Phone> GetAllByContact(Guid contactGuid);
     }
 }
