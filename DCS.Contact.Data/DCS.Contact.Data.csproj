@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+	  <Version>1.0.1.0</Version>
+	  <AssemblyVersion>1.0.1.0</AssemblyVersion>
+	  <ApplicationVersion>1.2.1.0</ApplicationVersion>
+	  <OutputType>Library</OutputType>
+	  <Authors>Tobias Verheyden</Authors>
+	  <Company>Verheyden Tech</Company>
+	  <Description>Contact management for DCS.</Description>
+	  <RootNamespace>DCS.Contact</RootNamespace>
+	  <AssemblyName>DCS.Contact.Data</AssemblyName>
+	  <AssemblyType>Repository</AssemblyType>
+	  <PackageTags>DCS</PackageTags>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	  <UseWPF>true</UseWPF>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <PackageOutputPath>C:\Users\t.verheyden\Desktop\Local.Nuget_Verheyden</PackageOutputPath>
+	  <EnableNETAnalyzers>True</EnableNETAnalyzers>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <DocumentationFile>Documentation\API.Documentation</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Documentation\**" />
+    <EmbeddedResource Remove="Documentation\**" />
+    <None Remove="Documentation\**" />
+    <Page Remove="Documentation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DCS.DefaultTemplates" Version="1.3.5" />
+    <PackageReference Include="DCS.SQLService" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DCS.Contact\DCS.Contact.csproj" />
+  </ItemGroup>
+
+</Project>

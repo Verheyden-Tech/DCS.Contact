@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DCS.Contact.UI</name>
+    </assembly>
+    <members>
+        <member name="T:DCS.Contact.UI.CompanyViewModel">
+            <summary>
+            ViewModel for company instances.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.CompanyViewModel.#ctor(DCS.Contact.Company)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.CompanyViewModel"/> class.
+            </summary>
+            <param name="company"></param>
+        </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.Guid">
+            <summary>
+            Gets or sets the unique identifier of the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.Name">
+            <summary>
+            Gets or sets the name of the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.Type">
+            <summary>
+            Gets or sets the type of the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.IsActive">
+            <summary>
+            Indicates whether the company is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.CompanyContact">
+            <summary>
+            Gets or sets the unique identifier of the primary contact person of a company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.ContactGuid">
+            <summary>
+            Gets or sets the unique identifier of the contact who created the company.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.UserGuid">
+            <summary>
+            Gets or sets the unique identifier of the user who created the company.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.UI.ContactManagementViewModel">
+            <summary>
+            ViewModel for contact management.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactManagementViewModel.#ctor(DCS.Contact.Contact)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.ContactManagementViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactManagementViewModel.Guid">
+            <summary>
+            Gets or sets the contact's guid.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactManagementViewModel.FirstName">
+            <summary>
+            Gets or sets the contact's first name.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactManagementViewModel.LastName">
+            <summary>
+            Gets or sets the contact's last name.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactManagementViewModel.IsActive">
+            <summary>
+            Indicates if the contact is active.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.UI.ContactViewModel">
+            <summary>
+            ViewModel for the contact editor.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactViewModel.#ctor(DCS.Contact.Contact)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.ContactViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.Guid">
+            <summary>
+            Gets or sets the unique identifier of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.FirstName">
+            <summary>
+            Gets or sets the first name of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.LastName">
+            <summary>
+            Gets or sets the last name of the contact.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.IsActive">
+            <summary>
+            Indicates whether the contact is active.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactAdresses">
+            <summary>
+            Contains all contact related adresses.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactPhoneNumbers">
+            <summary>
+            Contains all contact related phone numbers.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactEmails">
+            <summary>
+            Contains all contact related email adresses.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactCompanies">
+            <summary>
+            Contains all contact related companies.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.UI.EmailAdressViewModel">
+            <summary>
+            ViewModel for EmailAdress.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.EmailAdressViewModel.#ctor(DCS.Contact.Email)">
+            <summary>
+            Constructor for EmailAdressViewModel.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.EmailAdressViewModel.Guid">
+            <summary>
+            Gets or sets the guid of a email adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.EmailAdressViewModel.Type">
+            <summary>
+            Gets or sets the type of a email adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.EmailAdressViewModel.MailAdress">
+            <summary>
+            Gets or sets the mail adress.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.UI.PhoneNumberViewModel">
+            <summary>
+            Phone number view model.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.PhoneNumberViewModel.#ctor(DCS.Contact.Phone)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.PhoneNumberViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhoneNumberViewModel.Guid">
+            <summary>
+            Gets or sets the phone number guid.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhoneNumberViewModel.PhoneNumber">
+            <summary>
+            Gets or sets the phone number.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhoneNumberViewModel.Type">
+            <summary>
+            Gets or sets the phone number type.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.UI.PhysicalAdressViewModel">
+            <summary>
+            ViewModel for physical adresses.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.PhysicalAdressViewModel.#ctor(DCS.Contact.Adress)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.PhysicalAdressViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.StreetName">
+            <summary>
+            Gets or sets the street name.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.HouseNumber">
+            <summary>
+            Gets or sets the house number.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.PostalCode">
+            <summary>
+            Gets or sets the adress postal code.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.City">
+            <summary>
+            Gets or sets the city.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.Country">
+            <summary>
+            Gets or sets the country.
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.UI.ContactEditor">
+            <summary>
+            Interaction logic for ContactEditor.xaml
+            </summary>
+            <summary>
+            ContactEditor
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactEditor.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.ContactEditor"/> class.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactEditor.Current">
+            <summary>
+            Returns the current contact editor view model data context.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactEditor.Edit(System.Collections.Generic.IList{DCS.Contact.Contact})">
+            <summary>
+            Adds paging objects to the window.
+            </summary>
+            <param name="models"></param>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactEditor.NewContactFromCurrentInput">
+            <summary>
+            Creates a new contact with pre given names.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactEditor.SelectedContact">
+            <summary>
+            Gets or sets the current contact.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:DCS.Contact.UI.ContactManagement">
+            <summary>
+            Interaction logic for CustomerManagement.xaml
+            </summary>
+            <summary>
+            ContactManagement
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactManagement.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.ContactManagement"/> class.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactManagement.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>

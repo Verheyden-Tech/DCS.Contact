@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DCS.Contact.Service</name>
+    </assembly>
+    <members>
+        <member name="T:DCS.Contact.Service.CompanyService">
+            <summary>
+            Company service to handle company data.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.CompanyService.#ctor(DCS.Contact.ICompanyRepository)">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.CompanyService.CreateNewCompany(System.String,System.String,System.Boolean,System.Nullable{System.Guid},System.Nullable{System.Guid})">
+            <summary>
+            Creates a new instance of <see cref="T:DCS.Contact.Company"/>.
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="isActive"></param>
+            <param name="companyContact"></param>
+            <param name="contactGuid"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DCS.Contact.Service.ContactService">
+            <summary>
+            DCS ContactService to manipulate contact data.
+            </summary>
+        </member>
+        <member name="F:DCS.Contact.Service.ContactService.repository">
+            <summary>
+            Repository for contact management.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactService.#ctor(DCS.Contact.IContactRepository)">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactService.GetByName(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactService.CreateNewContact(System.String,System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactService.GetByFirstName(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactService.GetByLastName(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:DCS.Contact.Service.EmailAdressService">
+            <summary>
+            EmailAdressService to manipulate emailadress data.
+            </summary>
+        </member>
+        <member name="F:DCS.Contact.Service.EmailAdressService.repository">
+            <summary>
+            Repository for email data.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.EmailAdressService.#ctor(DCS.Contact.IEmailAdressRepository)">
+            <summary>
+            EmailAdressService constructor.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.EmailAdressService.GetAllByContact(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.EmailAdressService.GetAllByUser(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.EmailAdressService.CreateEmailAdress(System.String,System.Guid,System.Boolean,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:DCS.Contact.Service.GroupService">
+            <summary>
+            Service for group data management on the table.
+            </summary>
+        </member>
+        <member name="F:DCS.Contact.Service.GroupService.repository">
+            <summary>
+            Repository for group data management on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.GroupService.#ctor(DCS.Contact.IGroupRepository)">
+            <summary>
+            Default constructor for <see cref="T:DCS.Contact.Service.GroupService"/> class.
+            </summary>
+            <param name="repository"><see cref="T:DCS.Contact.IGroupRepository"/> interface.</param>
+        </member>
+        <member name="M:DCS.Contact.Service.GroupService.CreateNewGroup(System.String,System.Guid,System.String,System.Boolean)">
+            <inheritDoc/>
+        </member>
+        <member name="T:DCS.Contact.Service.PhoneService">
+            <summary>
+            Phone Service to handle phone data on the table.
+            </summary>
+        </member>
+        <member name="F:DCS.Contact.Service.PhoneService.repository">
+            <summary>
+            Repository to handle phone data on the table.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.PhoneService.#ctor(DCS.Contact.IPhoneRepository)">
+            <summary>
+            Constructor for <see cref="T:DCS.Contact.Service.PhoneService"/>.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.PhoneService.GetAllByContact(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.PhoneService.CreateNewPhone(System.String,System.String,System.Boolean,System.Nullable{System.Guid},System.Nullable{System.Guid})">
+            <inheritdoc/>
+        </member>
+        <member name="T:DCS.Contact.Service.PhysicalAdressService">
+            <summary>
+            DCS PhysicalAdressService to manipulate adress data.
+            </summary>
+        </member>
+        <member name="F:DCS.Contact.Service.PhysicalAdressService.repository">
+            <summary>
+            Repository for PhysicalAdressService.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.PhysicalAdressService.#ctor(DCS.Contact.IPhysicalAdressRepository)">
+            <summary>
+            Constructor for PhysicalAdressService.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.PhysicalAdressService.CreateNewAdress(DCS.Contact.Contact,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,DCS.Contact.Company)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.PhysicalAdressService.GetAllByContact(System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.PhysicalAdressService.GetAllByContact(DCS.Contact.Contact)">
+            <inheritdoc/>
+        </member>
+        <member name="T:DCS.Contact.Service.RoleService">
+            <summary>
+            DCS RoleService to manipulate role data.
+            </summary>
+        </member>
+        <member name="F:DCS.Contact.Service.RoleService.repository">
+            <summary>
+            Repository for RoleService.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.RoleService.#ctor(DCS.Contact.IRoleRepository)">
+            <summary>
+            Constructor for RoleService.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.Service.RoleService.CreateNewRole(System.String,System.Guid,System.String,System.Boolean,System.Boolean)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
