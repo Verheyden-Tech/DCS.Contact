@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 namespace DCS.Contact
 {
     /// <summary>
-    /// DCS ContactService to manipulate contact data.
+    /// Represents the contact service to handle and manipulate contact data on the table.
     /// </summary>
     public interface IContactService : IServiceBase<Guid, Contact, IContactRepository>
     {
