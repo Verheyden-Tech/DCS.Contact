@@ -1,6 +1,6 @@
 # DCS.Contact
 
-The DCS.Contact solution is designed to efficiently manage and organize contact information within a streamlined and user-friendly interface. This solution is built entirely in C# and aims to provide robust functionality for handling various contact-related tasks.
+The `DCS.Contact` solution is designed to efficiently manage and organize contact information within a streamlined and user-friendly interface. This solution is built entirely in C# and aims to provide robust functionality for handling various contact-related tasks.
 
 ## Features
 
