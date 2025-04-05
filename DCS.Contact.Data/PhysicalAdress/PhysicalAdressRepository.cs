@@ -14,17 +14,17 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for PhysicalAdressManagementRepository.
         /// </summary>
-        public static string TableName => "dbo.VT_Contact_Adress";
+        public static string tableName => "dbo.VT_Contact_Adress";
 
         /// <summary>
         /// Primary key column for PhysicalAdressManagementRepository.
         /// </summary>
-        public static string PrimaryKeyColumn => "Guid";
+        public static string primaryKeyColumn => "Guid";
 
         /// <summary>
         /// Constructor for PhysicalAdressManagementRepository.
         /// </summary>
-        public PhysicalAdressRepository(ISqlService sqlService) : base(sqlService)
+        public PhysicalAdressRepository(ISqlService sqlService) : base(sqlService, tableName, primaryKeyColumn)
         {
             this.sqlService = sqlService;
         }

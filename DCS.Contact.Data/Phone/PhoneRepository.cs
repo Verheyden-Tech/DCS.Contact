@@ -14,17 +14,17 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for PhoneManagementRepository.
         /// </summary>
-        public static string TableName => "dbo.VT_Contact_Phone";
+        public static string tableName => "dbo.VT_Contact_Phone";
 
         /// <summary>
         /// Primary key column for PhoneManagementRepository.
         /// </summary>
-        public static string PrimaryKeyColumn => "Guid";
+        public static string primaryKeyColumn => "Guid";
 
         /// <summary>
         /// Constructor for PhoneManagementRepository.
         /// </summary>
-        public PhoneRepository(ISqlService sqlService) : base(sqlService)
+        public PhoneRepository(ISqlService sqlService) : base(sqlService, tableName, primaryKeyColumn)
         {
             this.sqlService = sqlService;
         }

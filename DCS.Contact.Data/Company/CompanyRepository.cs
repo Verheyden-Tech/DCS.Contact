@@ -13,17 +13,17 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for the company data.
         /// </summary>
-        public static string TableName => "dbo.VT_Contact_Company";
+        public static string tableName => "dbo.VT_Contact_Company";
 
         /// <summary>
         /// Primary key column for the company data.
         /// </summary>
-        public static string PrimaryKeyColumn => "Guid";
+        public static string primaryKeyColumn => "Guid";
 
         /// <summary>
         /// Constructor for the company management repository.
         /// </summary>
-        public CompanyManagementRepository(ISqlService sqlService) : base(sqlService)
+        public CompanyManagementRepository(ISqlService sqlService) : base(sqlService, tableName, primaryKeyColumn)
         {
             this.sqlService = sqlService;
         }

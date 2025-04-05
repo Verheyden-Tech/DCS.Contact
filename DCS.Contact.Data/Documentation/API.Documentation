@@ -9,12 +9,12 @@
             Company management repository to handle company data on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.CompanyManagementRepository.TableName">
+        <member name="P:DCS.Contact.Data.CompanyManagementRepository.tableName">
             <summary>
             Table name for the company data.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.CompanyManagementRepository.PrimaryKeyColumn">
+        <member name="P:DCS.Contact.Data.CompanyManagementRepository.primaryKeyColumn">
             <summary>
             Primary key column for the company data.
             </summary>
@@ -29,12 +29,12 @@
             DCS ContactManagementRepository to manipulate contact data on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.ContactRepository.TableName">
+        <member name="P:DCS.Contact.Data.ContactRepository.tableName">
             <summary>
             Table name for the contact data.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.ContactRepository.PrimaryKeyColumn">
+        <member name="P:DCS.Contact.Data.ContactRepository.primaryKeyColumn">
             <summary>
             Primary key column for the contact data.
             </summary>
@@ -55,12 +55,12 @@
             Repository for email data management on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.EmailRepository.TableName">
+        <member name="P:DCS.Contact.Data.EmailRepository.tableName">
             <summary>
             Table name for the repository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.EmailRepository.PrimaryKeyColumn">
+        <member name="P:DCS.Contact.Data.EmailRepository.primaryKeyColumn">
             <summary>
             Primary key column for the repository.
             </summary>
@@ -81,12 +81,12 @@
             Repository for group data management on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.GroupRepository.TableName">
+        <member name="P:DCS.Contact.Data.GroupRepository.tableName">
             <summary>
             Table name for the group repository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.GroupRepository.PrimaryKeyColumn">
+        <member name="P:DCS.Contact.Data.GroupRepository.primaryKeyColumn">
             <summary>
             Primary key column for the repository.
             </summary>
@@ -101,12 +101,12 @@
             Phone Management Repository to handle phone data on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhoneRepository.TableName">
+        <member name="P:DCS.Contact.Data.PhoneRepository.tableName">
             <summary>
             Table name for PhoneManagementRepository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhoneRepository.PrimaryKeyColumn">
+        <member name="P:DCS.Contact.Data.PhoneRepository.primaryKeyColumn">
             <summary>
             Primary key column for PhoneManagementRepository.
             </summary>
@@ -124,12 +124,12 @@
             PhysicalAdressManagementRepository to handle physical adress data on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhysicalAdressRepository.TableName">
+        <member name="P:DCS.Contact.Data.PhysicalAdressRepository.tableName">
             <summary>
             Table name for PhysicalAdressManagementRepository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhysicalAdressRepository.PrimaryKeyColumn">
+        <member name="P:DCS.Contact.Data.PhysicalAdressRepository.primaryKeyColumn">
             <summary>
             Primary key column for PhysicalAdressManagementRepository.
             </summary>
@@ -147,12 +147,12 @@
             Repository class for Role data.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.RoleRepository.TableName">
+        <member name="P:DCS.Contact.Data.RoleRepository.tableName">
             <summary>
             Table name for RoleManagementRepository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.RoleRepository.PrimaryKeyColumn">
+        <member name="P:DCS.Contact.Data.RoleRepository.primaryKeyColumn">
             <summary>
             Primary key column for RoleManagementRepository.
             </summary>

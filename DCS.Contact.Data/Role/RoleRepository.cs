@@ -13,17 +13,17 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for RoleManagementRepository.
         /// </summary>
-        public static string TableName => "dbo.VT_Contact_Role";
+        public static string tableName => "dbo.VT_Contact_Role";
 
         /// <summary>
         /// Primary key column for RoleManagementRepository.
         /// </summary>
-        public static string PrimaryKeyColumn => "Guid";
+        public static string primaryKeyColumn => "Guid";
 
         /// <summary>
         /// Constructor for RoleManagementRepository.
         /// </summary>
-        public RoleRepository(ISqlService sqlService) : base(sqlService)
+        public RoleRepository(ISqlService sqlService) : base(sqlService, tableName, primaryKeyColumn)
         {
             this.sqlService = sqlService;
         }

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.101.0</Version>
-	  <AssemblyVersion>1.0.101.0</AssemblyVersion>
+	  <Version>1.0.201.0</Version>
+	  <AssemblyVersion>1.0.201.0</AssemblyVersion>
 	  <ApplicationVersion>1.2.1.0</ApplicationVersion>
 	  <OutputType>Library</OutputType>
 	  <Authors>Tobias Verheyden</Authors>
@@ -40,8 +40,8 @@
     <PackageReference Include="DCS.CoreLib" Version="1.0.101" />
     <PackageReference Include="DCS.CoreLib.View" Version="1.0.101" />
     <PackageReference Include="DCS.Data" Version="1.0.101" />
-    <PackageReference Include="DCS.User" Version="1.0.201" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.201" />
+    <PackageReference Include="DCS.User" Version="1.0.401" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.401" />
   </ItemGroup>
 
   <ItemGroup>
