@@ -13,7 +13,7 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for the group repository.
         /// </summary>
-        public static string TableName => "dbo.GroupData";
+        public static string TableName => "dbo.VT_Contact_Group";
 
         /// <summary>
         /// Primary key column for the repository.

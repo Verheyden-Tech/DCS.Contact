@@ -14,7 +14,7 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for the contact data.
         /// </summary>
-        public static string TableName => "dbo.ContactData";
+        public static string TableName => "dbo.VT_Contact";
 
         /// <summary>
         /// Primary key column for the contact data.

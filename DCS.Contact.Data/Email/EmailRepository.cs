@@ -14,7 +14,7 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for the repository.
         /// </summary>
-        public static string TableName => "dbo.EmailData";
+        public static string TableName => "dbo.VT_Contact_Email";
 
         /// <summary>
         /// Primary key column for the repository.

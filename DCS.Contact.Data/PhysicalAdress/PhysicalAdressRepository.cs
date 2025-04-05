@@ -14,7 +14,7 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for PhysicalAdressManagementRepository.
         /// </summary>
-        public static string TableName => "dbo.AdressData";
+        public static string TableName => "dbo.VT_Contact_Adress";
 
         /// <summary>
         /// Primary key column for PhysicalAdressManagementRepository.

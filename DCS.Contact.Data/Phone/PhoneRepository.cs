@@ -14,7 +14,7 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for PhoneManagementRepository.
         /// </summary>
-        public static string TableName => "dbo.PhoneData";
+        public static string TableName => "dbo.VT_Contact_Phone";
 
         /// <summary>
         /// Primary key column for PhoneManagementRepository.

@@ -13,7 +13,7 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for the company data.
         /// </summary>
-        public static string TableName => "dbo.CompanyData";
+        public static string TableName => "dbo.VT_Contact_Company";
 
         /// <summary>
         /// Primary key column for the company data.

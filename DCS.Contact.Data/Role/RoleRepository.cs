@@ -13,7 +13,7 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for RoleManagementRepository.
         /// </summary>
-        public static string TableName => "dbo.RoleData";
+        public static string TableName => "dbo.VT_Contact_Role";
 
         /// <summary>
         /// Primary key column for RoleManagementRepository.
