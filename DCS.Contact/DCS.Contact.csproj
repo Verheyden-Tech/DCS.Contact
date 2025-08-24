@@ -20,7 +20,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageOutputPath>C:\Users\verhe\Desktop\Local.Nuget</PackageOutputPath>
 	  <EnableNETAnalyzers>True</EnableNETAnalyzers>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	  <DocumentationFile>Documentation\API.Documentation</DocumentationFile>
@@ -48,7 +47,6 @@
   <ItemGroup>
     <PackageReference Include="DCS.CoreLib" Version="1.0.401" />
     <PackageReference Include="DCS.Data" Version="1.0.201" />
-    <PackageReference Include="DCS.LogManager" Version="1.0.5" />
     <PackageReference Include="DCS.Resource" Version="1.0.1" />
     <PackageReference Include="DCS.User" Version="1.0.701" />
     <PackageReference Include="DCS.User.Service" Version="1.0.701" />
