@@ -291,7 +291,7 @@ namespace DCS.Contact.UI
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.Singleton.Error($"Error while adding email adress. {ex.Message}", $"{ex.Source}");
+                    Log.LogManager.Singleton.Error($"Error while adding email adress. {ex.Message}", $"{ex.Source}");
                 }
             }
             
@@ -320,7 +320,7 @@ namespace DCS.Contact.UI
                     }
                     catch (Exception ex)
                     {
-                        LogManager.LogManager.Singleton.Error($"Error while adding email adress. {ex.Message}", $"{ex.Source}");
+                        Log.LogManager.Singleton.Error($"Error while adding email adress. {ex.Message}", $"{ex.Source}");
                     }
                 }
             }
