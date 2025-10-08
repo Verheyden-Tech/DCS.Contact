@@ -12,7 +12,17 @@ namespace DCS.Contact.UI
     public partial class ContactManagement : DefaultAppControl
     {
         private IIconService iconService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IIconService>();
+        private readonly IContactAssignementService contactAssignementService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactAssignementService>();
+        private readonly IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
+        private readonly IPhysicalAdressService contactAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
+        private readonly IEmailAdressService emailAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
+        private readonly IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
+
         private ContactManagementViewModel viewModel;
+
+        private string ContactAdress { get; set; }
+        private string ContactPhoneNumber { get; set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactManagement"/> class.
@@ -26,6 +36,27 @@ namespace DCS.Contact.UI
             var obj = new Contact();
             viewModel = new ContactManagementViewModel(obj);
             this.DataContext = viewModel;
+
+            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.AdressGuid != null);
+            if(contactAdress != null && contactAdress.Count() >= 0)
+            {
+                Adress adress = contactAdressService.Get(contactAdress.FirstOrDefault().AdressGuid.Value);
+
+                if(adress != null)
+                {
+                    ContactAdress = adress.StreetName + " " + adress.HouseNumber + ", " + adress.PostalCode + " " + adress.City + ", " + adress.Country;
+                }
+            }
+
+            var contactPhone = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.PhoneGuid != null);
+            if(contactPhone != null && contactPhone.Count() >= 0)
+            {
+                Phone phone = phoneService.Get(contactPhone.FirstOrDefault().PhoneGuid.Value);
+                if(phone != null)
+                {
+                    ContactPhoneNumber = phone.PhoneNumber;
+                }
+            }
         }
 
         private ContextMenu SetContextMenu()
@@ -82,16 +113,14 @@ namespace DCS.Contact.UI
             }
         }
 
-        private void SearchContactBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SearchContactBox_QuerySubmitted(object sender, Telerik.Windows.Controls.AutoSuggestBox.QuerySubmittedEventArgs e)
         {
-            var searchBox = (sender as RadAutoCompleteBox);
-
-            var win = new ContactEditor();
-            win.AddPagingObjects(e.AddedItems as Contact);
-            if(win.ShowDialog() == true)
+            if (sender is RadAutoSuggestBox box && e.Suggestion is Contact contact)
             {
-                searchBox.SearchText = string.Empty;
-                MainGridView.Items.Refresh();
+                var editor = new ContactEditor();
+                editor.CurrentObject = contact;
+                if (editor.ShowDialog() == true)
+                    MainGridView.Items.Refresh();
             }
         }
     }

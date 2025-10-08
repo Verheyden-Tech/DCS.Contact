@@ -7,206 +7,154 @@
         xmlns:local="clr-namespace:DCS.Contact.UI"
         xmlns:win="clr-namespace:DCS.CoreLib.View;assembly=DCS.CoreLib.View"
         mc:Ignorable="d" Title="Neuen Kontakt anlegen"
-        MinHeight="220" MinWidth="600" SizeToContent="WidthAndHeight">
+        MinHeight="200" MinWidth="400" SizeToContent="WidthAndHeight">
 
     <Grid Background="White">
 
-        <Grid.Resources>
-            <ResourceDictionary Source="\Resources\ResourceDictionarys\MainResourceTemplate.xaml"/>
-        </Grid.Resources>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ContentControl x:Name="ContactContentControl" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
 
-            <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-                <Grid.Resources>
-                    <DataTemplate x:Key="ListItemTemplate">
+            <telerik:RadButton x:Name="AddContactProfilePicture" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" MinWidth="64" Background="{x:Null}" Click="AddContactProfilePicture_Click" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Image Source="{telerik:RadGlyph Size=32, Glyph=&#xe652;}" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </telerik:RadButton>
+            <Image x:Name="ContactProfilePicture" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ProfilePicturePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="64" Stretch="Uniform" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
 
-                        <Grid MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <telerik:RadWatermarkTextBox Grid.Row="0" Grid.Column="1" x:Name="FirstNameTextBox" MinWidth="150" WatermarkContent="Vorname" WatermarkBehavior="HideOnTextEntered" Margin="5" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+            <telerik:RadWatermarkTextBox Grid.Row="0" Grid.Column="2" x:Name="LastNameTextBox" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Nachname" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left">
-                                <TextBlock FontWeight="Bold" FontSize="12" Text="{Binding Path=StreetName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0"/>
-                                <TextBlock FontWeight="Bold" FontSize="12" Text="{Binding Path=HouseNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5,0,0,0"/>
-                            </StackPanel>
+            <telerik:RadWatermarkTextBox x:Name="StreetNameTextBox" Grid.Row="1" Grid.Column="1" Text="{Binding Path=StreetName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Straßenname" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <telerik:RadWatermarkTextBox x:Name="HouseNumberTextBox" Grid.Row="1" Grid.Column="2" Text="{Binding Path=HouseNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="Hausnummer" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
-                                <TextBlock FontSize="8" Text="{Binding Path=PostalCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0"/>
-                                <TextBlock FontSize="8" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5,0,0,0" Foreground="DeepSkyBlue"/>
-                            </StackPanel>
 
-                            <Border Grid.Column="1" HorizontalAlignment="Center">
-                                
-                            </Border>
+            <telerik:RadWatermarkTextBox x:Name="PostalCodeTextBox" Grid.Row="2" Grid.Column="1" Text="{Binding Path=PostalCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="Postleitzahl" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <telerik:RadWatermarkTextBox x:Name="CityTextBox" Grid.Row="2" Grid.Column="2" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Stadt" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                            <Button Content="X" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" CommandParameter="{Binding}" Margin="2" Click="RemoveFromList_Click" ToolTip="Adresse entfernen" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                        </Grid>
+            <telerik:RadAutoSuggestBox x:Name="CountryTextBox" Grid.Row="3" Grid.Column="2" Text="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" MinWidth="150" WatermarkContent="Land suchen.." WatermarkBehavior="HideOnTextEntered" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                    </DataTemplate>
-                </Grid.Resources>
+        </Grid>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
+        <Grid Background="White" Grid.Row="1" Grid.Column="1">
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Vorname " Style="{DynamicResource Label}"/>
-                <telerik:RadWatermarkTextBox Grid.Row="0" Grid.Column="1" x:Name="FirstNameTextBox" MinWidth="150" WatermarkContent="Vorname eingeben" WatermarkBehavior="HideOnTextEntered" Margin="2" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <Grid.Resources>
+                <DataTemplate DataType="ListViewItem" x:Key="ListViewItem">
 
-                <Label Content="Nachname " Grid.Row="0" Grid.Column="2" Style="{DynamicResource Label}"/>
-                <telerik:RadWatermarkTextBox Grid.Row="0" Grid.Column="4" x:Name="LastNameTextBox" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Nachname eingeben" WatermarkBehavior="HideOnTextEntered" Margin="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    <Grid>
 
-                <Label Content="Straße + Hausnummer " Grid.Row="1" Grid.Column="0" Style="{DynamicResource Label}"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <telerik:RadWatermarkTextBox x:Name="StreetNameTextBox" Text="{Binding Path=StreetName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Straßenname" WatermarkBehavior="HideOnTextEntered" Margin="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                    <telerik:RadWatermarkTextBox x:Name="HouseNumberTextBox" Text="{Binding Path=HouseNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="Nr." WatermarkBehavior="HideOnTextEntered" Margin="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                </StackPanel>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-                <Label Content="Postleitzahl + Stadt " Grid.Row="2" Grid.Column="0" Style="{DynamicResource Label}"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <telerik:RadWatermarkTextBox x:Name="PostalCodeTextBox" Text="{Binding Path=PostalCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="PtlZhl" WatermarkBehavior="HideOnTextEntered" Margin="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                    <telerik:RadWatermarkTextBox x:Name="CityTextBox" Text="{Binding Path=City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Stadt" WatermarkBehavior="HideOnTextEntered" Margin="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                </StackPanel>
+                        <TextBlock Grid.Column="0" Text="{Binding DataContext.PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1" Text="{Binding DataContext.Type, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextAlignment="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <telerik:RadButton x:Name="RemoveEmailAdressButton" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="RemoveFromList_Click">
+                            <Image Source="{telerik:RadGlyph Size=8, Glyph=	&#xe11b;}" Width="8" Height="8" Stretch="UniformToFill"/>
+                        </telerik:RadButton>
 
-                <Label Content="Land " Grid.Row="3" Grid.Column="0" Style="{DynamicResource Label}"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="2">
-                    <telerik:RadWatermarkTextBox x:Name="CountryTextBox" Text="{Binding Path=Country, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Land" WatermarkBehavior="HideOnTextEntered" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                    <Button Name="AddPhysicalAdressButton" Style="{DynamicResource ButtonAdd/Remove}" Click="AddPhysicalAdressButton_Click" ToolTip="Adresse hinzufügen" Margin="2" Background="{x:Null}" BorderBrush="{x:Null}">
-                        <Image Source="\Resources\Images\add2.png" Width="16" Height="16"/>
-                    </Button>
-                </StackPanel>
+                    </Grid>
 
-                <ListBox Name="PhysicalAdressListBox" SelectionChanged="PhysicalAdressListBox_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectedItem="{Binding SelectedAdress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemTemplate="{StaticResource ListItemTemplate}" ItemsSource="{Binding Path=ContactAdresses, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Margin="3" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                </DataTemplate>
+            </Grid.Resources>
 
-                </ListBox>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
 
-            </Grid>
+            <telerik:RadWatermarkTextBox Grid.Row="0" Grid.Column="0" WatermarkContent="Telefonnummer/-n" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+            <telerik:RadButton Grid.Row="0" Grid.Column="1" Margin="5" Background="{x:Null}" BorderBrush="{x:Null}" ToolTip="Neue Telefonnummer hinzufügen" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Image Source="{telerik:RadGlyph Size=8, Glyph=&#xe11e;}" Width="8" Height="8" Stretch="UniformToFill"/>
+            </telerik:RadButton>
 
-        </ContentControl>
+            <GroupBox x:Name="PhoneNumberGroupBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Header="Telefonnummer/-n" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <ListView Name="PhoneNumberListBox" Margin="5" ItemTemplate="{StaticResource ListViewItem}" SelectionChanged="PhoneNumberListBox_SelectionChanged" ItemsSource="{Binding ContactPhoneNumbers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    
+                </ListView>
+            </GroupBox>
 
-        <ContentControl x:Name="PhoneContentControl" Grid.Row="1" Grid.Column="1">
+        </Grid>
 
-            <Grid Background="White">
+        <Grid Background="White" Grid.Row="1" Grid.Column="0">
 
-                <Grid.Resources>
-                    <DataTemplate x:Key="ListItemTemplate">
+            <Grid.Resources>
+                <DataTemplate DataType="ListViewItem" x:Key="ListViewItem">
 
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Column="0" Text="{Binding DataContext.MailAdress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="1" Text="{Binding DataContext.Type, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextAlignment="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <CheckBox Grid.Column="2" IsChecked="{Binding DataContext.IsActive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                        <telerik:RadButton x:Name="RemoveEmailAdressButton" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Click="RemoveFromList_Click">
+                            <Image Source="{telerik:RadGlyph Size=8, Glyph=	&#xe11b;}" Width="8" Height="8" Stretch="UniformToFill"/>
+                        </telerik:RadButton>
 
-                            <Button Content="X" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="2" CommandParameter="{Binding}" Click="RemoveFromList_Click" ToolTip="Telefonnummer entfernen" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                        </Grid>
+                    </Grid>
+                    
+                </DataTemplate>
+            </Grid.Resources>
 
-                    </DataTemplate>
-                </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
+            <telerik:RadWatermarkTextBox Grid.Row="0" Grid.Column="0" x:Name="EmailAdressTextBox" Margin="5" WatermarkContent="Email-Adresse/-n" Text="{Binding EmailAdress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <telerik:RadButton x:Name="AddEmailAdressButton" Grid.Row="0" Grid.Column="1" ToolTip="Neue Email-Adresse hinzufügen" Background="{x:Null}" BorderBrush="{x:Null}" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                <Image Source="{telerik:RadGlyph Size=8, Glyph=&#xe11e;}" Width="8" Height="8"/>
+            </telerik:RadButton>
 
-                <Label Content="Telefonnummer " Grid.Row="0" Grid.Column="0" Style="{DynamicResource Label}"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <TextBox x:Name="PhoneNumberTextBox" Grid.Row="0" Grid.Column="1" Style="{DynamicResource EditorTextBox}"/>
-                    <Button x:Name="AddPhoneNumber" Click="AddPhoneNumber_Click" Height="20" Width="20" BorderBrush="{x:Null}" Background="{x:Null}">
-                        <Image Source="\Resources\Images\add2.png" Width="16" Height="16"/>
-                    </Button>
-                </StackPanel>
-
-                <ListBox Name="PhoneNumberListBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemTemplate="{StaticResource ListItemTemplate}" SelectionChanged="PhoneNumberListBox_SelectionChanged" Visibility="Collapsed" SelectedItem="{Binding SelectedPhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=ContactPhoneNumbers, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-
-                </ListBox>
-
-            </Grid>
-
-        </ContentControl>
-
-        <ContentControl x:Name="EmailContentControl" Grid.Row="1" Grid.Column="0">
-
-            <Grid Background="White">
-
-                <Grid.Resources>
-                    <DataTemplate x:Key="ListItemTemplate">
-
-                        <Grid MinWidth="200" VerticalAlignment="Center" HorizontalAlignment="Center">
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Grid.Column="0" Text="{Binding MailAdress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-
-                            <Button Content="X" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="2" CommandParameter="{Binding}" Click="RemoveFromList_Click" ToolTip="Email Adresse entfernen" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                        </Grid>
-
-                    </DataTemplate>
-                </Grid.Resources>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Label Content="Email-Adresse " Grid.Row="0" Grid.Column="0" Style="{DynamicResource Label}"/>
-                <telerik:RadAutoCompleteBox Grid.Row="0" Grid.Column="1" x:Name="EmailAdressTextBox" Width="200" Margin="5, 5, 0, 5" DisplayMemberPath="MailAdress" TextSearchMode="Contains" SelectionMode="Single" SelectionChanged="EmailAdressTextBox_SelectionChanged" PreviewKeyDown="EmailAdressTextBox_PreviewKeyDown" ItemsSource="{Binding ContactEmails, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
-                <telerik:RadListBox Name="EmailAdressListBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemTemplate="{StaticResource ListItemTemplate}" SelectionChanged="EmailAdressListBox_SelectionChanged" Visibility="Collapsed" SelectedItem="{Binding SelectedEmailAdress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=ContactEmails, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
-
-                </telerik:RadListBox>
-
-            </Grid>
-
-        </ContentControl>
+            <GroupBox x:Name="EmailAdressGroupBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Header="Email-Adresse/-n" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <ListView BorderBrush="{x:Null}" Background="{x:Null}" ItemsSource="{Binding ContactEmailAdresses, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectionChanged="EmailAdressListBox_SelectionChanged" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    
+                </ListView>
+            </GroupBox>
+            
+        </Grid>
 
     </Grid>
 

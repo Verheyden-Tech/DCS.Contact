@@ -7,70 +7,29 @@
         xmlns:local="clr-namespace:DCS.Contact.UI"
         xmlns:win="clr-namespace:DCS.CoreLib.View;assembly=DCS.CoreLib.View"
         mc:Ignorable="d"
-        MinHeight="450" MinWidth="800" Height="auto" Width="auto">
-
-    <win:DefaultAppControl.Resources>
-        <DataTemplate DataType="ListBoxItem">
-            
-            <Grid Margin="0" Width="300">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                
-                <TextBlock FontWeight="SemiBold" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0, 0, 20, 0" />
-                <TextBlock FontWeight="Bold" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="20, 0, 0, 0"/>
-                <TextBlock Grid.Row="1" Text="Email: " />
-                <TextBlock Grid.Row="1" Foreground="Blue" Margin="40,0,0,0" 
-                Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="Telefon: " />
-                <TextBlock Grid.Row="1" Foreground="Blue" Grid.Column="1" Margin="40,0,0,0" 
-                Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-                
-            </Grid>
-        </DataTemplate>
-    </win:DefaultAppControl.Resources>
+        d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="White">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="0">
-            <Grid>
-                
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
+        <telerik:RadAutoSuggestBox x:Name="SearchContactBox" Grid.Row="0" Grid.Column="0" QuerySubmitted="SearchContactBox_QuerySubmitted" WatermarkContent="Kontakt suchen.." Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <telerik:RadButton x:Name="AddNewContact" Grid.Row="0" Grid.Column="1" Content="Neuen Kontakt erstellen" CornerRadius="5" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-                <Label Content="Kontakt suchen: " HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0"/>
-                <telerik:RadAutoCompleteBox Grid.Column="1" MinWidth="150" x:Name="SearchContactBox" TextSearchMode="Contains" DisplayMemberPath="LastName" SelectionChanged="SearchContactBox_SelectionChanged" ItemsSource="{Binding Collection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-
-            </Grid>
-        </Border>
-
-        <telerik:RadGridView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Collection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" AutoGenerateColumns="True" IsReadOnly="True" x:Name="MainGridView">
-            
+        <telerik:RadGridView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Collection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" AutoGenerateColumns="False" RowIndicatorVisibility="Visible" IsReadOnly="True" x:Name="MainGridView">
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Nachname" MinWidth="150"/>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Vorname" MinWidth="150"/>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding ContactAdress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Adresse" MinWidth="250"/>
+                <telerik:GridViewDataColumn DataMemberBinding="{Binding ContactPhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Telefonnummer" MinWidth="150"/>
+            </telerik:RadGridView.Columns>
         </telerik:RadGridView>
 
 

@@ -91,6 +91,86 @@ namespace DCS.Contact.UI
                 OnPropertyChanged(nameof(IsActive));
             }
         }
+
+        /// <summary>
+        /// Gets or sets the creation date of the contact.
+        /// </summary>
+        public DateTime? CreationDate
+        {
+            get
+            {
+                return Model.CreationDate;
+            }
+            set
+            {
+                Model.CreationDate = value;
+                OnPropertyChanged(nameof(CreationDate));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time of the last modification.
+        /// </summary>
+        public DateTime? LastModificationDate
+        {
+            get
+            {
+                return Model.LastModificationDate;
+            }
+            set
+            {
+                Model.LastModificationDate = value;
+                OnPropertyChanged(nameof(LastModificationDate));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time when the contact was marked for deletion.
+        /// </summary>
+        public DateTime? DeleteDate
+        {
+            get
+            {
+                return Model.DeleteDate;
+            }
+            set
+            {
+                Model.DeleteDate = value;
+                OnPropertyChanged(nameof(DeleteDate));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the user.
+        /// </summary>
+        public Guid UserGuid
+        {
+            get
+            {
+                return Model.UserGuid;
+            }
+            set
+            {
+                Model.UserGuid = value;
+                OnPropertyChanged(nameof(UserGuid));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the file path to the contact's profile picture.
+        /// </summary>
+        public string? ProfilePicturePath
+        {
+            get
+            {
+                return Model.ProfilePicturePath;
+            }
+            set
+            {
+                Model.ProfilePicturePath = value;
+                OnPropertyChanged(nameof(ProfilePicturePath));
+            }
+        }
         #endregion
 
         #region Contact Data Collections

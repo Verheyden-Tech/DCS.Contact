@@ -49,5 +49,10 @@
         /// Gets or sets the unique identifier of the user who created the contact.
         /// </summary>
         public Guid UserGuid { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file path to the contact's profile picture.
+        /// </summary>
+        public string? ProfilePicturePath { get; set; }
     }
 }

@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.701.0</Version>
-	  <AssemblyVersion>1.0.701.0</AssemblyVersion>
-	  <ApplicationVersion>1.0.501.0</ApplicationVersion>
+	  <Version>1.0.801.0</Version>
+	  <AssemblyVersion>1.0.801.0</AssemblyVersion>
+	  <ApplicationVersion>1.0.801.0</ApplicationVersion>
 	  <OutputType>Library</OutputType>
 	  <Authors>Tobias Verheyden</Authors>
 	  <Company>Verheyden Tech</Company>
@@ -27,17 +27,21 @@
 
   <ItemGroup>
     <Compile Remove="Documentation\**" />
+    <Compile Remove="Nuget\**" />
     <EmbeddedResource Remove="Documentation\**" />
+    <EmbeddedResource Remove="Nuget\**" />
     <None Remove="Documentation\**" />
+    <None Remove="Nuget\**" />
     <Page Remove="Documentation\**" />
+    <Page Remove="Nuget\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DCS.CoreLib" Version="1.1.101" />
-    <PackageReference Include="DCS.CoreLib.BaseClass" Version="1.1.101" />
+    <PackageReference Include="DCS.CoreLib" Version="1.1.201" />
+    <PackageReference Include="DCS.CoreLib.BaseClass" Version="1.1.301" />
     <PackageReference Include="DCS.Data" Version="1.0.401" />
-    <PackageReference Include="DCS.User" Version="1.0.1401" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.1601" />
+    <PackageReference Include="DCS.User" Version="1.0.2801.1" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.2801.1" />
   </ItemGroup>
 
   <ItemGroup>

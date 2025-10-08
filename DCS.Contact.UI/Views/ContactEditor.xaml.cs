@@ -1,5 +1,6 @@
-﻿using DCS.Resource;
-using DCS.CoreLib.View;
+﻿using DCS.CoreLib.View;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using Telerik.Windows.Controls;
@@ -11,55 +12,87 @@ namespace DCS.Contact.UI
     /// </summary>
     public partial class ContactEditor : DefaultEditorWindow
     {
-        private IIconService iconService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IIconService>();
-        private IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
-        private IPhysicalAdressService physicalAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
-        private IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
-        private IEmailAdressService emailAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
-        private ContactViewModel viewModel;
-        private EmailAdressViewModel emailAdressViewModel;
-        private PhoneNumberViewModel phoneViewModel;
-        private PhysicalAdressViewModel physicalAdressViewModel;
-        private CompanyViewModel companyViewModel;
+        private readonly IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
+        private readonly IPhysicalAdressService physicalAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
+        private readonly IEmailAdressService emailAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
+        private readonly IContactAssignementService contactAssignementService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactAssignementService>();
 
-        private bool? isSaved;
-        private bool? isCreate;
+        private ContactViewModel viewModel;
+
+        private ObservableCollection<Email> ContactEmailAdresses = new ObservableCollection<Email>();
+        private ObservableCollection<Phone> ContactPhoneNumbers = new ObservableCollection<Phone>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactEditor"/> class.
         /// </summary>
+        /// <remarks>This constructor sets up the data context for the contact editor and initializes the
+        /// contact's email addresses and phone numbers based on existing assignments. It also configures the UI
+        /// visibility for email and phone number fields based on the contact's data.</remarks>
         public ContactEditor()
         {
             InitializeComponent();
-
-            this.IsCreate = true;
 
             var obj = new Contact();
             AddPagingObjects(obj);
             this.DataContext = new ContactViewModel(obj);
 
-            if(!string.IsNullOrEmpty(Current.LastName))
+            //Get contact adress
+            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.AdressGuid != null).FirstOrDefault();
+            if (contactAdress != null && contactAdress.AdressGuid != null)
             {
-                this.SelectedContact = Current.Model;
-                this.IsCreate = false;
-
-                this.Title = Current.FirstName + " " + Current.LastName;
-
-                var vm = new ContactViewModel(Current.Model);
-                if (vm.ContactEmails.Count != 0)
+                var adress = physicalAdressService.Get(contactAdress.AdressGuid.Value);
+                if (adress != null)
                 {
-                    EmailAdressListBox.Visibility = Visibility.Visible;
+                    StreetNameTextBox.Text = adress.StreetName;
+                    HouseNumberTextBox.Text = adress.HouseNumber;
+                    CityTextBox.Text = adress.City;
+                    PostalCodeTextBox.Text = adress.PostalCode;
+                    CountryTextBox.Text = adress.Country;
                 }
+            }
 
-                if (vm.ContactPhoneNumbers.Count != 0)
+            //Get contact email adresses
+            var contactEmailAdresses = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.EmailGuid != null);
+            if (contactEmailAdresses != null && contactEmailAdresses.Count() >= 0)
+            {
+                foreach (var email in contactEmailAdresses)
                 {
-                    PhoneNumberListBox.Visibility = Visibility.Visible;
+                    if (email.EmailGuid != null)
+                    {
+                        ContactEmailAdresses.Add(emailAdressService.Get(email.EmailGuid.Value));
+                    }
                 }
+            }
+
+            //Get contact phone numbers
+            var contactPhoneNumbers = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.PhoneGuid != null);
+            if (contactPhoneNumbers != null && contactPhoneNumbers.Count() >= 0)
+            {
+                foreach (var phone in contactPhoneNumbers)
+                {
+                    if (phone.PhoneGuid != null)
+                    {
+                        ContactPhoneNumbers.Add(phoneService.Get(phone.PhoneGuid.Value));
+                    }
+                }
+            }
+
+            if (ContactEmailAdresses.Count <= 0)
+                EmailAdressGroupBox.Visibility = Visibility.Collapsed;
+
+            if (ContactPhoneNumbers.Count <= 0)
+                PhoneNumberGroupBox.Visibility = Visibility.Collapsed;
+
+            CountryTextBox.ItemsSource = PopulateCountryList();
+
+            if(!string.IsNullOrWhiteSpace(obj.ProfilePicturePath))
+            {
+                ContactProfilePicture.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(obj.ProfilePicturePath));
             }
         }
 
         /// <summary>
-        /// Returns the current contact editor view model data context.
+        /// Gets the current contact view model as data context.
         /// </summary>
         public ContactViewModel Current
         {
@@ -67,6 +100,27 @@ namespace DCS.Contact.UI
             {
                 return DataContext as ContactViewModel;
             }
+        }
+
+        /// <summary>
+        /// Retrieves a collection of distinct country names in English, sorted in descending order.
+        /// </summary>
+        /// <remarks>The method gathers country names based on specific cultures available in the system.
+        /// The returned collection is distinct and sorted in descending alphabetical order.</remarks>
+        /// <returns>An <see cref="ObservableCollection{T}"/> of strings containing the English names of countries. If no
+        /// countries are found, an empty collection is returned.</returns>
+        public ObservableCollection<string> PopulateCountryList()
+        {
+            var countries = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                                       .Select(culture => new RegionInfo(culture.LCID))
+                                       .Select(region => region.EnglishName)
+                                       .Distinct()
+                                       .OrderByDescending(country => country) as ObservableCollection<string>;
+
+            if (countries != null)
+                return countries;
+
+            return new ObservableCollection<string>();
         }
 
         /// <summary>
@@ -83,247 +137,79 @@ namespace DCS.Contact.UI
             }
 
             // Show first object from the list
-            if (models.Count > 0)
+            if (models.Count >= 0)
                 this.DataContext = new ContactViewModel(models.FirstOrDefault());
         }
 
-        /// <summary>
-        /// Creates a new contact with pre given names.
-        /// </summary>
-        /// <returns></returns>
-        public Contact NewContactFromCurrentInput()
-        {
-            var firstName = string.Empty;
-            var lastName = string.Empty;
-
-            if(SelectedContact == null && !string.IsNullOrEmpty(FirstNameTextBox.Text) || !string.IsNullOrEmpty(LastNameTextBox.Text))
-            {
-                if (!string.IsNullOrEmpty(FirstNameTextBox.Text))
-                {
-                    firstName = FirstNameTextBox.Text;
-                }
-                if (!string.IsNullOrEmpty(LastNameTextBox.Text))
-                {
-                    lastName = LastNameTextBox.Text;
-                }
-
-                var curCon = new Contact();
-                curCon = contactService.CreateNewContact(firstName, lastName);
-
-                return curCon;
-            }
-
-            return contactService.CreateNewContact(firstName, lastName);
-        }
-
-        /// <summary>
-        /// Gets or sets the current contact.
-        /// </summary>
-        public Contact? SelectedContact { get; set; }
-
         #region ButtonClicks
-        private void AddPhysicalAdressButton_Click(object sender, RoutedEventArgs e)
-        {
-            if(Current.Model == null)
-               Current.Model = NewContactFromCurrentInput();
-
-            if(Current.Model != null)
-            {
-                var newAdress = physicalAdressService.CreateNewAdress(Current.Model, StreetNameTextBox.Text, HouseNumberTextBox.Text, "", PostalCodeTextBox.Text, CityTextBox.Text, CountryTextBox.Text);
-
-                physicalAdressViewModel = new PhysicalAdressViewModel(newAdress);
-                if (physicalAdressViewModel.Add(newAdress))
-                {
-                    StreetNameTextBox.Text = string.Empty;
-                    HouseNumberTextBox.Text = string.Empty;
-                    PostalCodeTextBox.Text = string.Empty;
-                    CityTextBox.Text = string.Empty;
-                    CountryTextBox.Text = string.Empty;
-                    PhysicalAdressListBox.Items.Refresh();
-                }
-                else
-                {
-                    MessageBox.Show("Fehler beim speichern.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
-        private void AddPhoneNumber_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedContact == null)
-                NewContactFromCurrentInput();
-
-            if (SelectedContact != null)
-            {
-                var newPhone = phoneService.CreateNewPhone(PhoneNumberTextBox.Text, "", true, SelectedContact.Guid);
-
-                phoneViewModel = new PhoneNumberViewModel(newPhone);
-                if (phoneViewModel.Add(newPhone))
-                {
-                    PhoneNumberListBox.Items.Refresh();
-                    PhoneNumberTextBox.Text = string.Empty;
-                }
-                else
-                {
-                    MessageBox.Show($"Fehler beim speichern von {newPhone.PhoneNumber}.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
-        private void AddEmailAdress_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedContact == null)
-                NewContactFromCurrentInput();
-
-            if (SelectedContact != null)
-            {
-                var newEmail = emailAdressService.CreateEmailAdress(EmailAdressTextBox.SearchText, SelectedContact.Guid);
-
-                emailAdressViewModel = new EmailAdressViewModel(newEmail);
-                if (emailAdressViewModel.Add(newEmail))
-                {
-                    EmailAdressTextBox.SearchText = string.Empty;
-                    EmailAdressListBox.Items.Refresh();
-                }
-                else
-                {
-                    MessageBox.Show($"Fehler beim speichern von '{newEmail.MailAdress}'.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-        #endregion
-
         private void RemoveFromList_Click(object sender, RoutedEventArgs e)
         {
-            var selectedItem = (sender as Button).CommandParameter;
-
-            switch (selectedItem)
+            if (sender is RadButton button && button.DataContext != null)
             {
-                case Adress adress:
-                    if(viewModel.ContactAdresses.Contains(adress))
-                        viewModel.ContactAdresses.Remove(adress);
-                    break;
+                var selectedItem = button.DataContext;
 
-                case Email email:
-                    if(viewModel.ContactEmails.Contains(email))
-                        viewModel.ContactEmails.Remove(email);
-                    break;
-
-                case Phone phone:
-                    if(viewModel.ContactPhoneNumbers.Contains(phone))
-                        viewModel.ContactPhoneNumbers.Remove(phone);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private void PhysicalAdressListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if(sender is ListBox listBox)
-            {
-                var selectedAdress = listBox.SelectedItem as Adress;
-
-                if(selectedAdress != null)
+                switch (selectedItem)
                 {
-                    StreetNameTextBox.Text = string.Empty;
-                    HouseNumberTextBox.Text = string.Empty;
-                    PostalCodeTextBox.Text = string.Empty;
-                    CityTextBox.Text = string.Empty;
+                    case Email email:
+                        if (viewModel.ContactEmails.Contains(email))
+                            viewModel.ContactEmails.Remove(email);
+                        break;
 
-                    StreetNameTextBox.Text = selectedAdress.StreetName;
-                    HouseNumberTextBox.Text = selectedAdress.HouseNumber;
-                    PostalCodeTextBox.Text = selectedAdress.PostalCode;
-                    CityTextBox.Text = selectedAdress.City;
+                    case Phone phone:
+                        if (viewModel.ContactPhoneNumbers.Contains(phone))
+                            viewModel.ContactPhoneNumbers.Remove(phone);
+                        break;
+
+                    default:
+                        break;
                 }
             }
         }
 
         private void EmailAdressListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(sender is ListBox listBox)
+            if (sender is ListBox listBox)
             {
                 var selectedEmail = listBox.SelectedItem as Email;
 
-                if(selectedEmail != null)
+                if (selectedEmail != null)
                 {
-                    EmailAdressTextBox.SearchText = string.Empty;
-
-                    EmailAdressTextBox.SearchText = selectedEmail.MailAdress;
+                    EmailAdressTextBox.Text = selectedEmail.MailAdress;
                 }
             }
         }
 
         private void PhoneNumberListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(sender is ListBox listBox)
+            if (sender is ListBox listBox)
             {
                 var selectedPhoneNumber = listBox.SelectedItem as Phone;
 
-                if(selectedPhoneNumber != null)
+                if (selectedPhoneNumber != null)
                 {
-                    PhoneNumberTextBox.Text = string.Empty;
-
-                    PhoneNumberTextBox.Text = selectedPhoneNumber.PhoneNumber;
+                    PhoneNumberListBox.SelectedItem = selectedPhoneNumber.PhoneNumber;
                 }
             }
         }
 
-        private void EmailAdressTextBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AddContactProfilePicture_Click(object sender, RoutedEventArgs e)
         {
-            var searchBox = (sender as RadAutoCompleteBox);
-
-            if(searchBox != null)
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                try
-                {
-                    var selectedMail = searchBox.SelectedItem as Email;
+                Title = "Kontakt-Profilbild setzen",
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
+            };
 
-                    if (selectedMail != null)
-                    {
-                        emailAdressViewModel = new EmailAdressViewModel(selectedMail);
-                        if (emailAdressViewModel.Add(selectedMail))
-                        {
-                            searchBox.SearchText = string.Empty;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.LogManager.Singleton.Error($"Error while adding email adress. {ex.Message}", $"{ex.Source}");
-                }
-            }
-            
-        }
-
-        private void EmailAdressTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if(e.Key == System.Windows.Input.Key.Enter)
+            if(openFileDialog.ShowDialog() == true)
             {
-                var searchBox = (sender as RadAutoCompleteBox);
-
-                if (searchBox != null)
+                var selectedFilePath = openFileDialog.FileName;
+                ContactProfilePicture.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(selectedFilePath));
+                if (this.DataContext is ContactViewModel contactViewModel)
                 {
-                    try
-                    {
-                        var selectedMail = searchBox.SelectedItem as Email;
-
-                        if (selectedMail != null)
-                        {
-                            emailAdressViewModel = new EmailAdressViewModel(selectedMail);
-                            if (emailAdressViewModel.Add(selectedMail))
-                            {
-                                searchBox.SearchText = string.Empty;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.LogManager.Singleton.Error($"Error while adding email adress. {ex.Message}", $"{ex.Source}");
-                    }
+                    contactViewModel.ProfilePicturePath = selectedFilePath;
                 }
             }
         }
+        #endregion
     }
 }

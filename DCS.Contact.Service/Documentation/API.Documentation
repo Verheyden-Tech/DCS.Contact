@@ -25,6 +25,59 @@
             <param name="contactGuid"></param>
             <returns></returns>
         </member>
+        <member name="T:DCS.Contact.Service.ContactAssignementService">
+            <summary>
+            Provides functionality for managing and interacting with contact assignments.
+            </summary>
+            <remarks>This service is responsible for operations related to the <see cref="T:DCS.Contact.ContactAssignement"/>
+            entity,  leveraging the specified repository for data access. It extends the <see cref="T:DCS.CoreLib.BaseClass.ServiceBase`3"/>  class, providing a specialized implementation for contact assignment
+            management.</remarks>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.#ctor(DCS.Contact.IContactAssignementRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.Service.ContactAssignementService"/> class.
+            </summary>
+            <remarks>This constructor sets up the service with the specified repository, which is used to
+            perform data operations related to contact assignments. Ensure that a valid implementation of  <see
+            cref="T:DCS.Contact.IContactAssignementRepository"/> is provided.</remarks>
+            <param name="contactAssignementRepository">The repository used to manage contact assignments. This parameter cannot be null.</param>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.AddAdressToContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.RemoveAdressFromContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.AddEmailToContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.RemoveEmailFromContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.AddPhoneToContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.RemovePhoneFromContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.AddCompanyToContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.RemoveCompanyFromContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.AddGroupToContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.RemoveGroupFromContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.AddRoleToContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DCS.Contact.Service.ContactAssignementService.RemoveRoleFromContact(System.Guid,System.Guid)">
+            <inheritdoc/>
+        </member>
         <member name="T:DCS.Contact.Service.ContactService">
             <summary>
             DCS ContactService to manipulate contact data.
@@ -157,6 +210,19 @@
         </member>
         <member name="M:DCS.Contact.Service.RoleService.CreateNewRole(System.String,System.Guid,System.String,System.Boolean,System.Boolean)">
             <inheritdoc/>
+        </member>
+        <member name="T:DCS.Contact.Service.TypeService">
+            <summary>
+            Provides functionality for managing and accessing type-related data.
+            </summary>
+            <remarks>The <see cref="T:DCS.Contact.Service.TypeService"/> class extends the <see cref="T:DCS.CoreLib.BaseClass.ServiceBase`3"/> class, specializing it for operations involving <see cref="T:DCS.Contact.Type"/> entities and their associated
+            repository interface, <see cref="T:DCS.Contact.ITypeRepository"/>.</remarks>
+        </member>
+        <member name="M:DCS.Contact.Service.TypeService.#ctor(DCS.Contact.ITypeRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DCS.Contact.Service.TypeService"/> class with the specified repository.
+            </summary>
+            <param name="repository">The repository used to manage and access type-related data. This parameter cannot be <see langword="null"/>.</param>
         </member>
     </members>
 </doc>

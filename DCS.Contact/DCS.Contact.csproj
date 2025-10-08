@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.501.0</Version>
-		<AssemblyVersion>1.0.501.0</AssemblyVersion>
-		<ApplicationVersion>1.0.501.0</ApplicationVersion>
+	  <Version>1.0.601.0</Version>
+		<AssemblyVersion>1.0.601.0</AssemblyVersion>
+		<ApplicationVersion>1.0.601.0</ApplicationVersion>
 	  <ProjectGuid>{92928B41-155D-45DF-B72A-8C100867442F}</ProjectGuid>
 	  <OutputType>Library</OutputType>
 	  <Authors>Tobias Verheyden</Authors>
@@ -28,12 +28,16 @@
 
   <ItemGroup>
     <Compile Remove="Documentation\**" />
+    <Compile Remove="Nuget\**" />
     <Compile Remove="SharedDLLS\**" />
     <EmbeddedResource Remove="Documentation\**" />
+    <EmbeddedResource Remove="Nuget\**" />
     <EmbeddedResource Remove="SharedDLLS\**" />
     <None Remove="Documentation\**" />
+    <None Remove="Nuget\**" />
     <None Remove="SharedDLLS\**" />
     <Page Remove="Documentation\**" />
+    <Page Remove="Nuget\**" />
     <Page Remove="SharedDLLS\**" />
   </ItemGroup>
 
@@ -46,11 +50,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DCS.CoreLib" Version="1.1.101" />
+    <PackageReference Include="DCS.CoreLib" Version="1.1.201" />
     <PackageReference Include="DCS.Data" Version="1.0.401" />
-    <PackageReference Include="DCS.Resource" Version="1.0.1" />
-    <PackageReference Include="DCS.User" Version="1.0.1401" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.1601" />
+    <PackageReference Include="DCS.Resource" Version="1.0.201" />
+    <PackageReference Include="DCS.User" Version="1.0.2801.1" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.2801.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
