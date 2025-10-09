@@ -1,5 +1,5 @@
-﻿using DCS.CoreLib.View;
-using System.Collections.ObjectModel;
+﻿using DCS.CoreLib.Collection;
+using DCS.CoreLib.View;
 using System.Windows;
 using Telerik.Windows.Controls;
 
@@ -16,8 +16,8 @@ namespace DCS.Contact.UI
 
         private string ContactAdress { get; set; } = "Keine Adresse verfügbar";
         private string ContactPhoneNumber { get; set; } = "Keine Telefonnummer verfügbar";
-        private ObservableCollection<Adress> ContactAdresses;
-        private ObservableCollection<Phone> ContactPhoneNumbers;
+        private StatefulCollection<Adress> ContactAdresses;
+        private StatefulCollection<Phone> ContactPhoneNumbers;
 
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace DCS.Contact.UI
             viewModel = new ContactViewModel(obj);
             this.DataContext = viewModel;
 
-            ContactAdresses = new ObservableCollection<Adress>();
-            ContactPhoneNumbers = new ObservableCollection<Phone>();
+            ContactAdresses = new StatefulCollection<Adress>();
+            ContactPhoneNumbers = new StatefulCollection<Phone>();
 
             if (viewModel.GetContactAdresses(obj) != null && viewModel.GetContactAdresses(obj).Count >= 0)
             {
@@ -83,7 +83,15 @@ namespace DCS.Contact.UI
             {
                 win.AddPagingObjects(contact);
                 if (win.ShowDialog() == true)
+                {
+                    foreach (Contact newContact in win.PagingObjects.NewItems)
+                        contactService.New(newContact);
+                    foreach (Contact modifiedContact in win.PagingObjects.EditedItems)
+                        contactService.Update(modifiedContact);
+                    foreach (Contact deletedContact in win.PagingObjects.RemovedItems)
+                        contactService.Delete(deletedContact.Guid);
                     MainGridView.Items.Refresh();
+                }
             }
         }
 
@@ -91,7 +99,11 @@ namespace DCS.Contact.UI
         {
             var win = new ContactEditor();
             if (win.ShowDialog() == true)
+            {
+                foreach (Contact newContact in win.PagingObjects.NewItems)
+                    contactService.New(newContact);
                 MainGridView.Items.Refresh();
+            }
         }
 
         private void SearchContactBox_QuerySubmitted(object sender, Telerik.Windows.Controls.AutoSuggestBox.QuerySubmittedEventArgs e)
@@ -101,7 +113,15 @@ namespace DCS.Contact.UI
                 var editor = new ContactEditor();
                 editor.AddPagingObjects(contact);
                 if (editor.ShowDialog() == true)
+                {
+                    foreach(Contact newContact in editor.PagingObjects.NewItems)
+                        contactService.New(newContact);
+                    foreach (Contact modifiedContact in editor.PagingObjects.EditedItems)
+                        contactService.Update(modifiedContact);
+                    foreach (Contact deletedContact in editor.PagingObjects.RemovedItems)
+                        contactService.Delete(deletedContact.Guid);
                     MainGridView.Items.Refresh();
+                }
             }
         }
     }

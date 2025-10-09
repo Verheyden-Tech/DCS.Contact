@@ -1,4 +1,5 @@
 ﻿using DCS.CoreLib.BaseClass;
+using DCS.CoreLib.Collection;
 using System.Collections.ObjectModel;
 
 namespace DCS.Contact.UI
@@ -14,10 +15,10 @@ namespace DCS.Contact.UI
         private readonly IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
         private readonly ICompanyService companyService = CommonServiceLocator.ServiceLocator.Current.GetInstance<ICompanyService>();
 
-        private ObservableCollection<Adress> ContactAdresses = new ObservableCollection<Adress>();
-        private ObservableCollection<Email> ContactEmails = new ObservableCollection<Email>();
-        private ObservableCollection<Phone> ContactPhoneNumbers = new ObservableCollection<Phone>();
-        private ObservableCollection<Company> ContactCompanies = new ObservableCollection<Company>();
+        private StatefulCollection<Adress> ContactAdresses = new StatefulCollection<Adress>();
+        private StatefulCollection<Email> ContactEmails = new StatefulCollection<Email>();
+        private StatefulCollection<Phone> ContactPhoneNumbers = new StatefulCollection<Phone>();
+        private StatefulCollection<Company> ContactCompanies = new StatefulCollection<Company>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactViewModel"/> class using the specified contact.
@@ -48,11 +49,11 @@ namespace DCS.Contact.UI
         /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Adress"/> objects representing the addresses
         /// associated with the specified contact.  If no addresses are found or an error occurs, an empty collection is
         /// returned.</returns>
-        public ObservableCollection<Adress> GetContactAdresses(Contact contact)
+        public StatefulCollection<Adress> GetContactAdresses(Contact contact)
         {
             try
             {
-                ObservableCollection<Adress> contactAdresses = new ObservableCollection<Adress>();
+                StatefulCollection<Adress> contactAdresses = new StatefulCollection<Adress>();
 
                 var contactAdressAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null);
 
@@ -77,7 +78,7 @@ namespace DCS.Contact.UI
             catch (Exception ex)
             {
                 Log.LogManager.Singleton.Error("Error while getting contact adresses: " + ex.Message, "ContactViewModel.GetContactAdresses");
-                return new ObservableCollection<Adress>();
+                return new StatefulCollection<Adress>();
             }
         }
 
@@ -91,11 +92,11 @@ namespace DCS.Contact.UI
         /// cref="Contact.Guid"/>.</param>
         /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Phone"/> objects representing the phone numbers
         /// associated with the contact. If no phone numbers are found, an empty collection is returned.</returns>
-        public ObservableCollection<Phone> GetContactPhoneNumbers(Contact contact)
+        public StatefulCollection<Phone> GetContactPhoneNumbers(Contact contact)
         {
             try
             {
-                ObservableCollection<Phone> contactPhoneNumbers = new ObservableCollection<Phone>();
+                StatefulCollection<Phone> contactPhoneNumbers = new StatefulCollection<Phone>();
 
                 var contactPhoneAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.PhoneGuid != null);
 
@@ -120,7 +121,7 @@ namespace DCS.Contact.UI
             catch (Exception ex)
             {
                 Log.LogManager.Singleton.Error("Error while getting contact phone numbers: " + ex.Message, "ContactViewModel.GetContactPhoneNumbers");
-                return new ObservableCollection<Phone>();
+                return new StatefulCollection<Phone>();
             }
         }
 
@@ -135,11 +136,11 @@ namespace DCS.Contact.UI
         /// cref="Contact.Guid"/>.</param>
         /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Email"/> objects representing the email addresses
         /// associated with the contact. If no email addresses are found, an empty collection is returned.</returns>
-        public ObservableCollection<Email> GetContactEmailAdresses(Contact contact)
+        public StatefulCollection<Email> GetContactEmailAdresses(Contact contact)
         {
             try
             {
-                ObservableCollection<Email> contactEmails = new ObservableCollection<Email>();
+                StatefulCollection<Email> contactEmails = new StatefulCollection<Email>();
 
                 var contactEmailAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.EmailGuid != null);
 
@@ -164,7 +165,7 @@ namespace DCS.Contact.UI
             catch (Exception ex)
             {
                 Log.LogManager.Singleton.Error("Error while getting contact emails: " + ex.Message, "ContactViewModel.GetContactEmailAdresses");
-                return new ObservableCollection<Email>();
+                return new StatefulCollection<Email>();
             }
         }
 
@@ -179,11 +180,11 @@ namespace DCS.Contact.UI
         /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Company"/> objects representing the companies
         /// associated with the specified contact.  Returns an empty collection if no companies are associated with the
         /// contact or if an error occurs.</returns>
-        public ObservableCollection<Company> GetContactCompanies(Contact contact)
+        public StatefulCollection<Company> GetContactCompanies(Contact contact)
         {
             try
             {
-                ObservableCollection<Company> contactCompanies = new ObservableCollection<Company>();
+                StatefulCollection<Company> contactCompanies = new StatefulCollection<Company>();
 
                 var contactCompanyAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.CompanyGuid != null);
 
@@ -208,7 +209,7 @@ namespace DCS.Contact.UI
             catch (Exception ex)
             {
                 Log.LogManager.Singleton.Error("Error while getting contact companies: " + ex.Message, "ContactViewModel.GetContactCompanies");
-                return new ObservableCollection<Company>();
+                return new StatefulCollection<Company>();
             }
         }
         #endregion

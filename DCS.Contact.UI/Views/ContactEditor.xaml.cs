@@ -1,4 +1,5 @@
-﻿using DCS.CoreLib.View;
+﻿using DCS.CoreLib.Collection;
+using DCS.CoreLib.View;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -19,8 +20,8 @@ namespace DCS.Contact.UI
 
         private ContactViewModel viewModel;
 
-        private ObservableCollection<Email> ContactEmailAdresses = new ObservableCollection<Email>();
-        private ObservableCollection<Phone> ContactPhoneNumbers = new ObservableCollection<Phone>();
+        private StatefulCollection<Email> ContactEmailAdresses = new StatefulCollection<Email>();
+        private StatefulCollection<Phone> ContactPhoneNumbers = new StatefulCollection<Phone>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactEditor"/> class.
