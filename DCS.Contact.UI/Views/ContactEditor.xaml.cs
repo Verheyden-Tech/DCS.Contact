@@ -57,7 +57,7 @@ namespace DCS.Contact.UI
             {
                 foreach (var email in contactEmailAdresses)
                 {
-                    if (email.EmailGuid != null)
+                    if (email.EmailGuid.HasValue != false)
                     {
                         ContactEmailAdresses.Add(emailAdressService.Get(email.EmailGuid.Value));
                     }
@@ -70,18 +70,12 @@ namespace DCS.Contact.UI
             {
                 foreach (var phone in contactPhoneNumbers)
                 {
-                    if (phone.PhoneGuid != null)
+                    if (phone.PhoneGuid.HasValue != false)
                     {
                         ContactPhoneNumbers.Add(phoneService.Get(phone.PhoneGuid.Value));
                     }
                 }
             }
-
-            if (ContactEmailAdresses.Count <= 0)
-                EmailAdressGroupBox.Visibility = Visibility.Collapsed;
-
-            if (ContactPhoneNumbers.Count <= 0)
-                PhoneNumberGroupBox.Visibility = Visibility.Collapsed;
 
             CountryTextBox.ItemsSource = PopulateCountryList();
 
@@ -123,24 +117,6 @@ namespace DCS.Contact.UI
             return new ObservableCollection<string>();
         }
 
-        /// <summary>
-        /// Adds paging objects to the window.
-        /// </summary>
-        /// <param name="models"></param>
-        public void Edit(IList<Contact> models)
-        {
-            PagingObjects.Clear();
-
-            foreach (var model in models)
-            {
-                AddPagingObjects(model);
-            }
-
-            // Show first object from the list
-            if (models.Count >= 0)
-                this.DataContext = new ContactViewModel(models.FirstOrDefault());
-        }
-
         #region ButtonClicks
         private void RemoveFromList_Click(object sender, RoutedEventArgs e)
         {
@@ -151,13 +127,11 @@ namespace DCS.Contact.UI
                 switch (selectedItem)
                 {
                     case Email email:
-                        if (viewModel.ContactEmails.Contains(email))
-                            viewModel.ContactEmails.Remove(email);
+                        viewModel.RemoveEmailFromContact(email);
                         break;
 
                     case Phone phone:
-                        if (viewModel.ContactPhoneNumbers.Contains(phone))
-                            viewModel.ContactPhoneNumbers.Remove(phone);
+                        viewModel.RemovePhoneFromContact(phone);
                         break;
 
                     default:
@@ -168,26 +142,22 @@ namespace DCS.Contact.UI
 
         private void EmailAdressListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ListBox listBox)
+            if (sender is ListBox listBox && listBox.DataContext is Email email)
             {
-                var selectedEmail = listBox.SelectedItem as Email;
-
-                if (selectedEmail != null)
+                if (email != null && !string.IsNullOrWhiteSpace(email.MailAdress))
                 {
-                    EmailAdressTextBox.Text = selectedEmail.MailAdress;
+                    EmailAdressTextBox.Text = email.MailAdress;
                 }
             }
         }
 
         private void PhoneNumberListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ListBox listBox)
+            if (sender is ListBox listBox && listBox.DataContext is Phone phone)
             {
-                var selectedPhoneNumber = listBox.SelectedItem as Phone;
-
-                if (selectedPhoneNumber != null)
+                if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
                 {
-                    PhoneNumberListBox.SelectedItem = selectedPhoneNumber.PhoneNumber;
+                    PhoneNumberListBox.SelectedItem = phone.PhoneNumber;
                 }
             }
         }
@@ -203,7 +173,9 @@ namespace DCS.Contact.UI
             if(openFileDialog.ShowDialog() == true)
             {
                 var selectedFilePath = openFileDialog.FileName;
+
                 ContactProfilePicture.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(selectedFilePath));
+
                 if (this.DataContext is ContactViewModel contactViewModel)
                 {
                     contactViewModel.ProfilePicturePath = selectedFilePath;

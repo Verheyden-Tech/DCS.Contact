@@ -11,6 +11,14 @@
 
     <Grid Background="White">
 
+        <Grid.ContextMenu>
+            <ContextMenu Name="ContactManagementContextMenu">
+                <MenuItem Header="Neuer Kontakt" Name="NewContactContextMenu" Icon="{telerik:RadGlyph Type=Image, Size=8, Glyph=&#xe11e;}" Click="NewContact_Click"/>
+                <MenuItem Header="Kontakt bearbeiten" Name="EditContactContextMenu" Icon="{telerik:RadGlyph Type=Image, Size=8, Glyph=&#xe10b;}" Click="EditContact_Click"/>
+                <MenuItem Header="Kontakt löschen" Name="DeleteContactContextMenu" Icon="{telerik:RadGlyph Type=Image, Size=8, Glyph=&#xe10c;}" Click="DeleteContact_Click"/>
+            </ContextMenu>
+        </Grid.ContextMenu>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -31,15 +39,6 @@
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding ContactPhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Telefonnummer" MinWidth="150"/>
             </telerik:RadGridView.Columns>
         </telerik:RadGridView>
-
-
-        <Grid Name="ContactStatsGridView" Grid.Column="1">
-
-            <TabControl x:Name="ContactStatsContentControl" TabStripPlacement="Top" Margin="5" Visibility="Collapsed">
-
-            </TabControl>
-
-        </Grid>
 
     </Grid>
 

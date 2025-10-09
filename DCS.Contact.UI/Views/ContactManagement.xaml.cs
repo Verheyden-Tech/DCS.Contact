@@ -1,116 +1,97 @@
 ﻿using DCS.CoreLib.View;
-using DCS.Resource;
-using DCS.User.Service;
-using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using System.Windows;
 using Telerik.Windows.Controls;
 
 namespace DCS.Contact.UI
 {
     /// <summary>
-    /// Interaction logic for CustomerManagement.xaml
+    /// Interaction logic for ContactManagement.xaml
     /// </summary>
     public partial class ContactManagement : DefaultAppControl
     {
-        private IIconService iconService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IIconService>();
-        private readonly IContactAssignementService contactAssignementService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactAssignementService>();
         private readonly IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
-        private readonly IPhysicalAdressService contactAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
-        private readonly IEmailAdressService emailAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
-        private readonly IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
 
-        private ContactManagementViewModel viewModel;
+        private ContactViewModel viewModel;
 
-        private string ContactAdress { get; set; }
-        private string ContactPhoneNumber { get; set; }
+        private string ContactAdress { get; set; } = "Keine Adresse verfügbar";
+        private string ContactPhoneNumber { get; set; } = "Keine Telefonnummer verfügbar";
+        private ObservableCollection<Adress> ContactAdresses;
+        private ObservableCollection<Phone> ContactPhoneNumbers;
 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactManagement"/> class.
         /// </summary>
+        /// <remarks>This constructor initializes the data context for the view model and populates
+        /// collections of contact addresses and phone numbers associated with the contact. It also sets the first
+        /// available address and phone number as the default display values.  The constructor retrieves contact
+        /// assignments from the <c>contactAssignementService</c> and uses the <c>contactAdressService</c> and
+        /// <c>phoneService</c> to fetch detailed address and phone information.</remarks>
         public ContactManagement()
         {
             InitializeComponent();
 
-            this.ContextMenu = SetContextMenu();
-
             var obj = new Contact();
-            viewModel = new ContactManagementViewModel(obj);
+            viewModel = new ContactViewModel(obj);
             this.DataContext = viewModel;
 
-            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.AdressGuid != null);
-            if(contactAdress != null && contactAdress.Count() >= 0)
-            {
-                Adress adress = contactAdressService.Get(contactAdress.FirstOrDefault().AdressGuid.Value);
+            ContactAdresses = new ObservableCollection<Adress>();
+            ContactPhoneNumbers = new ObservableCollection<Phone>();
 
-                if(adress != null)
-                {
+            if (viewModel.GetContactAdresses(obj) != null && viewModel.GetContactAdresses(obj).Count >= 0)
+            {
+                ContactAdresses = viewModel.GetContactAdresses(obj);
+
+                var adress = ContactAdresses.FirstOrDefault();
+
+                if (adress != null && !string.IsNullOrWhiteSpace(adress.StreetName))
                     ContactAdress = adress.StreetName + " " + adress.HouseNumber + ", " + adress.PostalCode + " " + adress.City + ", " + adress.Country;
-                }
             }
 
-            var contactPhone = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.PhoneGuid != null);
-            if(contactPhone != null && contactPhone.Count() >= 0)
+            if (viewModel.GetContactPhoneNumbers(obj) != null && viewModel.GetContactPhoneNumbers(obj).Count >= 0)
             {
-                Phone phone = phoneService.Get(contactPhone.FirstOrDefault().PhoneGuid.Value);
-                if(phone != null)
-                {
-                    ContactPhoneNumber = phone.PhoneNumber;
-                }
+                ContactPhoneNumbers = viewModel.GetContactPhoneNumbers(obj);
+
+                var phoneNumber = ContactPhoneNumbers.FirstOrDefault();
+
+                if (phoneNumber != null && !string.IsNullOrWhiteSpace(phoneNumber.PhoneNumber))
+                    ContactPhoneNumber = phoneNumber.PhoneNumber;
             }
-        }
-
-        private ContextMenu SetContextMenu()
-        {
-            ContextMenu contextMenu = new ContextMenu();
-
-            MenuItem newContact = new MenuItem()
-            {
-                Header = "Kontakt hinzufügen",
-                Icon = iconService.GetAsImage(iconService.GetImage("usermanagement_add_user_16x.png"))
-            };
-            newContact.Click += NewContact_Click;
-            contextMenu.Items.Add(newContact);
-
-            MenuItem editContact = new MenuItem()
-            {
-                Header = "Kontakt bearbeiten",
-                Icon = iconService.GetAsImage(iconService.GetImage("usermanagement_edit_user_16x.png"))
-            };
-            editContact.Click += EditContact_Click;
-            contextMenu.Items.Add(editContact);
-
-            MenuItem deleteContact = new MenuItem()
-            {
-                Header = "Kontakt löschen",
-                Icon = iconService.GetAsImage(iconService.GetImage("usermanagement_remove_user_16x.png"))
-            };
-            deleteContact.Click += DeleteContact_Click;
-            contextMenu.Items.Add(deleteContact);
-
-            return contextMenu;
         }
 
         private void DeleteContact_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            
+            if (MainGridView.SelectedItem is Contact contact)
+            {
+                if (MessageBox.Show($"Möchten Sie den Kontakt {contact.FirstName} {contact.LastName} wirklich löschen?", "Kontakt löschen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    if (contactService.Delete(contact.Guid))
+                        MainGridView.Items.Refresh();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
 
         private void EditContact_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var win = new ContactEditor();
-            win.Edit((sender as RadGridView).SelectedItems as IList<Contact>);
-            if (win.ShowDialog() == true)
-                MainGridView.Items.Refresh();
+            if (MainGridView.SelectedItem is Contact contact)
+            {
+                win.AddPagingObjects(contact);
+                if (win.ShowDialog() == true)
+                    MainGridView.Items.Refresh();
+            }
         }
 
         private void NewContact_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            var contact = new Contact() { Guid = Guid.NewGuid(), IsActive = true, UserGuid = CurrentUserService.Instance.CurrentUser.Guid }; 
             var win = new ContactEditor();
-            if(win.ShowDialog() == true)
-            {
+            if (win.ShowDialog() == true)
                 MainGridView.Items.Refresh();
-            }
         }
 
         private void SearchContactBox_QuerySubmitted(object sender, Telerik.Windows.Controls.AutoSuggestBox.QuerySubmittedEventArgs e)
@@ -118,7 +99,7 @@ namespace DCS.Contact.UI
             if (sender is RadAutoSuggestBox box && e.Suggestion is Contact contact)
             {
                 var editor = new ContactEditor();
-                editor.CurrentObject = contact;
+                editor.AddPagingObjects(contact);
                 if (editor.ShowDialog() == true)
                     MainGridView.Items.Refresh();
             }

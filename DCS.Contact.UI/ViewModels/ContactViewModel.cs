@@ -8,24 +8,443 @@ namespace DCS.Contact.UI
     /// </summary>
     public class ContactViewModel : ViewModelBase<Guid, Contact>
     {
-        private IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
+        private readonly IContactAssignementService contactAssignementService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactAssignementService>();
+        private readonly IPhysicalAdressService contactAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
+        private readonly IEmailAdressService emailAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
+        private readonly IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
+        private readonly ICompanyService companyService = CommonServiceLocator.ServiceLocator.Current.GetInstance<ICompanyService>();
 
-        private ObservableCollection<Adress> adresses;
-        private ObservableCollection<Email> emails;
-        private ObservableCollection<Phone> phoneNumbers;
-        private ObservableCollection<Company> companies;
+        private ObservableCollection<Adress> ContactAdresses = new ObservableCollection<Adress>();
+        private ObservableCollection<Email> ContactEmails = new ObservableCollection<Email>();
+        private ObservableCollection<Phone> ContactPhoneNumbers = new ObservableCollection<Phone>();
+        private ObservableCollection<Company> ContactCompanies = new ObservableCollection<Company>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContactViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ContactViewModel"/> class using the specified contact.
         /// </summary>
+        /// <remarks>This constructor initializes several collections, including contact addresses,
+        /// emails, phone numbers, and companies, to manage related data for the specified contact.</remarks>
+        /// <param name="contact">The contact object used to initialize the view model. Cannot be <see langword="null"/>.</param>
         public ContactViewModel(Contact contact) : base(contact)
         {
-            Collection = new ObservableCollection<Contact>();
-            ContactAdresses = new ObservableCollection<Adress>();
-            ContactEmails = new ObservableCollection<Email>();
-            ContactPhoneNumbers = new ObservableCollection<Phone>();
-            ContactCompanies = new ObservableCollection<Company>();
+            this.Model = contact;
+
+            //Get all contact related data
+            ContactAdresses = GetContactAdresses(contact);
+            ContactPhoneNumbers = GetContactPhoneNumbers(contact);
+            ContactEmails = GetContactEmailAdresses(contact);
+            ContactCompanies = GetContactCompanies(contact);
         }
+
+        #region Get Contact Related Data Methods
+        /// <summary>
+        /// Retrieves a collection of addresses associated with the specified contact.
+        /// </summary>
+        /// <remarks>This method queries the contact assignment service to find address assignments linked
+        /// to the specified contact.  It then retrieves the corresponding address details from the contact address
+        /// service.</remarks>
+        /// <param name="contact">The contact whose associated addresses are to be retrieved. The contact must have a valid <see
+        /// cref="Guid"/>.</param>
+        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Adress"/> objects representing the addresses
+        /// associated with the specified contact.  If no addresses are found or an error occurs, an empty collection is
+        /// returned.</returns>
+        public ObservableCollection<Adress> GetContactAdresses(Contact contact)
+        {
+            try
+            {
+                ObservableCollection<Adress> contactAdresses = new ObservableCollection<Adress>();
+
+                var contactAdressAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null);
+
+                if (contactAdressAssignements != null && contactAdressAssignements.Count() >= 0)
+                {
+                    foreach (var adress in contactAdressAssignements)
+                    {
+                        if (adress.AdressGuid != null)
+                        {
+                            var contactAdress = contactAdressService.Get(adress.AdressGuid.Value);
+
+                            if (contactAdress != null && ContactAdresses != null)
+                            {
+                                contactAdresses.Add(contactAdress);
+                            }
+                        }
+                    }
+                }
+
+                return contactAdresses;
+            }
+            catch (Exception ex)
+            {
+                Log.LogManager.Singleton.Error("Error while getting contact adresses: " + ex.Message, "ContactViewModel.GetContactAdresses");
+                return new ObservableCollection<Adress>();
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a collection of phone numbers associated with the specified contact.
+        /// </summary>
+        /// <remarks>This method queries the contact assignment service to find phone assignments linked
+        /// to the specified contact. It then retrieves the corresponding phone details using the phone service. If an
+        /// error occurs during the operation, the method logs the error and returns an empty collection.</remarks>
+        /// <param name="contact">The contact whose phone numbers are to be retrieved. The contact must have a valid <see
+        /// cref="Contact.Guid"/>.</param>
+        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Phone"/> objects representing the phone numbers
+        /// associated with the contact. If no phone numbers are found, an empty collection is returned.</returns>
+        public ObservableCollection<Phone> GetContactPhoneNumbers(Contact contact)
+        {
+            try
+            {
+                ObservableCollection<Phone> contactPhoneNumbers = new ObservableCollection<Phone>();
+
+                var contactPhoneAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.PhoneGuid != null);
+
+                if (contactPhoneAssignements != null && contactPhoneAssignements.Count() >= 0)
+                {
+                    foreach (var phone in contactPhoneAssignements)
+                    {
+                        if (phone.PhoneGuid != null)
+                        {
+                            var contactPhone = phoneService.Get(phone.PhoneGuid.Value);
+
+                            if (contactPhone != null && ContactPhoneNumbers != null)
+                            {
+                                contactPhoneNumbers.Add(contactPhone);
+                            }
+                        }
+                    }
+                }
+
+                return contactPhoneNumbers;
+            }
+            catch (Exception ex)
+            {
+                Log.LogManager.Singleton.Error("Error while getting contact phone numbers: " + ex.Message, "ContactViewModel.GetContactPhoneNumbers");
+                return new ObservableCollection<Phone>();
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a collection of email addresses associated with the specified contact.
+        /// </summary>
+        /// <remarks>This method queries the contact assignment service to find email assignments linked
+        /// to the specified contact. It then retrieves the corresponding email details using the email address service.
+        /// If an error occurs during the operation, the method logs the error and returns an empty
+        /// collection.</remarks>
+        /// <param name="contact">The contact whose email addresses are to be retrieved. The contact must have a valid <see
+        /// cref="Contact.Guid"/>.</param>
+        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Email"/> objects representing the email addresses
+        /// associated with the contact. If no email addresses are found, an empty collection is returned.</returns>
+        public ObservableCollection<Email> GetContactEmailAdresses(Contact contact)
+        {
+            try
+            {
+                ObservableCollection<Email> contactEmails = new ObservableCollection<Email>();
+
+                var contactEmailAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.EmailGuid != null);
+
+                if (contactEmailAssignements != null && contactEmailAssignements.Count() >= 0)
+                {
+                    foreach (var email in contactEmailAssignements)
+                    {
+                        if (email.EmailGuid != null)
+                        {
+                            var contactEmail = emailAdressService.Get(email.EmailGuid.Value);
+
+                            if (contactEmail != null && ContactEmails != null)
+                            {
+                                contactEmails.Add(contactEmail);
+                            }
+                        }
+                    }
+                }
+
+                return contactEmails;
+            }
+            catch (Exception ex)
+            {
+                Log.LogManager.Singleton.Error("Error while getting contact emails: " + ex.Message, "ContactViewModel.GetContactEmailAdresses");
+                return new ObservableCollection<Email>();
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a collection of companies associated with the specified contact.
+        /// </summary>
+        /// <remarks>This method queries the contact assignments to find companies linked to the specified
+        /// contact.  If a company cannot be retrieved or an error occurs during processing, the method logs the error
+        /// and returns an empty collection.</remarks>
+        /// <param name="contact">The contact whose associated companies are to be retrieved. The contact must have a valid <see
+        /// cref="Contact.Guid"/>.</param>
+        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Company"/> objects representing the companies
+        /// associated with the specified contact.  Returns an empty collection if no companies are associated with the
+        /// contact or if an error occurs.</returns>
+        public ObservableCollection<Company> GetContactCompanies(Contact contact)
+        {
+            try
+            {
+                ObservableCollection<Company> contactCompanies = new ObservableCollection<Company>();
+
+                var contactCompanyAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.CompanyGuid != null);
+
+                if (contactCompanyAssignements != null && contactCompanyAssignements.Count() >= 0)
+                {
+                    foreach (var company in contactCompanyAssignements)
+                    {
+                        if (company.CompanyGuid != null)
+                        {
+                            var contactCompany = companyService.Get(company.CompanyGuid.Value);
+
+                            if (contactCompany != null && ContactCompanies != null)
+                            {
+                                contactCompanies.Add(contactCompany);
+                            }
+                        }
+                    }
+                }
+
+                return contactCompanies;
+            }
+            catch (Exception ex)
+            {
+                Log.LogManager.Singleton.Error("Error while getting contact companies: " + ex.Message, "ContactViewModel.GetContactCompanies");
+                return new ObservableCollection<Company>();
+            }
+        }
+        #endregion
+
+        #region Add Contact Related Data Methods
+        /// <summary>
+        /// Associates the specified address with the current contact.
+        /// </summary>
+        /// <remarks>This method creates a new assignment between the contact and the specified address. 
+        /// Ensure that the <see cref="Adress.Guid"/> property of the provided address is valid and not empty.</remarks>
+        /// <param name="adress">The address to associate with the contact. The <see cref="Adress.Guid"/> property must be set.</param>
+        /// <returns><see langword="true"/> if the address was successfully associated with the contact; otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool AddAdressToContact(Adress adress)
+        {
+            if (ContactAdresses.Contains(adress))
+            {
+                Log.LogManager.Singleton.Warning("Adress is already assigned to contact.", "ContactEditor.AddAdressToContact");
+                return false;
+            }
+
+            var contactAdressAssignement = new ContactAssignement
+            {
+                Guid = Guid.NewGuid(),
+                ContactGuid = Model.Guid,
+                AdressGuid = adress.Guid
+            };
+
+            if (contactAssignementService.New(contactAdressAssignement))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Associates a phone number with the current contact.
+        /// </summary>
+        /// <remarks>This method creates a new association between the specified phone number and the
+        /// current contact. Ensure that the <paramref name="phone"/> object is properly initialized before calling this
+        /// method.</remarks>
+        /// <param name="phone">The phone number to associate with the contact. The <see cref="Phone.Guid"/> property must be set.</param>
+        /// <returns><see langword="true"/> if the phone number was successfully associated with the contact; otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool AddPhoneToContact(Phone phone)
+        {
+            if(ContactPhoneNumbers.Contains(phone))
+            {
+                Log.LogManager.Singleton.Warning("Phone is already assigned to contact.", "ContactEditor.AddPhoneToContact");
+                return false;
+            }
+
+            var contactPhoneAssignement = new ContactAssignement
+            {
+                Guid = Guid.NewGuid(),
+                ContactGuid = Model.Guid,
+                PhoneGuid = phone.Guid
+            };
+
+            if (contactAssignementService.New(contactPhoneAssignement))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Associates the specified email with the current contact.
+        /// </summary>
+        /// <remarks>This method creates a new association between the contact and the specified email. 
+        /// Ensure that the provided email has a valid <see cref="Email.Guid"/> before calling this method.</remarks>
+        /// <param name="email">The email to be added to the contact. The <see cref="Email.Guid"/> property must be set.</param>
+        /// <returns><see langword="true"/> if the email was successfully associated with the contact; otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool AddEmailToContact(Email email)
+        {
+            if(ContactEmails.Contains(email))
+            {
+                Log.LogManager.Singleton.Warning("Email is already assigned to contact.", "ContactEditor.AddEmailToContact");
+                return false;
+            }
+
+            var contactEmailAssignement = new ContactAssignement
+            {
+                Guid = Guid.NewGuid(),
+                ContactGuid = Model.Guid,
+                EmailGuid = email.Guid
+            };
+
+            if (contactAssignementService.New(contactEmailAssignement))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Associates the specified company with the current contact.
+        /// </summary>
+        /// <param name="company">The company to associate with the contact. Must not be <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if the company was successfully associated with the contact; otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool AddCompanyToContact(Company company)
+        {
+            if(ContactCompanies.Contains(company))
+            {
+                Log.LogManager.Singleton.Warning("Company is already assigned to contact.", "ContactEditor.AddCompanyToContact");
+                return false;
+            }
+
+            var contactCompanyAssignement = new ContactAssignement
+            {
+                Guid = Guid.NewGuid(),
+                ContactGuid = Model.Guid,
+                CompanyGuid = company.Guid
+            };
+
+            if (contactAssignementService.New(contactCompanyAssignement))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region Remove Contact Related Data Methods
+        /// <summary>
+        /// Removes the specified address from the current contact.
+        /// </summary>
+        /// <remarks>The method checks if the specified address is associated with the current contact 
+        /// and removes the association if it exists. If the address is not associated with the  contact, the method
+        /// returns <see langword="false"/>.</remarks>
+        /// <param name="adress">The address to be removed from the contact.</param>
+        /// <returns><see langword="true"/> if the address was successfully removed from the contact;  otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool RemoveAdressFromContact(Adress adress)
+        {
+            if(!ContactAdresses.Contains(adress))
+            {
+                Log.LogManager.Singleton.Warning("Adress is not assigned to contact.", "ContactEditor.RemoveAdressFromContact");
+                return false;
+            }
+
+            var contactAdressAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.AdressGuid == adress.Guid);
+            
+            if(contactAdressAssignement != null && contactAssignementService.Delete(contactAdressAssignement.Guid))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Removes the specified email from the current contact.
+        /// </summary>
+        /// <remarks>This method attempts to remove the association between the specified email and the
+        /// current contact. If no such association exists, the method returns <see langword="false"/>.</remarks>
+        /// <param name="email">The email to be removed from the contact. Must not be <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if the email was successfully removed from the contact; otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool RemoveEmailFromContact(Email email)
+        {
+            if(!ContactEmails.Contains(email))
+            {
+                Log.LogManager.Singleton.Warning("Email is not assigned to contact.", "ContactEditor.RemoveEmailFromContact");
+                return false;
+            }
+
+            var contactEmailAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.EmailGuid == email.Guid);
+
+            if (contactEmailAssignement != null && contactAssignementService.Delete(contactEmailAssignement.Guid))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Removes the specified phone number from the current contact.
+        /// </summary>
+        /// <remarks>This method attempts to remove the association between the specified phone number and
+        /// the current contact. If no such association exists, the method returns <see langword="false"/>.</remarks>
+        /// <param name="phone">The phone number to be removed, identified by its unique identifier.</param>
+        /// <returns><see langword="true"/> if the phone number was successfully removed from the contact;  otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool RemovePhoneFromContact(Phone phone)
+        {
+            if(!ContactPhoneNumbers.Contains(phone))
+            {
+                Log.LogManager.Singleton.Warning("Phonenumber is not assigned to contact.", "ContactEditor.RemovePhoneFromContact");
+                return false;
+            }
+
+            var contactPhoneAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.PhoneGuid == phone.Guid);
+
+            if (contactPhoneAssignement != null && contactAssignementService.Delete(contactPhoneAssignement.Guid))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Removes the specified company from the current contact's assignments.
+        /// </summary>
+        /// <remarks>This method attempts to remove the specified company from the current contact's
+        /// assignments. If the company is not assigned to the contact, the method returns <see langword="false"/>
+        /// without performing any operation.</remarks>
+        /// <param name="company">The company to be removed from the contact's assignments. Must not be <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if the company was successfully removed from the contact's assignments; otherwise,
+        /// <see langword="false"/> if the company was not assigned to the contact or the removal operation failed.</returns>
+        public bool RemoveCompanyFromContact(Company company)
+        {
+            if(!ContactCompanies.Contains(company))
+            {
+                Log.LogManager.Singleton.Warning("Company is not assigned to contact.", "ContactEditor.RemoveCompanyFromContact");
+                return false;
+            }
+
+            var contactCompanyAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.CompanyGuid == company.Guid);
+
+            if (contactCompanyAssignement != null && contactAssignementService.Delete(contactCompanyAssignement.Guid))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        #endregion
 
         #region Public Props
         /// <summary>
@@ -169,72 +588,6 @@ namespace DCS.Contact.UI
             {
                 Model.ProfilePicturePath = value;
                 OnPropertyChanged(nameof(ProfilePicturePath));
-            }
-        }
-        #endregion
-
-        #region Contact Data Collections
-        /// <summary>
-        /// Contains all contact related adresses.
-        /// </summary>
-        public ObservableCollection<Adress> ContactAdresses
-        {
-            get
-            {
-                return adresses;
-            }
-            set
-            {
-                adresses = value;
-                OnPropertyChanged(nameof(ContactAdresses));
-            }
-        }
-
-        /// <summary>
-        /// Contains all contact related phone numbers.
-        /// </summary>
-        public ObservableCollection<Phone> ContactPhoneNumbers
-        {
-            get
-            {
-                return phoneNumbers;
-            }
-            set
-            {
-                phoneNumbers = value;
-                OnPropertyChanged(nameof(ContactPhoneNumbers));
-            }
-        }
-
-        /// <summary>
-        /// Contains all contact related email adresses.
-        /// </summary>
-        public ObservableCollection<Email> ContactEmails
-        {
-            get
-            {
-                return emails;
-            }
-            set
-            {
-                emails = value;
-                OnPropertyChanged(nameof(ContactEmails));
-            }
-        }
-
-        /// <summary>
-        /// Contains all contact related companies.
-        /// </summary>
-        public ObservableCollection<Company> ContactCompanies
-        {
-            get
-            {
-                return companies;
-            }
-            set
-            {
-                companies = value;
-                OnPropertyChanged(nameof(ContactCompanies));
             }
         }
         #endregion
