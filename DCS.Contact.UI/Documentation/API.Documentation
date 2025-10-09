@@ -270,6 +270,41 @@
             Gets or sets the file path to the contact's profile picture.
             </summary>
         </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.StreetName">
+            <summary>
+            Gets or sets the name of the street associated with the contact's address.
+            </summary>
+            <remarks>Setting this property updates the corresponding street name in the underlying contact
+            address and raises the OnPropertyChanged event for the <see cref="P:DCS.Contact.Adress.StreetName"/> property.</remarks>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.HouseNumber">
+            <summary>
+            Gets or sets the house number associated with the contact address.
+            </summary>
+            <remarks>Setting this property raises the OnPropertyChanged event for the contact associated
+            <see cref="P:DCS.Contact.Adress.HouseNumber"/> property.</remarks>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.City">
+            <summary>
+            Gets or sets the city associated with the contact address.
+            </summary>
+            <remarks>Setting this property updates the city in the underlying contact address and raises
+            the OnPropertyChanged" event for the <see cref="P:DCS.Contact.Adress.City"/> property.</remarks>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.PostalCode">
+            <summary>
+            Gets or sets the postal code associated with the contact address.
+            </summary>
+            <remarks>Setting this property updates the postal code in the underlying contact address and
+            raises the OnPropertyChanged event for the <see cref="P:DCS.Contact.Adress.PostalCode"/> property.</remarks>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.Country">
+            <summary>
+            Gets or sets the country associated with the contact address.
+            </summary>
+            <remarks>Setting this property updates the country in the underlying contact address and
+            raises the OnPropertyChanged event for the <see cref="P:DCS.Contact.Adress.Country"/> property.</remarks>
+        </member>
         <member name="T:DCS.Contact.UI.EmailAdressViewModel">
             <summary>
             ViewModel for EmailAdress.

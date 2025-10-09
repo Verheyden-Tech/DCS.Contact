@@ -20,6 +20,8 @@ namespace DCS.Contact.UI
         private StatefulCollection<Phone> ContactPhoneNumbers = new StatefulCollection<Phone>();
         private StatefulCollection<Company> ContactCompanies = new StatefulCollection<Company>();
 
+        private Adress _contactAdress;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactViewModel"/> class using the specified contact.
         /// </summary>
@@ -35,6 +37,9 @@ namespace DCS.Contact.UI
             ContactPhoneNumbers = GetContactPhoneNumbers(contact);
             ContactEmails = GetContactEmailAdresses(contact);
             ContactCompanies = GetContactCompanies(contact);
+
+            if(ContactAdresses != null && ContactAdresses.Count > 0)
+                _contactAdress = ContactAdresses.First();
         }
 
         #region Get Contact Related Data Methods
@@ -447,7 +452,7 @@ namespace DCS.Contact.UI
         }
         #endregion
 
-        #region Public Props
+        #region Public Props Contact
         /// <summary>
         /// Gets or sets the unique identifier of the contact.
         /// </summary>
@@ -589,6 +594,113 @@ namespace DCS.Contact.UI
             {
                 Model.ProfilePicturePath = value;
                 OnPropertyChanged(nameof(ProfilePicturePath));
+            }
+        }
+        #endregion
+
+        #region Public Props Contact Related Data
+        /// <summary>
+        /// Gets or sets the name of the street associated with the contact's address.
+        /// </summary>
+        /// <remarks>Setting this property updates the corresponding street name in the underlying contact
+        /// address and raises the OnPropertyChanged event for the <see cref="Adress.StreetName"/> property.</remarks>
+        public string StreetName
+        {
+            get
+            {
+                return _contactAdress.StreetName;
+            }
+            set
+            {
+                if (_contactAdress != null)
+                {
+                    _contactAdress.StreetName = value;
+                    OnPropertyChanged(nameof(StreetName));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the house number associated with the contact address.
+        /// </summary>
+        /// <remarks>Setting this property raises the OnPropertyChanged event for the contact associated
+        /// <see cref="Adress.HouseNumber"/> property.</remarks>
+        public string HouseNumber
+        {
+            get
+            {
+                return _contactAdress.HouseNumber;
+            }
+            set
+            {
+                if (_contactAdress != null)
+                {
+                    _contactAdress.HouseNumber = value;
+                    OnPropertyChanged(nameof(HouseNumber));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the city associated with the contact address.
+        /// </summary>
+        /// <remarks>Setting this property updates the city in the underlying contact address and raises
+        /// the OnPropertyChanged" event for the <see cref="Adress.City"/> property.</remarks>
+        public string City
+        {
+            get
+            {
+                return _contactAdress.City;
+            }
+            set
+            {
+                if (_contactAdress != null)
+                {
+                    _contactAdress.City = value;
+                    OnPropertyChanged(nameof(City));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the postal code associated with the contact address.
+        /// </summary>
+        /// <remarks>Setting this property updates the postal code in the underlying contact address and
+        /// raises the OnPropertyChanged event for the <see cref="Adress.PostalCode"/> property.</remarks>
+        public string PostalCode
+        {
+            get
+            {
+                return _contactAdress.PostalCode;
+            }
+            set
+            {
+                if (_contactAdress != null)
+                {
+                    _contactAdress.PostalCode = value;
+                    OnPropertyChanged(nameof(PostalCode));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the country associated with the contact address.
+        /// </summary>
+        /// <remarks>Setting this property updates the country in the underlying contact address and
+        /// raises the OnPropertyChanged event for the <see cref="Adress.Country"/> property.</remarks>
+        public string Country
+        {
+            get
+            {
+                return _contactAdress.Country;
+            }
+            set
+            {
+                if (_contactAdress != null)
+                {
+                    _contactAdress.Country = value;
+                    OnPropertyChanged(nameof(Country));
+                }
             }
         }
         #endregion

@@ -1,6 +1,7 @@
 ﻿using DCS.CoreLib.Collection;
 using DCS.CoreLib.View;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,7 +40,7 @@ namespace DCS.Contact.UI
 
             //Get contact adress
             var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.AdressGuid != null).FirstOrDefault();
-            if (contactAdress != null && contactAdress.AdressGuid != null)
+            if (contactAdress != null && contactAdress.AdressGuid != null && contactAdress.AdressGuid.HasValue == true)
             {
                 var adress = physicalAdressService.Get(contactAdress.AdressGuid.Value);
                 if (adress != null)
@@ -79,8 +80,9 @@ namespace DCS.Contact.UI
             }
 
             CountryTextBox.ItemsSource = PopulateCountryList();
+            CountryTextBox.DisplayMemberPath = "EnglishName";
 
-            if(!string.IsNullOrWhiteSpace(obj.ProfilePicturePath))
+            if (!string.IsNullOrWhiteSpace(obj.ProfilePicturePath))
             {
                 ContactProfilePicture.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(obj.ProfilePicturePath));
             }
@@ -184,5 +186,15 @@ namespace DCS.Contact.UI
             }
         }
         #endregion
+
+        private void AddEmailAdressButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddPhoneNumberButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
