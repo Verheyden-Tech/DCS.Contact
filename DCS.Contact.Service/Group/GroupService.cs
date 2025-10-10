@@ -23,16 +23,14 @@ namespace DCS.Contact.Service
         }
 
         /// <inheritDoc/>
-        public Group CreateNewGroup(string name, Guid companyGuid, string description = "", bool isActive = true)
+        public Group CreateNewGroup(string name, Guid companyGuid, string description = "")
         {
             var newGroup = new Group
             {
                 Guid = Guid.NewGuid(),
                 Name = name,
                 Description = description,
-                IsActive = isActive,
-                UserGuid = CurrentUserService.Instance.CurrentUser.Guid,
-                CompanyGuid = companyGuid
+                IsActive = true
             };
 
             return newGroup;

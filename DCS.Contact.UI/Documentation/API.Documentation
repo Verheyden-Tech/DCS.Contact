@@ -25,6 +25,11 @@
             Gets or sets the name of the company.
             </summary>
         </member>
+        <member name="P:DCS.Contact.UI.CompanyViewModel.Description">
+            <summary>
+            Gets or sets the description associated with the company.
+            </summary>
+        </member>
         <member name="P:DCS.Contact.UI.CompanyViewModel.Type">
             <summary>
             Gets or sets the type of the company.
@@ -33,21 +38,6 @@
         <member name="P:DCS.Contact.UI.CompanyViewModel.IsActive">
             <summary>
             Indicates whether the company is active.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.UI.CompanyViewModel.CompanyContact">
-            <summary>
-            Gets or sets the unique identifier of the primary contact person of a company.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.UI.CompanyViewModel.ContactGuid">
-            <summary>
-            Gets or sets the unique identifier of the contact who created the company.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.UI.CompanyViewModel.UserGuid">
-            <summary>
-            Gets or sets the unique identifier of the user who created the company.
             </summary>
         </member>
         <member name="T:DCS.Contact.UI.ContactManagementViewModel">
@@ -258,11 +248,6 @@
         <member name="P:DCS.Contact.UI.ContactViewModel.DeleteDate">
             <summary>
             Gets or sets the date and time when the contact was marked for deletion.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.UserGuid">
-            <summary>
-            Gets or sets the unique identifier for the user.
             </summary>
         </member>
         <member name="P:DCS.Contact.UI.ContactViewModel.ProfilePicturePath">

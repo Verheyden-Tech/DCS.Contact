@@ -29,17 +29,14 @@ namespace DCS.Contact.Service
         }
 
         /// <inheritdoc/>
-        public Phone CreateNewPhone(string phoneNumber, string type = "", bool isActive = true, Guid? contactGuid = null, Guid? companyGuid = null)
+        public Phone CreateNewPhone(string phoneNumber, string type = "")
         {
             var newPhone = new Phone
             {
                 Guid = Guid.NewGuid(),
                 PhoneNumber = phoneNumber,
                 Type = type,
-                IsActive = isActive,
-                ContactGuid = contactGuid,
-                CompanyGuid = companyGuid,
-                UserGuid = CurrentUserService.Instance.CurrentUser.Guid
+                IsActive = true
             };
 
             return newPhone;

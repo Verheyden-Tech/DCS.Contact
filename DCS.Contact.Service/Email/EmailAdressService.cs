@@ -35,16 +35,14 @@ namespace DCS.Contact.Service
         }
 
         /// <inheritdoc/>
-        public Email CreateEmailAdress(string mailAdress, Guid contactGuid, bool isActive = true, string type = "")
+        public Email CreateEmailAdress(string mailAdress, string type = "")
         {
             var newEmail = new Email
             {
                 Guid = Guid.NewGuid(),
                 Type = type,
                 MailAdress = mailAdress,
-                IsActive = isActive,
-                UserGuid = CurrentUserService.Instance.CurrentUser.Guid,
-                ContactGuid = contactGuid
+                IsActive = true
             };
 
             return newEmail;

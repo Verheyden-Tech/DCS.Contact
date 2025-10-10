@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.1001.0</Version>
-	  <AssemblyVersion>1.0.1001.0</AssemblyVersion>
-	  <ApplicationVersion>1.0.1001.0</ApplicationVersion>
+	  <Version>1.0.1101.0</Version>
+	  <AssemblyVersion>1.0.1101.0</AssemblyVersion>
+	  <ApplicationVersion>1.0.1101.0</ApplicationVersion>
 	  <OutputType>Library</OutputType>
 	  <Authors>Tobias Verheyden</Authors>
 	  <Company>Verheyden Tech</Company>

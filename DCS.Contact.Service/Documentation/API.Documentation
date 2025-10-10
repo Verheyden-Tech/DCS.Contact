@@ -14,15 +14,12 @@
             Default constructor.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Service.CompanyService.CreateNewCompany(System.String,System.String,System.Boolean,System.Nullable{System.Guid},System.Nullable{System.Guid})">
+        <member name="M:DCS.Contact.Service.CompanyService.CreateNewCompany(System.String,System.String)">
             <summary>
             Creates a new instance of <see cref="T:DCS.Contact.Company"/>.
             </summary>
             <param name="name"></param>
             <param name="type"></param>
-            <param name="isActive"></param>
-            <param name="companyContact"></param>
-            <param name="contactGuid"></param>
             <returns></returns>
         </member>
         <member name="T:DCS.Contact.Service.ContactAssignementService">
@@ -96,7 +93,7 @@
         <member name="M:DCS.Contact.Service.ContactService.GetByName(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:DCS.Contact.Service.ContactService.CreateNewContact(System.String,System.String,System.Boolean)">
+        <member name="M:DCS.Contact.Service.ContactService.CreateNewContact(System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:DCS.Contact.Service.ContactService.GetByFirstName(System.String)">
@@ -126,7 +123,7 @@
         <member name="M:DCS.Contact.Service.EmailAdressService.GetAllByUser(System.Guid)">
             <inheritdoc/>
         </member>
-        <member name="M:DCS.Contact.Service.EmailAdressService.CreateEmailAdress(System.String,System.Guid,System.Boolean,System.String)">
+        <member name="M:DCS.Contact.Service.EmailAdressService.CreateEmailAdress(System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="T:DCS.Contact.Service.GroupService">
@@ -145,7 +142,7 @@
             </summary>
             <param name="repository"><see cref="T:DCS.Contact.IGroupRepository"/> interface.</param>
         </member>
-        <member name="M:DCS.Contact.Service.GroupService.CreateNewGroup(System.String,System.Guid,System.String,System.Boolean)">
+        <member name="M:DCS.Contact.Service.GroupService.CreateNewGroup(System.String,System.Guid,System.String)">
             <inheritDoc/>
         </member>
         <member name="T:DCS.Contact.Service.PhoneService">
@@ -166,7 +163,7 @@
         <member name="M:DCS.Contact.Service.PhoneService.GetAllByContact(System.Guid)">
             <inheritdoc/>
         </member>
-        <member name="M:DCS.Contact.Service.PhoneService.CreateNewPhone(System.String,System.String,System.Boolean,System.Nullable{System.Guid},System.Nullable{System.Guid})">
+        <member name="M:DCS.Contact.Service.PhoneService.CreateNewPhone(System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="T:DCS.Contact.Service.PhysicalAdressService">
@@ -184,7 +181,7 @@
             Constructor for PhysicalAdressService.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Service.PhysicalAdressService.CreateNewAdress(DCS.Contact.Contact,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,DCS.Contact.Company)">
+        <member name="M:DCS.Contact.Service.PhysicalAdressService.CreateNewAdress(System.String,System.String,System.String,System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:DCS.Contact.Service.PhysicalAdressService.GetAllByContact(System.Guid)">
@@ -208,7 +205,7 @@
             Constructor for RoleService.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Service.RoleService.CreateNewRole(System.String,System.Guid,System.String,System.Boolean,System.Boolean)">
+        <member name="M:DCS.Contact.Service.RoleService.CreateNewRole(System.String,System.Guid,System.String)">
             <inheritdoc/>
         </member>
         <member name="T:DCS.Contact.Service.TypeService">

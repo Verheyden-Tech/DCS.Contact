@@ -26,23 +26,8 @@
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the role is an administrator role.
-        /// </summary>
-        public bool IsAdmin { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the role is active.
         /// </summary>
         public bool IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unique identifier for the user who created the role.
-        /// </summary>
-        public Guid UserGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unique identifier for the company associated with the role.
-        /// </summary>
-        public Guid CompanyGuid { get; set; }
     }
 }

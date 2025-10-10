@@ -23,21 +23,15 @@ namespace DCS.Contact.Service
         /// </summary>
         /// <param name="name"></param>
         /// <param name="type"></param>
-        /// <param name="isActive"></param>
-        /// <param name="companyContact"></param>
-        /// <param name="contactGuid"></param>
         /// <returns></returns>
-        public Company CreateNewCompany(string name, string type = "", bool isActive = true, Guid? companyContact = null, Guid? contactGuid = null)
+        public Company CreateNewCompany(string name, string type = "")
         {
             var newCompany = new Company
             {
                 Guid = Guid.NewGuid(),
                 Name = name,
                 Type = type,
-                IsActive = isActive,
-                UserGuid = CurrentUserService.Instance.CurrentUser.Guid,
-                ContactGuid = contactGuid,
-                CompanyContact = companyContact
+                IsActive = true
             };
 
             return newCompany;

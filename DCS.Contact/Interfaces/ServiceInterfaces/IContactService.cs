@@ -19,8 +19,7 @@ namespace DCS.Contact
         /// </summary>
         /// <param name="firstName">Contact firstname.</param>
         /// <param name="lastName">Contact lastname.</param>
-        /// <param name="isActive">Contact is active flag.</param>
         /// <returns>New contact entity.</returns>
-        Contact CreateNewContact(string firstName, string lastName, bool isActive = true);
+        Contact CreateNewContact(string firstName, string lastName);
     }
 }

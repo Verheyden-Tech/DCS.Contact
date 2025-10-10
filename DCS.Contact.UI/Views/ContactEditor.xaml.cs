@@ -130,11 +130,37 @@ namespace DCS.Contact.UI
                 switch (selectedItem)
                 {
                     case Email email:
-                        viewModel.RemoveEmailFromContact(email);
+                        var mailAdressAssignement = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == Current.Model.Guid && ca.EmailGuid == email.Guid).FirstOrDefault();
+                        if(mailAdressAssignement != null)
+                        {
+                            if (contactAssignementService.Delete(mailAdressAssignement.Guid))
+                            {
+                                viewModel.RemoveEmailFromContact(email);
+                            }
+                            else
+                            {
+                                Log.LogManager.Singleton.Error("Fehler beim Löschen der Email-Zuordnung.", "ContactEditor.RemoveFromList");
+                                MessageBox.Show("Fehler beim Löschen der Email-Adresse.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+                        }
                         break;
 
                     case Phone phone:
-                        viewModel.RemovePhoneFromContact(phone);
+                        var phoneNumberAssignement = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == Current.Model.Guid && ca.PhoneGuid == phone.Guid).FirstOrDefault();
+                        if (phoneNumberAssignement != null)
+                        {
+                            if (contactAssignementService.Delete(phoneNumberAssignement.Guid))
+                            {
+                                viewModel.RemovePhoneFromContact(phone);
+                            }
+                            else
+                            {
+                                Log.LogManager.Singleton.Error("Fehler beim Löschen der Telefonnummer-Zuordnung.", "ContactEditor.RemoveFromList");
+                                MessageBox.Show("Fehler beim Löschen der Telefonnummer.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+                        }
                         break;
 
                     default:
@@ -173,7 +199,7 @@ namespace DCS.Contact.UI
                 Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif"
             };
 
-            if(openFileDialog.ShowDialog() == true)
+            if (openFileDialog.ShowDialog() == true)
             {
                 var selectedFilePath = openFileDialog.FileName;
 
@@ -185,16 +211,145 @@ namespace DCS.Contact.UI
                 }
             }
         }
-        #endregion
 
         private void AddEmailAdressButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Current.Model != null && !string.IsNullOrWhiteSpace(EmailAdressTextBox.Text))
+            {
+                var email = new Email
+                {
+                    Guid = Guid.NewGuid(),
+                    MailAdress = EmailAdressTextBox.Text,
+                    IsActive = true
+                };
 
+                var assignement = new ContactAssignement
+                {
+                    Guid = Guid.NewGuid(),
+                    ContactGuid = Current.Model.Guid,
+                    EmailGuid = email.Guid
+                };
+
+                if (contactAssignementService.New(assignement))
+                {
+                    if (viewModel.AddEmailToContact(email))
+                        EmailAdressTextBox.Text = string.Empty;
+                    else
+                    {
+                        Log.LogManager.Singleton.Error("Fehler beim Hinzufügen der Email-Adresse zum Kontakt.", "ContactEditor.AddEmailAdress");
+                        MessageBox.Show("Fehler beim Hinzufügen der Email-Adresse zum Kontakt.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+            }
         }
 
         private void AddPhoneNumberButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Current.Model != null && !string.IsNullOrWhiteSpace(PhoneNumberTextBox.Text))
+            {
+                var phone = new Phone
+                {
+                    Guid = Guid.NewGuid(),
+                    PhoneNumber = PhoneNumberTextBox.Text,
+                    IsActive = true
+                };
 
+                var assignement = new ContactAssignement
+                {
+                    Guid = Guid.NewGuid(),
+                    ContactGuid = Current.Model.Guid,
+                    PhoneGuid = phone.Guid
+                };
+
+                if (contactAssignementService.New(assignement))
+                {
+                    if (viewModel.AddPhoneToContact(phone))
+                        PhoneNumberTextBox.Text = string.Empty;
+                    else
+                    {
+                        Log.LogManager.Singleton.Error("Fehler beim Hinzufügen der Telefonnummer zum Kontakt.", "ContactEditor.AddPhoneNumber");
+                        MessageBox.Show("Fehler beim Hinzufügen der Telefonnummer zum Kontakt.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+            }
         }
+
+        private void UpdateAdressButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Current.Model != null && !string.IsNullOrWhiteSpace(StreetNameTextBox.Text) && !string.IsNullOrWhiteSpace(HouseNumberTextBox.Text))
+            {
+                var assignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == Current.Model.Guid && ca.AdressGuid != null);
+
+                if (assignements != null && assignements.Count() >= 0)
+                {
+                    //Update existing adress
+                    var adressAssignement = assignements.FirstOrDefault();
+                    if (adressAssignement != null && adressAssignement.AdressGuid.HasValue == true)
+                    {
+                        var adress = physicalAdressService.Get(adressAssignement.AdressGuid.Value);
+                        if (adress != null)
+                        {
+                            if (adress.StreetName != StreetNameTextBox.Text || adress.HouseNumber != HouseNumberTextBox.Text || adress.City != CityTextBox.Text || adress.PostalCode != PostalCodeTextBox.Text || adress.Country != CountryTextBox.Text)
+                            {
+                                adress.StreetName = StreetNameTextBox.Text;
+                                adress.HouseNumber = HouseNumberTextBox.Text;
+                                adress.City = CityTextBox.Text;
+                                adress.PostalCode = PostalCodeTextBox.Text;
+                                adress.Country = CountryTextBox.Text;
+
+                                if (physicalAdressService.Update(adress))
+                                {
+                                    MessageBox.Show("Adresse erfolgreich aktualisiert.", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+                                else
+                                {
+                                    Log.LogManager.Singleton.Error("Fehler beim Aktualisieren der Adresse.", "ContactEditor.UpdateAdress");
+                                    MessageBox.Show("Fehler beim Aktualisieren der Adresse.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                Log.LogManager.Singleton.Error("Fehler beim Aktualisieren der Adresse.", "ContactEditor.UpdateAdress");
+                                MessageBox.Show("Fehler beim Aktualisieren der Adresse.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    //Create new adress
+                    var adress = physicalAdressService.CreateNewAdress(StreetNameTextBox.Text, HouseNumberTextBox.Text, string.Empty, CityTextBox.Text, PostalCodeTextBox.Text, CountryTextBox.Text);
+                    if (adress != null)
+                    {
+                        var newAssignement = new ContactAssignement
+                        {
+                            Guid = Guid.NewGuid(),
+                            ContactGuid = Current.Model.Guid,
+                            AdressGuid = adress.Guid
+                        };
+
+                        if (contactAssignementService.New(newAssignement))
+                        {
+                            MessageBox.Show("Adresse erfolgreich hinzugefügt.", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            Log.LogManager.Singleton.Error("Fehler beim Hinzufügen der Adress-Zuordnung.", "ContactEditor.UpdateAdress");
+                            MessageBox.Show("Fehler beim Hinzufügen der Adress-Zuordnung.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Log.LogManager.Singleton.Error("Fehler beim Erstellen der neuen Adresse.", "ContactEditor.UpdateAdress");
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

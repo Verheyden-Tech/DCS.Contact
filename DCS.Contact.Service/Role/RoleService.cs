@@ -22,17 +22,14 @@ namespace DCS.Contact.Service
         }
 
         /// <inheritdoc/>
-        public Role CreateNewRole(string name, Guid companyGuid, string description = "", bool isAdmin = false, bool isActive = true)
+        public Role CreateNewRole(string name, Guid companyGuid, string description = "")
         {
             var newRole = new Role
             {
                 Guid = Guid.NewGuid(),
                 Name = name,
                 Description = description,
-                IsAdmin = isAdmin,
-                IsActive = isActive,
-                CompanyGuid = companyGuid,
-                UserGuid = CurrentUserService.Instance.CurrentUser.Guid
+                IsActive = true
             };
 
             return newRole;

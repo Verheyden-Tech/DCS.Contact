@@ -49,20 +49,5 @@
         /// Indicates whether the adress is active.
         /// </summary>
         public bool IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user guid of the adress.
-        /// </summary>
-        public Guid UserGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the contact guid of the adress.
-        /// </summary>
-        public Guid? ContactGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the company guid of the adress.
-        /// </summary>
-        public Guid? CompanyGuid { get; set; }
     }
 }

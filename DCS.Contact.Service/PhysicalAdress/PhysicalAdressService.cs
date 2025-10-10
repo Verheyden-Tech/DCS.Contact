@@ -1,5 +1,4 @@
-﻿using DCS.User.Service;
-using DCS.CoreLib.BaseClass;
+﻿using DCS.CoreLib.BaseClass;
 using System.Collections.ObjectModel;
 
 namespace DCS.Contact.Service
@@ -23,7 +22,7 @@ namespace DCS.Contact.Service
         }
 
         /// <inheritdoc/>
-        public Adress CreateNewAdress(Contact ownerContact, string streetName, string houseNumber, string adressAddon, string city, string postalCode, string country, bool isActive = true, Company? ownerCompany = null)
+        public Adress CreateNewAdress(string streetName, string houseNumber, string adressAddon, string city, string postalCode, string country)
         {
             Adress newAdress = new Adress
             {
@@ -33,11 +32,7 @@ namespace DCS.Contact.Service
                 AdressAddon = adressAddon,
                 City = city,
                 PostalCode = postalCode,
-                Country = country,
-                IsActive = true,
-                UserGuid = CurrentUserService.Instance.CurrentUser.Guid,
-                ContactGuid = ownerContact.Guid,
-                CompanyGuid = ownerCompany?.Guid
+                Country = country
             };
 
             return newAdress;

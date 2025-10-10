@@ -54,6 +54,22 @@ namespace DCS.Contact.UI
         }
 
         /// <summary>
+        /// Gets or sets the description associated with the company.
+        /// </summary>
+        public string Description
+        {
+            get => Model.Description;
+            set
+            {
+                if (!Equals(value, Model.Description))
+                {
+                    Model.Description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the type of the company.
         /// </summary>
         public string Type
@@ -81,54 +97,6 @@ namespace DCS.Contact.UI
                 {
                     Model.IsActive = value;
                     OnPropertyChanged(nameof(IsActive));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the unique identifier of the primary contact person of a company.
-        /// </summary>
-        public Guid? CompanyContact
-        {
-            get => Model.CompanyContact;
-            set
-            {
-                if (!Equals(value, Model.CompanyContact))
-                {
-                    Model.CompanyContact = value;
-                    OnPropertyChanged(nameof(CompanyContact));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the unique identifier of the contact who created the company.
-        /// </summary>
-        public Guid? ContactGuid
-        {
-            get => Model.ContactGuid;
-            set
-            {
-                if (!Equals(value, Model.ContactGuid))
-                {
-                    Model.ContactGuid = value;
-                    OnPropertyChanged(nameof(ContactGuid));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the unique identifier of the user who created the company.
-        /// </summary>
-        public Guid UserGuid
-        {
-            get => Model.UserGuid;
-            set
-            {
-                if (!Equals(value, Model.UserGuid))
-                {
-                    Model.UserGuid = value;
-                    OnPropertyChanged(nameof(UserGuid));
                 }
             }
         }

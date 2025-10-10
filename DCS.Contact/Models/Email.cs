@@ -29,20 +29,5 @@
         /// Indicates wether the email address is active or not.
         /// </summary>
         public bool IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user guid.
-        /// </summary>
-        public Guid UserGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the contact guid.
-        /// </summary>
-        public Guid? ContactGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the company guid.
-        /// </summary>
-        public Guid? CompanyGuid { get; set; }
     }
 }

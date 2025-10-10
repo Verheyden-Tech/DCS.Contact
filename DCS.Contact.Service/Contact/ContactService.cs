@@ -51,17 +51,16 @@ namespace DCS.Contact.Service
         }
 
         /// <inheritdoc/>
-        public Contact CreateNewContact(string firstName, string lastName, bool isActive = true)
+        public Contact CreateNewContact(string firstName, string lastName)
         {
             var newContact = new Contact
             {
                 Guid = Guid.NewGuid(),
                 FirstName = firstName,
                 LastName = lastName,
-                IsActive = isActive,
+                IsActive = true,
                 CreationDate = DateTime.Now,
-                LastModificationDate = DateTime.Now,
-                UserGuid = CurrentUserService.Instance.CurrentUser.Guid
+                LastModificationDate = DateTime.Now
             };
 
             return newContact;

@@ -29,15 +29,5 @@
         /// Indicates wether the group is active.
         /// </summary>
         public bool IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Guid of the user who created the group.
-        /// </summary>
-        public Guid UserGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Guid of the company associated to the group.
-        /// </summary>
-        public Guid CompanyGuid { get; set; }
     }
 }

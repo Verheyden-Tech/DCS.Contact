@@ -29,20 +29,5 @@
         /// Gets or sets wether the phone number is active.
         /// </summary>
         public bool IsActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Guid of the user.
-        /// </summary>
-        public Guid UserGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Guid of the contact.
-        /// </summary>
-        public Guid? ContactGuid { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Guid of the company.
-        /// </summary>
-        public Guid? CompanyGuid { get; set; }
     }
 }

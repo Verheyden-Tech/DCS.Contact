@@ -566,22 +566,6 @@ namespace DCS.Contact.UI
         }
 
         /// <summary>
-        /// Gets or sets the unique identifier for the user.
-        /// </summary>
-        public Guid UserGuid
-        {
-            get
-            {
-                return Model.UserGuid;
-            }
-            set
-            {
-                Model.UserGuid = value;
-                OnPropertyChanged(nameof(UserGuid));
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the file path to the contact's profile picture.
         /// </summary>
         public string? ProfilePicturePath
