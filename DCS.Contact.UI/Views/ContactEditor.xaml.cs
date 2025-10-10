@@ -36,7 +36,8 @@ namespace DCS.Contact.UI
 
             var obj = new Contact();
             AddPagingObjects(obj);
-            this.DataContext = new ContactViewModel(obj);
+            viewModel = new ContactViewModel(obj);
+            this.DataContext = viewModel;
 
             //Get contact adress
             var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.AdressGuid != null).FirstOrDefault();

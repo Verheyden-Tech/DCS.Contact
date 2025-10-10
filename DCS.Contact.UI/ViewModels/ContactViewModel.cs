@@ -40,6 +40,9 @@ namespace DCS.Contact.UI
 
             if(ContactAdresses != null && ContactAdresses.Count > 0)
                 _contactAdress = ContactAdresses.First();
+
+            if (_contactAdress == null)
+                _contactAdress = new Adress();
         }
 
         #region Get Contact Related Data Methods
