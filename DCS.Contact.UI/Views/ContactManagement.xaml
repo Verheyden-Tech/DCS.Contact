@@ -13,9 +13,21 @@
 
         <Grid.ContextMenu>
             <ContextMenu Name="ContactManagementContextMenu">
-                <MenuItem Header="Neuer Kontakt" Name="NewContactContextMenu" Icon="{telerik:RadGlyph Type=Image, Size=8, Glyph=&#xe11e;}" Click="NewContact_Click"/>
-                <MenuItem Header="Kontakt bearbeiten" Name="EditContactContextMenu" Icon="{telerik:RadGlyph Type=Image, Size=8, Glyph=&#xe10b;}" Click="EditContact_Click"/>
-                <MenuItem Header="Kontakt löschen" Name="DeleteContactContextMenu" Icon="{telerik:RadGlyph Type=Image, Size=8, Glyph=&#xe10c;}" Click="DeleteContact_Click"/>
+                <MenuItem Header="Neuer Kontakt" Name="NewContactContextMenu" Click="NewContact_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{telerik:RadGlyph Size=1, Type=Image, Glyph=&#xe11e;}" Width="16" Height="16" Stretch="Uniform"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Kontakt bearbeiten" Name="EditContactContextMenu" Click="EditContact_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{telerik:RadGlyph Size=1, Type=Image, Glyph=&#xe10b;}" Width="16" Height="16" Stretch="Uniform"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Kontakt löschen" Name="DeleteContactContextMenu" Click="DeleteContact_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{telerik:RadGlyph Size=1, Type=Image, Glyph=&#xe10c;}" Width="16" Height="16" Stretch="Uniform"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </ContextMenu>
         </Grid.ContextMenu>
 

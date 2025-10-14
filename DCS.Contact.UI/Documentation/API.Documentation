@@ -436,6 +436,19 @@
             Gets the current contact view model as data context.
             </summary>
         </member>
+        <member name="M:DCS.Contact.UI.ContactEditor.OnClosing(System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Handles the <see cref="E:System.Windows.Window.Closing"/> event to perform validation and update or create
+            address data before the window closes.
+            </summary>
+            <remarks>This method ensures that address fields are validated and any changes to the address
+            are saved before the window closes.  If the address fields are filled, it attempts to update an existing
+            address or create a new one as needed.  If an error occurs during the update or creation process, the window
+            closing is canceled, and an error message is displayed to the user.</remarks>
+            <param name="e">A <see cref="T:System.ComponentModel.CancelEventArgs"/> that contains the event data. Set <see
+            cref="P:System.ComponentModel.CancelEventArgs.Cancel"/> to <see langword="true"/> to prevent the window from
+            closing.</param>
+        </member>
         <member name="M:DCS.Contact.UI.ContactEditor.PopulateCountryList">
             <summary>
             Retrieves a collection of distinct country names in English, sorted in descending order.

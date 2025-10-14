@@ -114,12 +114,6 @@ namespace DCS.Contact.UI
                 editor.AddPagingObjects(contact);
                 if (editor.ShowDialog() == true)
                 {
-                    foreach(Contact newContact in editor.PagingObjects.NewItems)
-                        contactService.New(newContact);
-                    foreach (Contact modifiedContact in editor.PagingObjects.EditedItems)
-                        contactService.Update(modifiedContact);
-                    foreach (Contact deletedContact in editor.PagingObjects.RemovedItems)
-                        contactService.Delete(deletedContact.Guid);
                     MainGridView.Items.Refresh();
                 }
             }

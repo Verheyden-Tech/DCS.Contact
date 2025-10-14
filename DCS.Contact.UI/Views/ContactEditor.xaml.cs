@@ -101,6 +101,78 @@ namespace DCS.Contact.UI
         }
 
         /// <summary>
+        /// Handles the <see cref="System.Windows.Window.Closing"/> event to perform validation and update or create
+        /// address data before the window closes.
+        /// </summary>
+        /// <remarks>This method ensures that address fields are validated and any changes to the address
+        /// are saved before the window closes.  If the address fields are filled, it attempts to update an existing
+        /// address or create a new one as needed.  If an error occurs during the update or creation process, the window
+        /// closing is canceled, and an error message is displayed to the user.</remarks>
+        /// <param name="e">A <see cref="System.ComponentModel.CancelEventArgs"/> that contains the event data. Set <see
+        /// cref="System.ComponentModel.CancelEventArgs.Cancel"/> to <see langword="true"/> to prevent the window from
+        /// closing.</param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (Current.Model != null)
+            {
+                //Check if adress fields are filled
+                if (!string.IsNullOrWhiteSpace(StreetNameTextBox.Text) && !string.IsNullOrWhiteSpace(HouseNumberTextBox.Text))
+                {
+                    var assignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == Current.Model.Guid && ca.AdressGuid != null);
+                    if (assignements != null && assignements.Count() >= 0)
+                    {
+                        //Update existing adress
+                        var adressAssignement = assignements.FirstOrDefault();
+                        if (adressAssignement != null && adressAssignement.AdressGuid.HasValue == true)
+                        {
+                            var adress = physicalAdressService.Get(adressAssignement.AdressGuid.Value);
+                            if (adress != null)
+                            {
+                                if (adress.StreetName != StreetNameTextBox.Text || adress.HouseNumber != HouseNumberTextBox.Text || adress.City != CityTextBox.Text || adress.PostalCode != PostalCodeTextBox.Text || adress.Country != CountryTextBox.Text)
+                                {
+                                    adress.StreetName = StreetNameTextBox.Text;
+                                    adress.HouseNumber = HouseNumberTextBox.Text;
+                                    adress.City = CityTextBox.Text;
+                                    adress.PostalCode = PostalCodeTextBox.Text;
+                                    adress.Country = CountryTextBox.Text;
+                                    if (!physicalAdressService.Update(adress))
+                                    {
+                                        Log.LogManager.Singleton.Error("Fehler beim Aktualisieren der Adresse.", "ContactEditor.OnClosing");
+                                        MessageBox.Show("Fehler beim Aktualisieren der Adresse.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        e.Cancel = true;
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Create new adress
+                        var adress = physicalAdressService.CreateNewAdress(StreetNameTextBox.Text, HouseNumberTextBox.Text, string.Empty, CityTextBox.Text, PostalCodeTextBox.Text, CountryTextBox.Text);
+                        if (adress != null)
+                        {
+                            var newAssignement = new ContactAssignement
+                            {
+                                Guid = Guid.NewGuid(),
+                                ContactGuid = Current.Model.Guid,
+                                AdressGuid = adress.Guid
+                            };
+                            if (!contactAssignementService.New(newAssignement))
+                            {
+                                Log.LogManager.Singleton.Error("Fehler beim Hinzufügen der Adress-Zuordnung.", "ContactEditor.OnClosing");
+                                MessageBox.Show("Fehler beim Hinzufügen der Adressess-Zuordnung.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.DialogResult = true;
+            base.OnClosing(e);
+        }
+
+        /// <summary>
         /// Retrieves a collection of distinct country names in English, sorted in descending order.
         /// </summary>
         /// <remarks>The method gathers country names based on specific cultures available in the system.
@@ -132,7 +204,7 @@ namespace DCS.Contact.UI
                 {
                     case Email email:
                         var mailAdressAssignement = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == Current.Model.Guid && ca.EmailGuid == email.Guid).FirstOrDefault();
-                        if(mailAdressAssignement != null)
+                        if (mailAdressAssignement != null)
                         {
                             if (contactAssignementService.Delete(mailAdressAssignement.Guid))
                             {
