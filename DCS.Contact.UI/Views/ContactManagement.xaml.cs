@@ -14,11 +14,6 @@ namespace DCS.Contact.UI
 
         private ContactViewModel viewModel;
 
-        private string ContactAdress { get; set; } = "Keine Adresse verfügbar";
-        private string ContactPhoneNumber { get; set; } = "Keine Telefonnummer verfügbar";
-        private StatefulCollection<Adress> ContactAdresses;
-        private StatefulCollection<Phone> ContactPhoneNumbers;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactManagement"/> class.
@@ -35,29 +30,6 @@ namespace DCS.Contact.UI
             var obj = new Contact();
             viewModel = new ContactViewModel(obj);
             this.DataContext = viewModel;
-
-            ContactAdresses = new StatefulCollection<Adress>();
-            ContactPhoneNumbers = new StatefulCollection<Phone>();
-
-            if (viewModel.GetContactAdresses(obj) != null && viewModel.GetContactAdresses(obj).Count >= 0)
-            {
-                ContactAdresses = viewModel.GetContactAdresses(obj);
-
-                var adress = ContactAdresses.FirstOrDefault();
-
-                if (adress != null && !string.IsNullOrWhiteSpace(adress.StreetName))
-                    ContactAdress = adress.StreetName + " " + adress.HouseNumber + ", " + adress.PostalCode + " " + adress.City + ", " + adress.Country;
-            }
-
-            if (viewModel.GetContactPhoneNumbers(obj) != null && viewModel.GetContactPhoneNumbers(obj).Count >= 0)
-            {
-                ContactPhoneNumbers = viewModel.GetContactPhoneNumbers(obj);
-
-                var phoneNumber = ContactPhoneNumbers.FirstOrDefault();
-
-                if (phoneNumber != null && !string.IsNullOrWhiteSpace(phoneNumber.PhoneNumber))
-                    ContactPhoneNumber = phoneNumber.PhoneNumber;
-            }
         }
 
         private void DeleteContact_Click(object sender, System.Windows.RoutedEventArgs e)

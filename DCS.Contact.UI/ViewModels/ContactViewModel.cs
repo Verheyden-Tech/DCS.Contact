@@ -22,6 +22,9 @@ namespace DCS.Contact.UI
 
         private Adress _contactAdress;
 
+        private string contactAdress { get; set; } = "Keine Adresse verfügbar";
+        private string ContactPhoneNumber { get; set; } = "Keine Telefonnummer verfügbar";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactViewModel"/> class using the specified contact.
         /// </summary>
@@ -43,6 +46,22 @@ namespace DCS.Contact.UI
 
             if (_contactAdress == null)
                 _contactAdress = new Adress();
+
+            if (GetContactAdresses(contact) != null && GetContactAdresses(contact).Count >= 0)
+            {
+                var adress = ContactAdresses.FirstOrDefault();
+
+                if (adress != null && !string.IsNullOrWhiteSpace(adress.StreetName))
+                    ContactAdress = adress.StreetName + " " + adress.HouseNumber + ", " + adress.PostalCode + " " + adress.City + ", " + adress.Country;
+            }
+
+            if (GetContactPhoneNumbers(contact) != null && GetContactPhoneNumbers(contact).Count >= 0)
+            {
+                var phoneNumber = ContactPhoneNumbers.FirstOrDefault();
+
+                if (phoneNumber != null && !string.IsNullOrWhiteSpace(phoneNumber.PhoneNumber))
+                    ContactPhoneNumber = phoneNumber.PhoneNumber;
+            }
         }
 
         #region Get Contact Related Data Methods
@@ -454,6 +473,36 @@ namespace DCS.Contact.UI
             return false;
         }
         #endregion
+
+        /// <summary>
+        /// Gets or sets the contact address associated with the entity.
+        /// </summary>
+        /// <remarks>Setting this property raises the <see cref="ViewModelBase{TKey, TModel}.OnPropertyChanged"/> event for the
+        /// <see cref="ContactAdress"/> property.</remarks>
+        public string ContactAdress
+        {
+            get { return ContactAdress; }
+            set
+            {
+                contactAdress = value;
+                OnPropertyChanged(nameof(ContactAdress));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the contact phone number.
+        /// </summary>
+        /// <remarks>Setting this property raises the <see cref="ViewModelBase{TKey, TModel}.OnPropertyChanged"/> event for the
+        /// <see cref="ContactPhone"/> property.</remarks>
+        public string ContactPhone
+        {
+            get { return ContactPhoneNumber; }
+            set
+            {
+                ContactPhoneNumber = value;
+                OnPropertyChanged(nameof(ContactPhone));
+            }
+        }
 
         #region Public Props Contact
         /// <summary>

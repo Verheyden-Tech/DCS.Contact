@@ -215,6 +215,20 @@
             <returns><see langword="true"/> if the company was successfully removed from the contact's assignments; otherwise,
             <see langword="false"/> if the company was not assigned to the contact or the removal operation failed.</returns>
         </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactAdress">
+            <summary>
+            Gets or sets the contact address associated with the entity.
+            </summary>
+            <remarks>Setting this property raises the <see cref="M:DCS.CoreLib.BaseClass.ViewModelBase`2.OnPropertyChanged(System.String)"/> event for the
+            <see cref="P:DCS.Contact.UI.ContactViewModel.ContactAdress"/> property.</remarks>
+        </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactPhone">
+            <summary>
+            Gets or sets the contact phone number.
+            </summary>
+            <remarks>Setting this property raises the <see cref="M:DCS.CoreLib.BaseClass.ViewModelBase`2.OnPropertyChanged(System.String)"/> event for the
+            <see cref="P:DCS.Contact.UI.ContactViewModel.ContactPhone"/> property.</remarks>
+        </member>
         <member name="P:DCS.Contact.UI.ContactViewModel.Guid">
             <summary>
             Gets or sets the unique identifier of the contact.

@@ -54,8 +54,8 @@
     <PackageReference Include="DCS.CoreLib.Collection" Version="1.1.301" />
     <PackageReference Include="DCS.Data" Version="1.0.401" />
     <PackageReference Include="DCS.Resource" Version="1.0.201" />
-    <PackageReference Include="DCS.User" Version="1.0.2801.1" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.2801.1" />
+    <PackageReference Include="DCS.User" Version="1.0.3101.1" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.3101.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -40,8 +40,8 @@
     <PackageReference Include="DCS.CoreLib" Version="1.1.301" />
     <PackageReference Include="DCS.CoreLib.Collection" Version="1.1.301" />
     <PackageReference Include="DCS.Data" Version="1.0.401" />
-    <PackageReference Include="DCS.User" Version="1.0.2801.1" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.2801.1" />
+    <PackageReference Include="DCS.User" Version="1.0.3101.1" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.3101.1" />
   </ItemGroup>
 
   <ItemGroup>
