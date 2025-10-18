@@ -64,23 +64,17 @@
             Constructor for the contact management repository.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.ContactRepository.GetByFirstName(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Data.ContactRepository.GetByLastName(System.String)">
-            <inheritdoc/>
-        </member>
         <member name="T:DCS.Contact.Data.EmailRepository">
             <summary>
             Repository for email data management on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.EmailRepository.tableName">
+        <member name="F:DCS.Contact.Data.EmailRepository.TableName">
             <summary>
             Table name for the repository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.EmailRepository.primaryKeyColumn">
+        <member name="F:DCS.Contact.Data.EmailRepository.PrimaryKeyColumn">
             <summary>
             Primary key column for the repository.
             </summary>
@@ -89,12 +83,6 @@
             <summary>
             Constructor for the repository.
             </summary>
-        </member>
-        <member name="M:DCS.Contact.Data.EmailRepository.GetAllByContact(System.Guid)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Data.EmailRepository.GetAllByUser(System.Guid)">
-            <inheritdoc/>
         </member>
         <member name="T:DCS.Contact.Data.GroupRepository">
             <summary>
@@ -121,12 +109,12 @@
             Phone Management Repository to handle phone data on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhoneRepository.tableName">
+        <member name="F:DCS.Contact.Data.PhoneRepository.TableName">
             <summary>
             Table name for PhoneManagementRepository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhoneRepository.primaryKeyColumn">
+        <member name="F:DCS.Contact.Data.PhoneRepository.PrimaryKeyColumn">
             <summary>
             Primary key column for PhoneManagementRepository.
             </summary>
@@ -136,20 +124,17 @@
             Constructor for PhoneManagementRepository.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Data.PhoneRepository.GetAllByContact(System.Guid)">
-            <inheritdoc/>
-        </member>
         <member name="T:DCS.Contact.Data.PhysicalAdressRepository">
             <summary>
             PhysicalAdressManagementRepository to handle physical adress data on the table.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhysicalAdressRepository.tableName">
+        <member name="F:DCS.Contact.Data.PhysicalAdressRepository.TableName">
             <summary>
             Table name for PhysicalAdressManagementRepository.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.PhysicalAdressRepository.primaryKeyColumn">
+        <member name="F:DCS.Contact.Data.PhysicalAdressRepository.PrimaryKeyColumn">
             <summary>
             Primary key column for PhysicalAdressManagementRepository.
             </summary>
@@ -158,9 +143,6 @@
             <summary>
             Constructor for PhysicalAdressManagementRepository.
             </summary>
-        </member>
-        <member name="M:DCS.Contact.Data.PhysicalAdressRepository.GetAllByContact(System.Guid)">
-            <inheritdoc/>
         </member>
         <member name="T:DCS.Contact.Data.RoleRepository">
             <summary>

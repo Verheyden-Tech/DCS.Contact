@@ -1,6 +1,5 @@
-﻿using DCS.Data;
-using DCS.CoreLib.BaseClass;
-using System.Collections.ObjectModel;
+﻿using DCS.CoreLib.BaseClass;
+using DCS.Data;
 
 namespace DCS.Contact.Data
 {
@@ -14,35 +13,19 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for the repository.
         /// </summary>
-        public static string tableName => "dbo.VT_Contact_Email";
+        public static readonly new string TableName = "dbo.VT_Contact_Email";
 
         /// <summary>
         /// Primary key column for the repository.
         /// </summary>
-        public static string primaryKeyColumn => "Guid";
+        public static new string PrimaryKeyColumn = "Guid";
 
         /// <summary>
         /// Constructor for the repository.
         /// </summary>
-        public EmailRepository(ISqlService sqlService) : base(sqlService, tableName, primaryKeyColumn)
+        public EmailRepository(ISqlService sqlService) : base(sqlService, TableName, PrimaryKeyColumn)
         {
             this.sqlService = sqlService;
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Email> GetAllByContact(Guid contactGuid)
-        {
-            var sql = $"SELECT * FROM {TableName} WHERE ContactGuid = @guid";
-
-            return sqlService.SQLQueryList<Email>(sql, new { guid = contactGuid });
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Email> GetAllByUser(Guid userGuid)
-        {
-            var sql = $"SELECT * FROM {TableName} WHERE UserGuid = @guid";
-
-            return sqlService.SQLQueryList<Email>(sql, new { guid = userGuid });
         }
     }
 }

@@ -7,12 +7,5 @@ namespace DCS.Contact
     /// </summary>
     public interface IEmailAdressService : IServiceBase<Guid, Email, IEmailAdressRepository>
     {
-        /// <summary>
-        /// Creates new email instance.
-        /// </summary>
-        /// <param name="mailAdress">Contact email adress.</param>
-        /// <param name="type">Email type.</param>
-        /// <returns>New instance of <see cref="Email"/>.</returns>
-        Email CreateEmailAdress(string mailAdress, string type = "");
     }
 }

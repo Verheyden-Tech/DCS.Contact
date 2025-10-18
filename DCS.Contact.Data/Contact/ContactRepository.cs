@@ -1,6 +1,5 @@
-﻿using DCS.Data;
-using DCS.CoreLib.BaseClass;
-using System.Collections.ObjectModel;
+﻿using DCS.CoreLib.BaseClass;
+using DCS.Data;
 
 namespace DCS.Contact.Data
 {
@@ -27,22 +26,6 @@ namespace DCS.Contact.Data
         public ContactRepository(ISqlService sqlService) : base(sqlService, tableName, primaryKeyColumn)
         {
             this.sqlService = sqlService;
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Contact> GetByFirstName(string contactFirstName)
-        {
-            var sql = $"SELECT * FROM {TableName} WHERE FirstName = @firstName";
-
-            return sqlService.SQLQueryList<Contact>(sql, new { firstName = contactFirstName });
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Contact> GetByLastName(string contactLastName)
-        {
-            var sql = $"SELECT * FROM {TableName} WHERE LastName = @lastName";
-
-            return sqlService.SQLQueryList<Contact>(sql, new { lastName = contactLastName });
         }
     }
 }

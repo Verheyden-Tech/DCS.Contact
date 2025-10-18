@@ -1,6 +1,5 @@
-﻿using DCS.Data;
-using DCS.CoreLib.BaseClass;
-using System.Collections.ObjectModel;
+﻿using DCS.CoreLib.BaseClass;
+using DCS.Data;
 
 namespace DCS.Contact.Data
 {
@@ -14,27 +13,19 @@ namespace DCS.Contact.Data
         /// <summary>
         /// Table name for PhoneManagementRepository.
         /// </summary>
-        public static string tableName => "dbo.VT_Contact_Phone";
+        public static readonly new string TableName = "dbo.VT_Contact_Phone";
 
         /// <summary>
         /// Primary key column for PhoneManagementRepository.
         /// </summary>
-        public static string primaryKeyColumn => "Guid";
+        public static readonly new string PrimaryKeyColumn = "Guid";
 
         /// <summary>
         /// Constructor for PhoneManagementRepository.
         /// </summary>
-        public PhoneRepository(ISqlService sqlService) : base(sqlService, tableName, primaryKeyColumn)
+        public PhoneRepository(ISqlService sqlService) : base(sqlService, TableName, PrimaryKeyColumn)
         {
             this.sqlService = sqlService;
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Phone> GetAllByContact(Guid contactGuid)
-        {
-            var sql = $"SELECT * FROM {TableName} WHERE ContactGuid = @guid";
-
-            return sqlService.SQLQueryList<Phone>(sql, new { guid = contactGuid });
         }
     }
 }

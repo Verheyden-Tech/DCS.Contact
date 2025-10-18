@@ -1,5 +1,4 @@
 ﻿using DCS.CoreLib.BaseClass;
-using System.Collections.ObjectModel;
 
 namespace DCS.Contact.Service
 {
@@ -19,35 +18,6 @@ namespace DCS.Contact.Service
         public PhysicalAdressService(IPhysicalAdressRepository repository) : base(repository)
         {
             this.repository = repository;
-        }
-
-        /// <inheritdoc/>
-        public Adress CreateNewAdress(string streetName, string houseNumber, string adressAddon, string city, string postalCode, string country)
-        {
-            Adress newAdress = new Adress
-            {
-                Guid = Guid.NewGuid(),
-                StreetName = streetName,
-                HouseNumber = houseNumber,
-                AdressAddon = adressAddon,
-                City = city,
-                PostalCode = postalCode,
-                Country = country
-            };
-
-            return newAdress;
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Adress> GetAllByContact(Guid contactGuid)
-        {
-            return repository.GetAllByContact(contactGuid);
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Adress> GetAllByContact(Contact contact)
-        {
-            return repository.GetAllByContact(contact.Guid);
         }
     }
 }

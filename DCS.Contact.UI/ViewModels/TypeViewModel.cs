@@ -24,22 +24,86 @@ namespace DCS.Contact.UI
         }
 
         /// <summary>
-        /// Saves the current model.
+        /// Creates a new type based on the current model and adds it to the collection if successful.
         /// </summary>
-        /// <remarks>The method attempts to save the model using the associated type service.  If the
-        /// model is null, the save operation will not be performed, and the method will return <see
+        /// <remarks>This method generates a new type using the properties of the <see cref="ViewModelBase{TKey, TModel}.Model"/>
+        /// object, assigns it a unique identifier, and attempts to save it using the type service. If the operation
+        /// succeeds, the new type is added to the <see cref="ViewModelBase{TKey, TModel}.Collection"/>. If the <see cref="ViewModelBase{TKey, TModel}.Model"/> is null or an
+        /// exception occurs during the operation, the method logs an error and returns <see
         /// langword="false"/>.</remarks>
-        /// <returns><see langword="true"/> if the model is successfully saved; otherwise, <see langword="false"/>.</returns>
-        public bool Save()
+        /// <returns><see langword="true"/> if the new type is successfully created and added to the collection; otherwise, <see
+        /// langword="false"/>.</returns>
+        public bool CreateNewType()
         {
             if(Model != null)
             {
-                if (typeService.New(this.Model))
-                    return true;
+                try
+                {
+                    var newType = new Type
+                    {
+                        Guid = Guid.NewGuid(),
+                        Name = Model.Name,
+                        IsActive = Model.IsActive
+                    };
 
+                    if(typeService.New(newType))
+                    {
+                        Collection.Add(newType);
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.LogManager.Singleton.Error($"Exception occurred while creating new Type: {ex.Message}", "TypeViewModel.CreateNewType");
+                    return false;
+                }
+            }
+
+            Log.LogManager.Singleton.Error("Model is null. Cannot create new Type.", "TypeViewModel.CreateNewType");
+            return false;
+        }
+
+        /// <summary>
+        /// Updates the type information in the service based on the current model.
+        /// </summary>
+        /// <remarks>This method attempts to update an existing type in the service using the data from
+        /// the current model. If the type does not exist, it attempts to create a new type. Logs are generated for any
+        /// errors or exceptional conditions encountered during the operation.</remarks>
+        /// <returns><see langword="true"/> if the type was successfully updated or created; otherwise, <see langword="false"/>.</returns>
+        public bool UpdateType()
+        {
+            if(Model != null)
+            {
+                var type = typeService.Get(Model.Guid);
+                if(type != null)
+                {
+                    try
+                    {
+                        var updatedType = new Type
+                        {
+                            Guid = Model.Guid,
+                            Name = Model.Name,
+                            IsActive = Model.IsActive
+                        };
+
+                        if (typeService.Update(updatedType))
+                            return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.LogManager.Singleton.Error($"Exception occurred while updating Type: {ex.Message}", "TypeViewModel.UpdateType");
+                        return false;
+                    }
+                }
+                else
+                    if(CreateNewType())
+                        return true;
+
+                Log.LogManager.Singleton.Error("Type not found in service. Cannot update Type.", "TypeViewModel.UpdateType");
                 return false;
             }
 
+            Log.LogManager.Singleton.Error("Model is null. Cannot update Type.", "TypeViewModel.UpdateType");
             return false;
         }
 

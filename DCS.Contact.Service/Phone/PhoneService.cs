@@ -1,6 +1,4 @@
 ﻿using DCS.CoreLib.BaseClass;
-using DCS.User.Service;
-using System.Collections.ObjectModel;
 
 namespace DCS.Contact.Service
 {
@@ -20,26 +18,6 @@ namespace DCS.Contact.Service
         public PhoneService(IPhoneRepository repository) : base(repository)
         {
             this.repository = repository;
-        }
-
-        /// <inheritdoc/>
-        public ObservableCollection<Phone> GetAllByContact(Guid contactGuid)
-        {
-            return repository.GetAllByContact(contactGuid);
-        }
-
-        /// <inheritdoc/>
-        public Phone CreateNewPhone(string phoneNumber, string type = "")
-        {
-            var newPhone = new Phone
-            {
-                Guid = Guid.NewGuid(),
-                PhoneNumber = phoneNumber,
-                Type = type,
-                IsActive = true
-            };
-
-            return newPhone;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DCS.CoreLib;
-using System.Collections.ObjectModel;
 
 namespace DCS.Contact
 {
@@ -8,11 +7,5 @@ namespace DCS.Contact
     /// </summary>
     public interface IPhoneRepository : IRepositoryBase<Guid, Phone>
     {
-        /// <summary>
-        /// Get phone data by contact guid.
-        /// </summary>
-        /// <param name="contactGuid"></param>
-        /// <returns></returns>
-        ObservableCollection<Phone> GetAllByContact(Guid contactGuid);
     }
 }

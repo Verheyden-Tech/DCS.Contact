@@ -15,6 +15,29 @@
             </summary>
             <param name="company"></param>
         </member>
+        <member name="M:DCS.Contact.UI.CompanyViewModel.CreateNewCompany">
+            <summary>
+            Creates a new company based on the current model and adds it to the collection if successful.
+            </summary>
+            <remarks>
+            This method generates a new company using the properties of the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/>
+            object, assigns it a unique identifier, and attempts to save it using the company service. If the operation
+            succeeds, the new company is added to the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Collection"/>. If the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/> is null or an
+            exception occurs during the operation, the method logs an error and returns <see langword="false"/>.
+            </remarks>
+            <returns><see langword="true"/> if the new company is successfully created and added to the collection; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DCS.Contact.UI.CompanyViewModel.UpdateCompany">
+            <summary>
+            Updates the company information in the service based on the current model.
+            </summary>
+            <remarks>
+            This method attempts to update an existing company in the service using the data from
+            the current model. If the company does not exist, it attempts to create a new company. Logs are generated for any
+            errors or exceptional conditions encountered during the operation.
+            </remarks>
+            <returns><see langword="true"/> if the company was successfully updated or created; otherwise, <see langword="false"/>.</returns>
+        </member>
         <member name="P:DCS.Contact.UI.CompanyViewModel.Guid">
             <summary>
             Gets or sets the unique identifier of the company.
@@ -72,162 +95,65 @@
         </member>
         <member name="T:DCS.Contact.UI.ContactViewModel">
             <summary>
-            ViewModel for the contact editor.
+            ViewModel for contact instances.
             </summary>
         </member>
         <member name="M:DCS.Contact.UI.ContactViewModel.#ctor(DCS.Contact.Contact)">
             <summary>
-            Initializes a new instance of the <see cref="T:DCS.Contact.UI.ContactViewModel"/> class using the specified contact.
+            Initializes a new instance of the <see cref="T:DCS.Contact.UI.ContactViewModel"/> class.
             </summary>
-            <remarks>This constructor initializes several collections, including contact addresses,
-            emails, phone numbers, and companies, to manage related data for the specified contact.</remarks>
-            <param name="contact">The contact object used to initialize the view model. Cannot be <see langword="null"/>.</param>
+            <param name="contact"></param>
         </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.GetContactAdresses(DCS.Contact.Contact)">
+        <member name="M:DCS.Contact.UI.ContactViewModel.CreateNewContact">
             <summary>
-            Retrieves a collection of addresses associated with the specified contact.
+            Creates a new contact based on the current model and adds it to the collection if successful.
             </summary>
-            <remarks>This method queries the contact assignment service to find address assignments linked
-            to the specified contact.  It then retrieves the corresponding address details from the contact address
-            service.</remarks>
-            <param name="contact">The contact whose associated addresses are to be retrieved. The contact must have a valid <see
-            cref="P:DCS.Contact.UI.ContactViewModel.Guid"/>.</param>
-            <returns>An <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> of <see cref="T:DCS.Contact.Adress"/> objects representing the addresses
-            associated with the specified contact.  If no addresses are found or an error occurs, an empty collection is
-            returned.</returns>
+            <remarks>
+            This method generates a new contact using the properties of the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/>
+            object, assigns it a unique identifier, and attempts to save it using the contact service. If the operation
+            succeeds, the new contact is added to the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Collection"/>. If the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/> is null or an
+            exception occurs during the operation, the method logs an error and returns <see langword="false"/>.
+            </remarks>
+            <returns><see langword="true"/> if the new contact is successfully created and added to the collection; otherwise, <see langword="false"/>.</returns>
         </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.GetContactPhoneNumbers(DCS.Contact.Contact)">
+        <member name="M:DCS.Contact.UI.ContactViewModel.UpdateContact">
             <summary>
-            Retrieves a collection of phone numbers associated with the specified contact.
+            Updates the contact information in the service based on the current model.
             </summary>
-            <remarks>This method queries the contact assignment service to find phone assignments linked
-            to the specified contact. It then retrieves the corresponding phone details using the phone service. If an
-            error occurs during the operation, the method logs the error and returns an empty collection.</remarks>
-            <param name="contact">The contact whose phone numbers are to be retrieved. The contact must have a valid <see
-            cref="P:DCS.Contact.Contact.Guid"/>.</param>
-            <returns>An <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> of <see cref="T:DCS.Contact.Phone"/> objects representing the phone numbers
-            associated with the contact. If no phone numbers are found, an empty collection is returned.</returns>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.GetContactEmailAdresses(DCS.Contact.Contact)">
-            <summary>
-            Retrieves a collection of email addresses associated with the specified contact.
-            </summary>
-            <remarks>This method queries the contact assignment service to find email assignments linked
-            to the specified contact. It then retrieves the corresponding email details using the email address service.
-            If an error occurs during the operation, the method logs the error and returns an empty
-            collection.</remarks>
-            <param name="contact">The contact whose email addresses are to be retrieved. The contact must have a valid <see
-            cref="P:DCS.Contact.Contact.Guid"/>.</param>
-            <returns>An <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> of <see cref="T:DCS.Contact.Email"/> objects representing the email addresses
-            associated with the contact. If no email addresses are found, an empty collection is returned.</returns>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.GetContactCompanies(DCS.Contact.Contact)">
-            <summary>
-            Retrieves a collection of companies associated with the specified contact.
-            </summary>
-            <remarks>This method queries the contact assignments to find companies linked to the specified
-            contact.  If a company cannot be retrieved or an error occurs during processing, the method logs the error
-            and returns an empty collection.</remarks>
-            <param name="contact">The contact whose associated companies are to be retrieved. The contact must have a valid <see
-            cref="P:DCS.Contact.Contact.Guid"/>.</param>
-            <returns>An <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> of <see cref="T:DCS.Contact.Company"/> objects representing the companies
-            associated with the specified contact.  Returns an empty collection if no companies are associated with the
-            contact or if an error occurs.</returns>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.AddAdressToContact(DCS.Contact.Adress)">
-            <summary>
-            Associates the specified address with the current contact.
-            </summary>
-            <remarks>This method creates a new assignment between the contact and the specified address. 
-            Ensure that the <see cref="P:DCS.Contact.Adress.Guid"/> property of the provided address is valid and not empty.</remarks>
-            <param name="adress">The address to associate with the contact. The <see cref="P:DCS.Contact.Adress.Guid"/> property must be set.</param>
-            <returns><see langword="true"/> if the address was successfully associated with the contact; otherwise, <see
-            langword="false"/>.</returns>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.AddPhoneToContact(DCS.Contact.Phone)">
-            <summary>
-            Associates a phone number with the current contact.
-            </summary>
-            <remarks>This method creates a new association between the specified phone number and the
-            current contact. Ensure that the <paramref name="phone"/> object is properly initialized before calling this
-            method.</remarks>
-            <param name="phone">The phone number to associate with the contact. The <see cref="P:DCS.Contact.Phone.Guid"/> property must be set.</param>
-            <returns><see langword="true"/> if the phone number was successfully associated with the contact; otherwise, <see
-            langword="false"/>.</returns>
+            <remarks>
+            This method attempts to update an existing contact in the service using the data from
+            the current model. If the contact does not exist, it attempts to create a new contact. Logs are generated for any
+            errors or exceptional conditions encountered during the operation.
+            </remarks>
+            <returns><see langword="true"/> if the contact was successfully updated or created; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="M:DCS.Contact.UI.ContactViewModel.AddEmailToContact(DCS.Contact.Email)">
             <summary>
-            Associates the specified email with the current contact.
+            Adds an email to the contact's email collection.
             </summary>
-            <remarks>This method creates a new association between the contact and the specified email. 
-            Ensure that the provided email has a valid <see cref="P:DCS.Contact.Email.Guid"/> before calling this method.</remarks>
-            <param name="email">The email to be added to the contact. The <see cref="P:DCS.Contact.Email.Guid"/> property must be set.</param>
-            <returns><see langword="true"/> if the email was successfully associated with the contact; otherwise, <see
-            langword="false"/>.</returns>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.AddCompanyToContact(DCS.Contact.Company)">
-            <summary>
-            Associates the specified company with the current contact.
-            </summary>
-            <param name="company">The company to associate with the contact. Must not be <see langword="null"/>.</param>
-            <returns><see langword="true"/> if the company was successfully associated with the contact; otherwise, <see
-            langword="false"/>.</returns>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.RemoveAdressFromContact(DCS.Contact.Adress)">
-            <summary>
-            Removes the specified address from the current contact.
-            </summary>
-            <remarks>The method checks if the specified address is associated with the current contact 
-            and removes the association if it exists. If the address is not associated with the  contact, the method
-            returns <see langword="false"/>.</remarks>
-            <param name="adress">The address to be removed from the contact.</param>
-            <returns><see langword="true"/> if the address was successfully removed from the contact;  otherwise, <see
-            langword="false"/>.</returns>
+            <param name="email">The email to add.</param>
+            <returns>True if the email was added successfully, otherwise false.</returns>
         </member>
         <member name="M:DCS.Contact.UI.ContactViewModel.RemoveEmailFromContact(DCS.Contact.Email)">
             <summary>
-            Removes the specified email from the current contact.
+            Removes an email from the contact's email collection.
             </summary>
-            <remarks>This method attempts to remove the association between the specified email and the
-            current contact. If no such association exists, the method returns <see langword="false"/>.</remarks>
-            <param name="email">The email to be removed from the contact. Must not be <see langword="null"/>.</param>
-            <returns><see langword="true"/> if the email was successfully removed from the contact; otherwise, <see
-            langword="false"/>.</returns>
+            <param name="email">The email to remove.</param>
+            <returns>True if the email was removed successfully, otherwise false.</returns>
+        </member>
+        <member name="M:DCS.Contact.UI.ContactViewModel.AddPhoneToContact(DCS.Contact.Phone)">
+            <summary>
+            Adds a phone number to the contact's phone collection.
+            </summary>
+            <param name="phone">The phone number to add.</param>
+            <returns>True if the phone number was added successfully, otherwise false.</returns>
         </member>
         <member name="M:DCS.Contact.UI.ContactViewModel.RemovePhoneFromContact(DCS.Contact.Phone)">
             <summary>
-            Removes the specified phone number from the current contact.
+            Removes a phone number from the contact's phone collection.
             </summary>
-            <remarks>This method attempts to remove the association between the specified phone number and
-            the current contact. If no such association exists, the method returns <see langword="false"/>.</remarks>
-            <param name="phone">The phone number to be removed, identified by its unique identifier.</param>
-            <returns><see langword="true"/> if the phone number was successfully removed from the contact;  otherwise, <see
-            langword="false"/>.</returns>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactViewModel.RemoveCompanyFromContact(DCS.Contact.Company)">
-            <summary>
-            Removes the specified company from the current contact's assignments.
-            </summary>
-            <remarks>This method attempts to remove the specified company from the current contact's
-            assignments. If the company is not assigned to the contact, the method returns <see langword="false"/>
-            without performing any operation.</remarks>
-            <param name="company">The company to be removed from the contact's assignments. Must not be <see langword="null"/>.</param>
-            <returns><see langword="true"/> if the company was successfully removed from the contact's assignments; otherwise,
-            <see langword="false"/> if the company was not assigned to the contact or the removal operation failed.</returns>
-        </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.ContactAdress">
-            <summary>
-            Gets or sets the contact address associated with the entity.
-            </summary>
-            <remarks>Setting this property raises the <see cref="M:DCS.CoreLib.BaseClass.ViewModelBase`2.OnPropertyChanged(System.String)"/> event for the
-            <see cref="P:DCS.Contact.UI.ContactViewModel.ContactAdress"/> property.</remarks>
-        </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.ContactPhone">
-            <summary>
-            Gets or sets the contact phone number.
-            </summary>
-            <remarks>Setting this property raises the <see cref="M:DCS.CoreLib.BaseClass.ViewModelBase`2.OnPropertyChanged(System.String)"/> event for the
-            <see cref="P:DCS.Contact.UI.ContactViewModel.ContactPhone"/> property.</remarks>
+            <param name="phone">The phone number to remove.</param>
+            <returns>True if the phone number was removed successfully, otherwise false.</returns>
         </member>
         <member name="P:DCS.Contact.UI.ContactViewModel.Guid">
             <summary>
@@ -244,65 +170,50 @@
             Gets or sets the last name of the contact.
             </summary>
         </member>
+        <member name="P:DCS.Contact.UI.ContactViewModel.ProfilePicturePath">
+            <summary>
+            Gets or sets the path to the profile picture of the contact.
+            </summary>
+        </member>
         <member name="P:DCS.Contact.UI.ContactViewModel.IsActive">
             <summary>
             Indicates whether the contact is active.
             </summary>
         </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.CreationDate">
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactStreetName">
             <summary>
-            Gets or sets the creation date of the contact.
+            Gets or sets the street name of the contact's address.
             </summary>
         </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.LastModificationDate">
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactHouseNumber">
             <summary>
-            Gets or sets the date and time of the last modification.
+            Gets or sets the house number associated with the contact's address.
             </summary>
         </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.DeleteDate">
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactCity">
             <summary>
-            Gets or sets the date and time when the contact was marked for deletion.
+            Gets or sets the city associated with the contact's address.
             </summary>
         </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.ProfilePicturePath">
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactPostalCode">
             <summary>
-            Gets or sets the file path to the contact's profile picture.
+            Gets or sets the postal code associated with the contact's address.
             </summary>
         </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.StreetName">
+        <member name="P:DCS.Contact.UI.ContactViewModel.ContactCountry">
             <summary>
-            Gets or sets the name of the street associated with the contact's address.
+            Gets or sets the country associated with the contact's address.
             </summary>
-            <remarks>Setting this property updates the corresponding street name in the underlying contact
-            address and raises the OnPropertyChanged event for the <see cref="P:DCS.Contact.Adress.StreetName"/> property.</remarks>
         </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.HouseNumber">
+        <member name="P:DCS.Contact.UI.ContactViewModel.Emails">
             <summary>
-            Gets or sets the house number associated with the contact address.
+            Gets or sets the collection of emails associated with the contact.
             </summary>
-            <remarks>Setting this property raises the OnPropertyChanged event for the contact associated
-            <see cref="P:DCS.Contact.Adress.HouseNumber"/> property.</remarks>
         </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.City">
+        <member name="P:DCS.Contact.UI.ContactViewModel.Phones">
             <summary>
-            Gets or sets the city associated with the contact address.
+            Gets or sets the collection of phone numbers associated with the contact.
             </summary>
-            <remarks>Setting this property updates the city in the underlying contact address and raises
-            the OnPropertyChanged" event for the <see cref="P:DCS.Contact.Adress.City"/> property.</remarks>
-        </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.PostalCode">
-            <summary>
-            Gets or sets the postal code associated with the contact address.
-            </summary>
-            <remarks>Setting this property updates the postal code in the underlying contact address and
-            raises the OnPropertyChanged event for the <see cref="P:DCS.Contact.Adress.PostalCode"/> property.</remarks>
-        </member>
-        <member name="P:DCS.Contact.UI.ContactViewModel.Country">
-            <summary>
-            Gets or sets the country associated with the contact address.
-            </summary>
-            <remarks>Setting this property updates the country in the underlying contact address and
-            raises the OnPropertyChanged event for the <see cref="P:DCS.Contact.Adress.Country"/> property.</remarks>
         </member>
         <member name="T:DCS.Contact.UI.EmailAdressViewModel">
             <summary>
@@ -313,6 +224,29 @@
             <summary>
             Constructor for EmailAdressViewModel.
             </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.EmailAdressViewModel.CreateNewEmail">
+            <summary>
+            Creates a new email based on the current model and adds it to the collection if successful.
+            </summary>
+            <remarks>
+            This method generates a new email using the properties of the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/>
+            object, assigns it a unique identifier, and attempts to save it using the email address service. If the operation
+            succeeds, the new email is added to the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Collection"/>. If the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/> is null or an
+            exception occurs during the operation, the method logs an error and returns <see langword="false"/>.
+            </remarks>
+            <returns><see langword="true"/> if the new email is successfully created and added to the collection; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DCS.Contact.UI.EmailAdressViewModel.UpdateEmail">
+            <summary>
+            Updates the email information in the service based on the current model.
+            </summary>
+            <remarks>
+            This method attempts to update an existing email in the service using the data from
+            the current model. If the email does not exist, it attempts to create a new email. Logs are generated for any
+            errors or exceptional conditions encountered during the operation.
+            </remarks>
+            <returns><see langword="true"/> if the email was successfully updated or created; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="P:DCS.Contact.UI.EmailAdressViewModel.Guid">
             <summary>
@@ -331,27 +265,50 @@
         </member>
         <member name="T:DCS.Contact.UI.PhoneNumberViewModel">
             <summary>
-            Phone number view model.
+            ViewModel for phone numbers.
             </summary>
         </member>
         <member name="M:DCS.Contact.UI.PhoneNumberViewModel.#ctor(DCS.Contact.Phone)">
             <summary>
-            Initializes a new instance of the <see cref="T:DCS.Contact.UI.PhoneNumberViewModel"/> class.
+            Constructor for PhoneNumberViewModel.
             </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.PhoneNumberViewModel.CreateNewPhone">
+            <summary>
+            Creates a new phone number based on the current model and adds it to the collection if successful.
+            </summary>
+            <remarks>
+            This method generates a new phone number using the properties of the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/>
+            object, assigns it a unique identifier, and attempts to save it using the phone service. If the operation
+            succeeds, the new phone number is added to the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Collection"/>. If the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/> is null or an
+            exception occurs during the operation, the method logs an error and returns <see langword="false"/>.
+            </remarks>
+            <returns><see langword="true"/> if the new phone number is successfully created and added to the collection; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DCS.Contact.UI.PhoneNumberViewModel.UpdatePhone">
+            <summary>
+            Updates the phone number information in the service based on the current model.
+            </summary>
+            <remarks>
+            This method attempts to update an existing phone number in the service using the data from
+            the current model. If the phone number does not exist, it attempts to create a new one. Logs are generated for any
+            errors or exceptional conditions encountered during the operation.
+            </remarks>
+            <returns><see langword="true"/> if the phone number was successfully updated or created; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="P:DCS.Contact.UI.PhoneNumberViewModel.Guid">
             <summary>
-            Gets or sets the phone number guid.
+            Gets or sets the guid of a phone number.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhoneNumberViewModel.Type">
+            <summary>
+            Gets or sets the type of a phone number.
             </summary>
         </member>
         <member name="P:DCS.Contact.UI.PhoneNumberViewModel.PhoneNumber">
             <summary>
             Gets or sets the phone number.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.UI.PhoneNumberViewModel.Type">
-            <summary>
-            Gets or sets the phone number type.
             </summary>
         </member>
         <member name="T:DCS.Contact.UI.PhysicalAdressViewModel">
@@ -361,32 +318,65 @@
         </member>
         <member name="M:DCS.Contact.UI.PhysicalAdressViewModel.#ctor(DCS.Contact.Adress)">
             <summary>
-            Initializes a new instance of the <see cref="T:DCS.Contact.UI.PhysicalAdressViewModel"/> class.
+            Constructor for PhysicalAdressViewModel.
+            </summary>
+        </member>
+        <member name="M:DCS.Contact.UI.PhysicalAdressViewModel.CreateNewAdress">
+            <summary>
+            Creates a new address based on the current model and adds it to the collection if successful.
+            </summary>
+            <remarks>
+            This method generates a new address using the properties of the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/>
+            object, assigns it a unique identifier, and attempts to save it using the physical address service. If the operation
+            succeeds, the new address is added to the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Collection"/>. If the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/> is null or an
+            exception occurs during the operation, the method logs an error and returns <see langword="false"/>.
+            </remarks>
+            <returns><see langword="true"/> if the new address is successfully created and added to the collection; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DCS.Contact.UI.PhysicalAdressViewModel.UpdateAdress">
+            <summary>
+            Updates the address information in the service based on the current model.
+            </summary>
+            <remarks>
+            This method attempts to update an existing address in the service using the data from
+            the current model. If the address does not exist, it attempts to create a new one. Logs are generated for any
+            errors or exceptional conditions encountered during the operation.
+            </remarks>
+            <returns><see langword="true"/> if the address was successfully updated or created; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.Guid">
+            <summary>
+            Gets or sets the guid of a adress.
             </summary>
         </member>
         <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.StreetName">
             <summary>
-            Gets or sets the street name.
+            Gets or sets the street name of a adress.
             </summary>
         </member>
         <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.HouseNumber">
             <summary>
-            Gets or sets the house number.
+            Gets or sets the house number of a adress.
+            </summary>
+        </member>
+        <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.AddressAddon">
+            <summary>
+            Gets or sets the adress suffix of a adress.
             </summary>
         </member>
         <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.PostalCode">
             <summary>
-            Gets or sets the adress postal code.
+            Gets or sets the postal code of a adress.
             </summary>
         </member>
         <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.City">
             <summary>
-            Gets or sets the city.
+            Gets or sets the city of a adress.
             </summary>
         </member>
         <member name="P:DCS.Contact.UI.PhysicalAdressViewModel.Country">
             <summary>
-            Gets or sets the country.
+            Gets or sets the country of a adress.
             </summary>
         </member>
         <member name="T:DCS.Contact.UI.TypeViewModel">
@@ -405,14 +395,26 @@
             </summary>
             <param name="type">The <see cref="T:DCS.Contact.Type"/> that this view model represents. Cannot be <see langword="null"/>.</param>
         </member>
-        <member name="M:DCS.Contact.UI.TypeViewModel.Save">
+        <member name="M:DCS.Contact.UI.TypeViewModel.CreateNewType">
             <summary>
-            Saves the current model.
+            Creates a new type based on the current model and adds it to the collection if successful.
             </summary>
-            <remarks>The method attempts to save the model using the associated type service.  If the
-            model is null, the save operation will not be performed, and the method will return <see
+            <remarks>This method generates a new type using the properties of the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/>
+            object, assigns it a unique identifier, and attempts to save it using the type service. If the operation
+            succeeds, the new type is added to the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Collection"/>. If the <see cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/> is null or an
+            exception occurs during the operation, the method logs an error and returns <see
             langword="false"/>.</remarks>
-            <returns><see langword="true"/> if the model is successfully saved; otherwise, <see langword="false"/>.</returns>
+            <returns><see langword="true"/> if the new type is successfully created and added to the collection; otherwise, <see
+            langword="false"/>.</returns>
+        </member>
+        <member name="M:DCS.Contact.UI.TypeViewModel.UpdateType">
+            <summary>
+            Updates the type information in the service based on the current model.
+            </summary>
+            <remarks>This method attempts to update an existing type in the service using the data from
+            the current model. If the type does not exist, it attempts to create a new type. Logs are generated for any
+            errors or exceptional conditions encountered during the operation.</remarks>
+            <returns><see langword="true"/> if the type was successfully updated or created; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="P:DCS.Contact.UI.TypeViewModel.Guid">
             <summary>
@@ -449,19 +451,6 @@
             <summary>
             Gets the current contact view model as data context.
             </summary>
-        </member>
-        <member name="M:DCS.Contact.UI.ContactEditor.OnClosing(System.ComponentModel.CancelEventArgs)">
-            <summary>
-            Handles the <see cref="E:System.Windows.Window.Closing"/> event to perform validation and update or create
-            address data before the window closes.
-            </summary>
-            <remarks>This method ensures that address fields are validated and any changes to the address
-            are saved before the window closes.  If the address fields are filled, it attempts to update an existing
-            address or create a new one as needed.  If an error occurs during the update or creation process, the window
-            closing is canceled, and an error message is displayed to the user.</remarks>
-            <param name="e">A <see cref="T:System.ComponentModel.CancelEventArgs"/> that contains the event data. Set <see
-            cref="P:System.ComponentModel.CancelEventArgs.Cancel"/> to <see langword="true"/> to prevent the window from
-            closing.</param>
         </member>
         <member name="M:DCS.Contact.UI.ContactEditor.PopulateCountryList">
             <summary>

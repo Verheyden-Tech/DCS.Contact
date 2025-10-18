@@ -90,18 +90,6 @@
             Default constructor.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Service.ContactService.GetByName(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.ContactService.CreateNewContact(System.String,System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.ContactService.GetByFirstName(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.ContactService.GetByLastName(System.String)">
-            <inheritdoc/>
-        </member>
         <member name="T:DCS.Contact.Service.EmailAdressService">
             <summary>
             EmailAdressService to manipulate emailadress data.
@@ -116,15 +104,6 @@
             <summary>
             EmailAdressService constructor.
             </summary>
-        </member>
-        <member name="M:DCS.Contact.Service.EmailAdressService.GetAllByContact(System.Guid)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.EmailAdressService.GetAllByUser(System.Guid)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.EmailAdressService.CreateEmailAdress(System.String,System.String)">
-            <inheritdoc/>
         </member>
         <member name="T:DCS.Contact.Service.GroupService">
             <summary>
@@ -160,12 +139,6 @@
             Constructor for <see cref="T:DCS.Contact.Service.PhoneService"/>.
             </summary>
         </member>
-        <member name="M:DCS.Contact.Service.PhoneService.GetAllByContact(System.Guid)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.PhoneService.CreateNewPhone(System.String,System.String)">
-            <inheritdoc/>
-        </member>
         <member name="T:DCS.Contact.Service.PhysicalAdressService">
             <summary>
             DCS PhysicalAdressService to manipulate adress data.
@@ -180,15 +153,6 @@
             <summary>
             Constructor for PhysicalAdressService.
             </summary>
-        </member>
-        <member name="M:DCS.Contact.Service.PhysicalAdressService.CreateNewAdress(System.String,System.String,System.String,System.String,System.String,System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.PhysicalAdressService.GetAllByContact(System.Guid)">
-            <inheritdoc/>
-        </member>
-        <member name="M:DCS.Contact.Service.PhysicalAdressService.GetAllByContact(DCS.Contact.Contact)">
-            <inheritdoc/>
         </member>
         <member name="T:DCS.Contact.Service.RoleService">
             <summary>

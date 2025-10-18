@@ -6,7 +6,7 @@
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:local="clr-namespace:DCS.Contact.UI"
         xmlns:win="clr-namespace:DCS.CoreLib.View;assembly=DCS.CoreLib.View"
-        mc:Ignorable="d" Title="Neuen Kontakt anlegen"
+        mc:Ignorable="d" Title="Neuen Kontakt anlegen" d:DataContext="{d:DesignInstance Type=local:ContactViewModel}"
         MinHeight="200" MinWidth="400" SizeToContent="WidthAndHeight">
 
     <Grid Background="White">
@@ -43,14 +43,14 @@
 
             <telerik:RadWatermarkTextBox Grid.Row="0" Grid.Column="2" x:Name="LastNameTextBox" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Nachname" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-            <telerik:RadWatermarkTextBox x:Name="StreetNameTextBox" Grid.Row="1" Grid.Column="1" Text="{Binding StreetName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Straßenname" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-            <telerik:RadWatermarkTextBox x:Name="HouseNumberTextBox" Grid.Row="1" Grid.Column="2" Text="{Binding HouseNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="Hausnummer" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <telerik:RadWatermarkTextBox x:Name="StreetNameTextBox" Grid.Row="1" Grid.Column="1" Text="{Binding ContactStreetName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Straßenname" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <telerik:RadWatermarkTextBox x:Name="HouseNumberTextBox" Grid.Row="1" Grid.Column="2" Text="{Binding ContactHouseNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="Hausnummer" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 
-            <telerik:RadWatermarkTextBox x:Name="PostalCodeTextBox" Grid.Row="2" Grid.Column="1" Text="{Binding PostalCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="Postleitzahl" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-            <telerik:RadWatermarkTextBox x:Name="CityTextBox" Grid.Row="2" Grid.Column="2" Text="{Binding City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Stadt" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <telerik:RadWatermarkTextBox x:Name="PostalCodeTextBox" Grid.Row="2" Grid.Column="1" Text="{Binding ContactPostalCode, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="50" WatermarkContent="Postleitzahl" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <telerik:RadWatermarkTextBox x:Name="CityTextBox" Grid.Row="2" Grid.Column="2" Text="{Binding ContactCity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="150" WatermarkContent="Stadt" WatermarkBehavior="HideOnTextEntered" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-            <telerik:RadAutoSuggestBox x:Name="CountryTextBox" Grid.Row="3" Grid.Column="1"  Text="{Binding Country, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" MinWidth="150" WatermarkContent="Land suchen.." WatermarkBehavior="HideOnTextEntered" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <telerik:RadAutoSuggestBox x:Name="CountryTextBox" Grid.Row="3" Grid.Column="1"  Text="{Binding ContactCountry, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" MinWidth="150" WatermarkContent="Land suchen.." WatermarkBehavior="HideOnTextEntered" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
             <telerik:RadButton Grid.Row="3" Grid.Column="2" x:Name="UpdateAdressButton" Background="{x:Null}" BorderBrush="{x:Null}" ToolTip="Adresse übernehmen" Click="UpdateAdressButton_Click" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Right" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <Image Source="{telerik:RadGlyph Size=1, Type=Image, Glyph=&#xe118;}" Width="16" Height="16"/>

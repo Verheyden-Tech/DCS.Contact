@@ -1,523 +1,223 @@
 ﻿using DCS.CoreLib.BaseClass;
-using DCS.CoreLib.Collection;
+using System;
 using System.Collections.ObjectModel;
 
 namespace DCS.Contact.UI
 {
     /// <summary>
-    /// ViewModel for the contact editor.
+    /// ViewModel for contact instances.
     /// </summary>
     public class ContactViewModel : ViewModelBase<Guid, Contact>
     {
+        private IContactService service = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
+        private IEmailAdressService emailService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
+        private IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
         private readonly IContactAssignementService contactAssignementService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactAssignementService>();
-        private readonly IPhysicalAdressService contactAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
-        private readonly IEmailAdressService emailAdressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
-        private readonly IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
-        private readonly ICompanyService companyService = CommonServiceLocator.ServiceLocator.Current.GetInstance<ICompanyService>();
+        private readonly IPhysicalAdressService adressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
 
-        private StatefulCollection<Adress> ContactAdresses = new StatefulCollection<Adress>();
-        private StatefulCollection<Email> ContactEmails = new StatefulCollection<Email>();
-        private StatefulCollection<Phone> ContactPhoneNumbers = new StatefulCollection<Phone>();
-        private StatefulCollection<Company> ContactCompanies = new StatefulCollection<Company>();
-
-        private Adress _contactAdress;
-
-        private string contactAdress { get; set; } = "Keine Adresse verfügbar";
-        private string ContactPhoneNumber { get; set; } = "Keine Telefonnummer verfügbar";
+        private PhysicalAdressViewModel adressViewModel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContactViewModel"/> class using the specified contact.
+        /// Initializes a new instance of the <see cref="ContactViewModel"/> class.
         /// </summary>
-        /// <remarks>This constructor initializes several collections, including contact addresses,
-        /// emails, phone numbers, and companies, to manage related data for the specified contact.</remarks>
-        /// <param name="contact">The contact object used to initialize the view model. Cannot be <see langword="null"/>.</param>
+        /// <param name="contact"></param>
         public ContactViewModel(Contact contact) : base(contact)
         {
             this.Model = contact;
+            this.Collection = new ObservableCollection<Contact>();
 
-            //Get all contact related data
-            ContactAdresses = GetContactAdresses(contact);
-            ContactPhoneNumbers = GetContactPhoneNumbers(contact);
-            ContactEmails = GetContactEmailAdresses(contact);
-            ContactCompanies = GetContactCompanies(contact);
+            var adressObj = new Adress();
+            adressViewModel = new PhysicalAdressViewModel(adressObj);
 
-            if(ContactAdresses != null && ContactAdresses.Count > 0)
-                _contactAdress = ContactAdresses.First();
-
-            if (_contactAdress == null)
-                _contactAdress = new Adress();
-
-            if (GetContactAdresses(contact) != null && GetContactAdresses(contact).Count >= 0)
+            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null).FirstOrDefault();
+            if (contactAdress != null)
             {
-                var adress = ContactAdresses.FirstOrDefault();
-
-                if (adress != null && !string.IsNullOrWhiteSpace(adress.StreetName))
-                    ContactAdress = adress.StreetName + " " + adress.HouseNumber + ", " + adress.PostalCode + " " + adress.City + ", " + adress.Country;
-            }
-
-            if (GetContactPhoneNumbers(contact) != null && GetContactPhoneNumbers(contact).Count >= 0)
-            {
-                var phoneNumber = ContactPhoneNumbers.FirstOrDefault();
-
-                if (phoneNumber != null && !string.IsNullOrWhiteSpace(phoneNumber.PhoneNumber))
-                    ContactPhoneNumber = phoneNumber.PhoneNumber;
+                var adress = adressService.Get((Guid)contactAdress.AdressGuid);
+                if (adress != null)
+                {
+                    adressViewModel = new PhysicalAdressViewModel(adress);
+                }
             }
         }
 
-        #region Get Contact Related Data Methods
         /// <summary>
-        /// Retrieves a collection of addresses associated with the specified contact.
+        /// Creates a new contact based on the current model and adds it to the collection if successful.
         /// </summary>
-        /// <remarks>This method queries the contact assignment service to find address assignments linked
-        /// to the specified contact.  It then retrieves the corresponding address details from the contact address
-        /// service.</remarks>
-        /// <param name="contact">The contact whose associated addresses are to be retrieved. The contact must have a valid <see
-        /// cref="Guid"/>.</param>
-        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Adress"/> objects representing the addresses
-        /// associated with the specified contact.  If no addresses are found or an error occurs, an empty collection is
-        /// returned.</returns>
-        public StatefulCollection<Adress> GetContactAdresses(Contact contact)
+        /// <remarks>
+        /// This method generates a new contact using the properties of the <see cref="ViewModelBase{TKey, TModel}.Model"/>
+        /// object, assigns it a unique identifier, and attempts to save it using the contact service. If the operation
+        /// succeeds, the new contact is added to the <see cref="ViewModelBase{TKey, TModel}.Collection"/>. If the <see cref="ViewModelBase{TKey, TModel}.Model"/> is null or an
+        /// exception occurs during the operation, the method logs an error and returns <see langword="false"/>.
+        /// </remarks>
+        /// <returns><see langword="true"/> if the new contact is successfully created and added to the collection; otherwise, <see langword="false"/>.</returns>
+        public bool CreateNewContact()
         {
-            try
+            if (Model != null)
             {
-                StatefulCollection<Adress> contactAdresses = new StatefulCollection<Adress>();
-
-                var contactAdressAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null);
-
-                if (contactAdressAssignements != null && contactAdressAssignements.Count() >= 0)
+                try
                 {
-                    foreach (var adress in contactAdressAssignements)
+                    var newContact = new Contact
                     {
-                        if (adress.AdressGuid != null)
-                        {
-                            var contactAdress = contactAdressService.Get(adress.AdressGuid.Value);
+                        Guid = Guid.NewGuid(),
+                        FirstName = Model.FirstName,
+                        LastName = Model.LastName,
+                        ProfilePicturePath = Model.ProfilePicturePath,
+                        IsActive = Model.IsActive
+                    };
 
-                            if (contactAdress != null && ContactAdresses != null)
-                            {
-                                contactAdresses.Add(contactAdress);
-                            }
-                        }
+                    if (service.New(newContact))
+                    {
+                        Collection.Add(newContact);
+                        return true;
                     }
                 }
-
-                return contactAdresses;
-            }
-            catch (Exception ex)
-            {
-                Log.LogManager.Singleton.Error("Error while getting contact adresses: " + ex.Message, "ContactViewModel.GetContactAdresses");
-                return new StatefulCollection<Adress>();
-            }
-        }
-
-        /// <summary>
-        /// Retrieves a collection of phone numbers associated with the specified contact.
-        /// </summary>
-        /// <remarks>This method queries the contact assignment service to find phone assignments linked
-        /// to the specified contact. It then retrieves the corresponding phone details using the phone service. If an
-        /// error occurs during the operation, the method logs the error and returns an empty collection.</remarks>
-        /// <param name="contact">The contact whose phone numbers are to be retrieved. The contact must have a valid <see
-        /// cref="Contact.Guid"/>.</param>
-        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Phone"/> objects representing the phone numbers
-        /// associated with the contact. If no phone numbers are found, an empty collection is returned.</returns>
-        public StatefulCollection<Phone> GetContactPhoneNumbers(Contact contact)
-        {
-            try
-            {
-                StatefulCollection<Phone> contactPhoneNumbers = new StatefulCollection<Phone>();
-
-                var contactPhoneAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.PhoneGuid != null);
-
-                if (contactPhoneAssignements != null && contactPhoneAssignements.Count() >= 0)
+                catch (Exception ex)
                 {
-                    foreach (var phone in contactPhoneAssignements)
-                    {
-                        if (phone.PhoneGuid != null)
-                        {
-                            var contactPhone = phoneService.Get(phone.PhoneGuid.Value);
-
-                            if (contactPhone != null && ContactPhoneNumbers != null)
-                            {
-                                contactPhoneNumbers.Add(contactPhone);
-                            }
-                        }
-                    }
+                    Log.LogManager.Singleton.Error($"Exception occurred while creating new Contact: {ex.Message}", "ContactViewModel.CreateNewContact");
+                    return false;
                 }
-
-                return contactPhoneNumbers;
-            }
-            catch (Exception ex)
-            {
-                Log.LogManager.Singleton.Error("Error while getting contact phone numbers: " + ex.Message, "ContactViewModel.GetContactPhoneNumbers");
-                return new StatefulCollection<Phone>();
-            }
-        }
-
-        /// <summary>
-        /// Retrieves a collection of email addresses associated with the specified contact.
-        /// </summary>
-        /// <remarks>This method queries the contact assignment service to find email assignments linked
-        /// to the specified contact. It then retrieves the corresponding email details using the email address service.
-        /// If an error occurs during the operation, the method logs the error and returns an empty
-        /// collection.</remarks>
-        /// <param name="contact">The contact whose email addresses are to be retrieved. The contact must have a valid <see
-        /// cref="Contact.Guid"/>.</param>
-        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Email"/> objects representing the email addresses
-        /// associated with the contact. If no email addresses are found, an empty collection is returned.</returns>
-        public StatefulCollection<Email> GetContactEmailAdresses(Contact contact)
-        {
-            try
-            {
-                StatefulCollection<Email> contactEmails = new StatefulCollection<Email>();
-
-                var contactEmailAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.EmailGuid != null);
-
-                if (contactEmailAssignements != null && contactEmailAssignements.Count() >= 0)
-                {
-                    foreach (var email in contactEmailAssignements)
-                    {
-                        if (email.EmailGuid != null)
-                        {
-                            var contactEmail = emailAdressService.Get(email.EmailGuid.Value);
-
-                            if (contactEmail != null && ContactEmails != null)
-                            {
-                                contactEmails.Add(contactEmail);
-                            }
-                        }
-                    }
-                }
-
-                return contactEmails;
-            }
-            catch (Exception ex)
-            {
-                Log.LogManager.Singleton.Error("Error while getting contact emails: " + ex.Message, "ContactViewModel.GetContactEmailAdresses");
-                return new StatefulCollection<Email>();
-            }
-        }
-
-        /// <summary>
-        /// Retrieves a collection of companies associated with the specified contact.
-        /// </summary>
-        /// <remarks>This method queries the contact assignments to find companies linked to the specified
-        /// contact.  If a company cannot be retrieved or an error occurs during processing, the method logs the error
-        /// and returns an empty collection.</remarks>
-        /// <param name="contact">The contact whose associated companies are to be retrieved. The contact must have a valid <see
-        /// cref="Contact.Guid"/>.</param>
-        /// <returns>An <see cref="ObservableCollection{T}"/> of <see cref="Company"/> objects representing the companies
-        /// associated with the specified contact.  Returns an empty collection if no companies are associated with the
-        /// contact or if an error occurs.</returns>
-        public StatefulCollection<Company> GetContactCompanies(Contact contact)
-        {
-            try
-            {
-                StatefulCollection<Company> contactCompanies = new StatefulCollection<Company>();
-
-                var contactCompanyAssignements = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.CompanyGuid != null);
-
-                if (contactCompanyAssignements != null && contactCompanyAssignements.Count() >= 0)
-                {
-                    foreach (var company in contactCompanyAssignements)
-                    {
-                        if (company.CompanyGuid != null)
-                        {
-                            var contactCompany = companyService.Get(company.CompanyGuid.Value);
-
-                            if (contactCompany != null && ContactCompanies != null)
-                            {
-                                contactCompanies.Add(contactCompany);
-                            }
-                        }
-                    }
-                }
-
-                return contactCompanies;
-            }
-            catch (Exception ex)
-            {
-                Log.LogManager.Singleton.Error("Error while getting contact companies: " + ex.Message, "ContactViewModel.GetContactCompanies");
-                return new StatefulCollection<Company>();
-            }
-        }
-        #endregion
-
-        #region Add Contact Related Data Methods
-        /// <summary>
-        /// Associates the specified address with the current contact.
-        /// </summary>
-        /// <remarks>This method creates a new assignment between the contact and the specified address. 
-        /// Ensure that the <see cref="Adress.Guid"/> property of the provided address is valid and not empty.</remarks>
-        /// <param name="adress">The address to associate with the contact. The <see cref="Adress.Guid"/> property must be set.</param>
-        /// <returns><see langword="true"/> if the address was successfully associated with the contact; otherwise, <see
-        /// langword="false"/>.</returns>
-        public bool AddAdressToContact(Adress adress)
-        {
-            if (ContactAdresses.Contains(adress))
-            {
-                Log.LogManager.Singleton.Warning("Adress is already assigned to contact.", "ContactEditor.AddAdressToContact");
-                return false;
             }
 
-            var contactAdressAssignement = new ContactAssignement
-            {
-                Guid = Guid.NewGuid(),
-                ContactGuid = Model.Guid,
-                AdressGuid = adress.Guid
-            };
-
-            if (contactAssignementService.New(contactAdressAssignement))
-            {
-                return true;
-            }
-
+            Log.LogManager.Singleton.Error("Model is null. Cannot create new Contact.", "ContactViewModel.CreateNewContact");
             return false;
         }
 
         /// <summary>
-        /// Associates a phone number with the current contact.
+        /// Updates the contact information in the service based on the current model.
         /// </summary>
-        /// <remarks>This method creates a new association between the specified phone number and the
-        /// current contact. Ensure that the <paramref name="phone"/> object is properly initialized before calling this
-        /// method.</remarks>
-        /// <param name="phone">The phone number to associate with the contact. The <see cref="Phone.Guid"/> property must be set.</param>
-        /// <returns><see langword="true"/> if the phone number was successfully associated with the contact; otherwise, <see
-        /// langword="false"/>.</returns>
-        public bool AddPhoneToContact(Phone phone)
+        /// <remarks>
+        /// This method attempts to update an existing contact in the service using the data from
+        /// the current model. If the contact does not exist, it attempts to create a new contact. Logs are generated for any
+        /// errors or exceptional conditions encountered during the operation.
+        /// </remarks>
+        /// <returns><see langword="true"/> if the contact was successfully updated or created; otherwise, <see langword="false"/>.</returns>
+        public bool UpdateContact()
         {
-            if(ContactPhoneNumbers.Contains(phone))
+            if (Model != null)
             {
-                Log.LogManager.Singleton.Warning("Phone is already assigned to contact.", "ContactEditor.AddPhoneToContact");
+                var contact = service.Get(Model.Guid);
+                if (contact != null)
+                {
+                    try
+                    {
+                        var updatedContact = new Contact
+                        {
+                            Guid = Model.Guid,
+                            FirstName = Model.FirstName,
+                            LastName = Model.LastName,
+                            ProfilePicturePath = Model.ProfilePicturePath,
+                            IsActive = Model.IsActive
+                        };
+
+                        if (service.Update(updatedContact))
+                            return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.LogManager.Singleton.Error($"Exception occurred while updating Contact: {ex.Message}", "ContactViewModel.UpdateContact");
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (CreateNewContact())
+                        return true;
+                }
+
+                Log.LogManager.Singleton.Error("Contact not found in service. Cannot update Contact.", "ContactViewModel.UpdateContact");
                 return false;
             }
 
-            var contactPhoneAssignement = new ContactAssignement
-            {
-                Guid = Guid.NewGuid(),
-                ContactGuid = Model.Guid,
-                PhoneGuid = phone.Guid
-            };
-
-            if (contactAssignementService.New(contactPhoneAssignement))
-            {
-                return true;
-            }
-
+            Log.LogManager.Singleton.Error("Model is null. Cannot update Contact.", "ContactViewModel.UpdateContact");
             return false;
         }
 
         /// <summary>
-        /// Associates the specified email with the current contact.
+        /// Adds an email to the contact's email collection.
         /// </summary>
-        /// <remarks>This method creates a new association between the contact and the specified email. 
-        /// Ensure that the provided email has a valid <see cref="Email.Guid"/> before calling this method.</remarks>
-        /// <param name="email">The email to be added to the contact. The <see cref="Email.Guid"/> property must be set.</param>
-        /// <returns><see langword="true"/> if the email was successfully associated with the contact; otherwise, <see
-        /// langword="false"/>.</returns>
+        /// <param name="email">The email to add.</param>
+        /// <returns>True if the email was added successfully, otherwise false.</returns>
         public bool AddEmailToContact(Email email)
         {
-            if(ContactEmails.Contains(email))
+            if (email != null)
             {
-                Log.LogManager.Singleton.Warning("Email is already assigned to contact.", "ContactEditor.AddEmailToContact");
-                return false;
+                if (emailService.New(email))
+                {
+                    Emails.Add(email);
+                    return true;
+                }
             }
-
-            var contactEmailAssignement = new ContactAssignement
-            {
-                Guid = Guid.NewGuid(),
-                ContactGuid = Model.Guid,
-                EmailGuid = email.Guid
-            };
-
-            if (contactAssignementService.New(contactEmailAssignement))
-            {
-                return true;
-            }
-
             return false;
         }
 
         /// <summary>
-        /// Associates the specified company with the current contact.
+        /// Removes an email from the contact's email collection.
         /// </summary>
-        /// <param name="company">The company to associate with the contact. Must not be <see langword="null"/>.</param>
-        /// <returns><see langword="true"/> if the company was successfully associated with the contact; otherwise, <see
-        /// langword="false"/>.</returns>
-        public bool AddCompanyToContact(Company company)
-        {
-            if(ContactCompanies.Contains(company))
-            {
-                Log.LogManager.Singleton.Warning("Company is already assigned to contact.", "ContactEditor.AddCompanyToContact");
-                return false;
-            }
-
-            var contactCompanyAssignement = new ContactAssignement
-            {
-                Guid = Guid.NewGuid(),
-                ContactGuid = Model.Guid,
-                CompanyGuid = company.Guid
-            };
-
-            if (contactAssignementService.New(contactCompanyAssignement))
-            {
-                return true;
-            }
-
-            return false;
-        }
-        #endregion
-
-        #region Remove Contact Related Data Methods
-        /// <summary>
-        /// Removes the specified address from the current contact.
-        /// </summary>
-        /// <remarks>The method checks if the specified address is associated with the current contact 
-        /// and removes the association if it exists. If the address is not associated with the  contact, the method
-        /// returns <see langword="false"/>.</remarks>
-        /// <param name="adress">The address to be removed from the contact.</param>
-        /// <returns><see langword="true"/> if the address was successfully removed from the contact;  otherwise, <see
-        /// langword="false"/>.</returns>
-        public bool RemoveAdressFromContact(Adress adress)
-        {
-            if(!ContactAdresses.Contains(adress))
-            {
-                Log.LogManager.Singleton.Warning("Adress is not assigned to contact.", "ContactEditor.RemoveAdressFromContact");
-                return false;
-            }
-
-            var contactAdressAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.AdressGuid == adress.Guid);
-            
-            if(contactAdressAssignement != null && contactAssignementService.Delete(contactAdressAssignement.Guid))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Removes the specified email from the current contact.
-        /// </summary>
-        /// <remarks>This method attempts to remove the association between the specified email and the
-        /// current contact. If no such association exists, the method returns <see langword="false"/>.</remarks>
-        /// <param name="email">The email to be removed from the contact. Must not be <see langword="null"/>.</param>
-        /// <returns><see langword="true"/> if the email was successfully removed from the contact; otherwise, <see
-        /// langword="false"/>.</returns>
+        /// <param name="email">The email to remove.</param>
+        /// <returns>True if the email was removed successfully, otherwise false.</returns>
         public bool RemoveEmailFromContact(Email email)
         {
-            if(!ContactEmails.Contains(email))
+            if (email != null)
             {
-                Log.LogManager.Singleton.Warning("Email is not assigned to contact.", "ContactEditor.RemoveEmailFromContact");
-                return false;
+                if (emailService.Delete(email.Guid))
+                {
+                    Emails.Remove(email);
+                    return true;
+                }
             }
-
-            var contactEmailAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.EmailGuid == email.Guid);
-
-            if (contactEmailAssignement != null && contactAssignementService.Delete(contactEmailAssignement.Guid))
-            {
-                return true;
-            }
-
             return false;
         }
 
         /// <summary>
-        /// Removes the specified phone number from the current contact.
+        /// Adds a phone number to the contact's phone collection.
         /// </summary>
-        /// <remarks>This method attempts to remove the association between the specified phone number and
-        /// the current contact. If no such association exists, the method returns <see langword="false"/>.</remarks>
-        /// <param name="phone">The phone number to be removed, identified by its unique identifier.</param>
-        /// <returns><see langword="true"/> if the phone number was successfully removed from the contact;  otherwise, <see
-        /// langword="false"/>.</returns>
+        /// <param name="phone">The phone number to add.</param>
+        /// <returns>True if the phone number was added successfully, otherwise false.</returns>
+        public bool AddPhoneToContact(Phone phone)
+        {
+            if (phone != null)
+            {
+                if (phoneService.New(phone))
+                {
+                    Phones.Add(phone);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Removes a phone number from the contact's phone collection.
+        /// </summary>
+        /// <param name="phone">The phone number to remove.</param>
+        /// <returns>True if the phone number was removed successfully, otherwise false.</returns>
         public bool RemovePhoneFromContact(Phone phone)
         {
-            if(!ContactPhoneNumbers.Contains(phone))
+            if (phone != null)
             {
-                Log.LogManager.Singleton.Warning("Phonenumber is not assigned to contact.", "ContactEditor.RemovePhoneFromContact");
-                return false;
+                if (phoneService.Delete(phone.Guid))
+                {
+                    Phones.Remove(phone);
+                    return true;
+                }
             }
-
-            var contactPhoneAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.PhoneGuid == phone.Guid);
-
-            if (contactPhoneAssignement != null && contactAssignementService.Delete(contactPhoneAssignement.Guid))
-            {
-                return true;
-            }
-
             return false;
         }
 
-        /// <summary>
-        /// Removes the specified company from the current contact's assignments.
-        /// </summary>
-        /// <remarks>This method attempts to remove the specified company from the current contact's
-        /// assignments. If the company is not assigned to the contact, the method returns <see langword="false"/>
-        /// without performing any operation.</remarks>
-        /// <param name="company">The company to be removed from the contact's assignments. Must not be <see langword="null"/>.</param>
-        /// <returns><see langword="true"/> if the company was successfully removed from the contact's assignments; otherwise,
-        /// <see langword="false"/> if the company was not assigned to the contact or the removal operation failed.</returns>
-        public bool RemoveCompanyFromContact(Company company)
-        {
-            if(!ContactCompanies.Contains(company))
-            {
-                Log.LogManager.Singleton.Warning("Company is not assigned to contact.", "ContactEditor.RemoveCompanyFromContact");
-                return false;
-            }
-
-            var contactCompanyAssignement = contactAssignementService.GetAll().FirstOrDefault(ca => ca.ContactGuid == Model.Guid && ca.CompanyGuid == company.Guid);
-
-            if (contactCompanyAssignement != null && contactAssignementService.Delete(contactCompanyAssignement.Guid))
-            {
-                return true;
-            }
-
-            return false;
-        }
-        #endregion
-
-        /// <summary>
-        /// Gets or sets the contact address associated with the entity.
-        /// </summary>
-        /// <remarks>Setting this property raises the <see cref="ViewModelBase{TKey, TModel}.OnPropertyChanged"/> event for the
-        /// <see cref="ContactAdress"/> property.</remarks>
-        public string ContactAdress
-        {
-            get { return ContactAdress; }
-            set
-            {
-                contactAdress = value;
-                OnPropertyChanged(nameof(ContactAdress));
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the contact phone number.
-        /// </summary>
-        /// <remarks>Setting this property raises the <see cref="ViewModelBase{TKey, TModel}.OnPropertyChanged"/> event for the
-        /// <see cref="ContactPhone"/> property.</remarks>
-        public string ContactPhone
-        {
-            get { return ContactPhoneNumber; }
-            set
-            {
-                ContactPhoneNumber = value;
-                OnPropertyChanged(nameof(ContactPhone));
-            }
-        }
-
-        #region Public Props Contact
+        #region Public Props
         /// <summary>
         /// Gets or sets the unique identifier of the contact.
         /// </summary>
         public Guid Guid
         {
-            get
-            {
-                return Model.Guid;
-            }
+            get => Model.Guid;
             set
             {
-                Model.Guid = value;
-                OnPropertyChanged(nameof(Guid));
+                if (!Equals(value, Model.Guid))
+                {
+                    Model.Guid = value;
+                    OnPropertyChanged(nameof(Guid));
+                }
             }
         }
 
@@ -526,14 +226,14 @@ namespace DCS.Contact.UI
         /// </summary>
         public string FirstName
         {
-            get
-            {
-                return Model.FirstName;
-            }
+            get => Model.FirstName;
             set
             {
-                Model.FirstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                if (!Equals(value, Model.FirstName))
+                {
+                    Model.FirstName = value;
+                    OnPropertyChanged(nameof(FirstName));
+                }
             }
         }
 
@@ -542,14 +242,30 @@ namespace DCS.Contact.UI
         /// </summary>
         public string LastName
         {
-            get
-            {
-                return Model.LastName;
-            }
+            get => Model.LastName;
             set
             {
-                Model.LastName = value;
-                OnPropertyChanged(nameof(LastName));
+                if (!Equals(value, Model.LastName))
+                {
+                    Model.LastName = value;
+                    OnPropertyChanged(nameof(LastName));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the path to the profile picture of the contact.
+        /// </summary>
+        public string ProfilePicturePath
+        {
+            get => Model.ProfilePicturePath;
+            set
+            {
+                if (!Equals(value, Model.ProfilePicturePath))
+                {
+                    Model.ProfilePicturePath = value;
+                    OnPropertyChanged(nameof(ProfilePicturePath));
+                }
             }
         }
 
@@ -558,184 +274,125 @@ namespace DCS.Contact.UI
         /// </summary>
         public bool IsActive
         {
-            get
-            {
-                return Model.IsActive;
-            }
+            get => Model.IsActive;
             set
             {
-                Model.IsActive = value;
-                OnPropertyChanged(nameof(IsActive));
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the creation date of the contact.
-        /// </summary>
-        public DateTime? CreationDate
-        {
-            get
-            {
-                return Model.CreationDate;
-            }
-            set
-            {
-                Model.CreationDate = value;
-                OnPropertyChanged(nameof(CreationDate));
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the date and time of the last modification.
-        /// </summary>
-        public DateTime? LastModificationDate
-        {
-            get
-            {
-                return Model.LastModificationDate;
-            }
-            set
-            {
-                Model.LastModificationDate = value;
-                OnPropertyChanged(nameof(LastModificationDate));
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the date and time when the contact was marked for deletion.
-        /// </summary>
-        public DateTime? DeleteDate
-        {
-            get
-            {
-                return Model.DeleteDate;
-            }
-            set
-            {
-                Model.DeleteDate = value;
-                OnPropertyChanged(nameof(DeleteDate));
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the file path to the contact's profile picture.
-        /// </summary>
-        public string? ProfilePicturePath
-        {
-            get
-            {
-                return Model.ProfilePicturePath;
-            }
-            set
-            {
-                Model.ProfilePicturePath = value;
-                OnPropertyChanged(nameof(ProfilePicturePath));
-            }
-        }
-        #endregion
-
-        #region Public Props Contact Related Data
-        /// <summary>
-        /// Gets or sets the name of the street associated with the contact's address.
-        /// </summary>
-        /// <remarks>Setting this property updates the corresponding street name in the underlying contact
-        /// address and raises the OnPropertyChanged event for the <see cref="Adress.StreetName"/> property.</remarks>
-        public string StreetName
-        {
-            get
-            {
-                return _contactAdress.StreetName;
-            }
-            set
-            {
-                if (_contactAdress != null)
+                if (!Equals(value, Model.IsActive))
                 {
-                    _contactAdress.StreetName = value;
-                    OnPropertyChanged(nameof(StreetName));
+                    Model.IsActive = value;
+                    OnPropertyChanged(nameof(IsActive));
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the house number associated with the contact address.
+        /// Gets or sets the street name of the contact's address.
         /// </summary>
-        /// <remarks>Setting this property raises the OnPropertyChanged event for the contact associated
-        /// <see cref="Adress.HouseNumber"/> property.</remarks>
-        public string HouseNumber
+        public string ContactStreetName
         {
-            get
-            {
-                return _contactAdress.HouseNumber;
-            }
+            get => adressViewModel.StreetName;
             set
             {
-                if (_contactAdress != null)
+                if (!Equals(value, adressViewModel.StreetName))
                 {
-                    _contactAdress.HouseNumber = value;
-                    OnPropertyChanged(nameof(HouseNumber));
+                    adressViewModel.StreetName = value;
+                    OnPropertyChanged(nameof(ContactStreetName));
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the city associated with the contact address.
+        /// Gets or sets the house number associated with the contact's address.
         /// </summary>
-        /// <remarks>Setting this property updates the city in the underlying contact address and raises
-        /// the OnPropertyChanged" event for the <see cref="Adress.City"/> property.</remarks>
-        public string City
+        public string ContactHouseNumber
         {
-            get
-            {
-                return _contactAdress.City;
-            }
+            get => adressViewModel.HouseNumber;
             set
             {
-                if (_contactAdress != null)
+                if (!Equals(value, adressViewModel.HouseNumber))
                 {
-                    _contactAdress.City = value;
-                    OnPropertyChanged(nameof(City));
+                    adressViewModel.HouseNumber = value;
+                    OnPropertyChanged(nameof(ContactHouseNumber));
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the postal code associated with the contact address.
+        /// Gets or sets the city associated with the contact's address.
         /// </summary>
-        /// <remarks>Setting this property updates the postal code in the underlying contact address and
-        /// raises the OnPropertyChanged event for the <see cref="Adress.PostalCode"/> property.</remarks>
-        public string PostalCode
+        public string ContactCity
         {
-            get
-            {
-                return _contactAdress.PostalCode;
-            }
+            get => adressViewModel.City;
             set
             {
-                if (_contactAdress != null)
+                if (!Equals(value, adressViewModel.City))
                 {
-                    _contactAdress.PostalCode = value;
-                    OnPropertyChanged(nameof(PostalCode));
+                    adressViewModel.City = value;
+                    OnPropertyChanged(nameof(ContactCity));
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the country associated with the contact address.
+        /// Gets or sets the postal code associated with the contact's address.
         /// </summary>
-        /// <remarks>Setting this property updates the country in the underlying contact address and
-        /// raises the OnPropertyChanged event for the <see cref="Adress.Country"/> property.</remarks>
-        public string Country
+        public string ContactPostalCode
         {
-            get
-            {
-                return _contactAdress.Country;
-            }
+            get => adressViewModel.PostalCode;
             set
             {
-                if (_contactAdress != null)
+                if (!Equals(value, adressViewModel.PostalCode))
                 {
-                    _contactAdress.Country = value;
-                    OnPropertyChanged(nameof(Country));
+                    adressViewModel.PostalCode = value;
+                    OnPropertyChanged(nameof(ContactPostalCode));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the country associated with the contact's address.
+        /// </summary>
+        public string ContactCountry
+        {
+            get => adressViewModel.Country;
+            set
+            {
+                if (!Equals(value, adressViewModel.Country))
+                {
+                    adressViewModel.Country = value;
+                    OnPropertyChanged(nameof(ContactCountry));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the collection of emails associated with the contact.
+        /// </summary>
+        public ObservableCollection<Email> Emails
+        {
+            get => Emails;
+            set
+            {
+                if (!Equals(value, Emails))
+                {
+                    Emails = value;
+                    OnPropertyChanged(nameof(Emails));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the collection of phone numbers associated with the contact.
+        /// </summary>
+        public ObservableCollection<Phone> Phones
+        {
+            get => Phones;
+            set
+            {
+                if (!Equals(value, Phones))
+                {
+                    Phones = value;
+                    OnPropertyChanged(nameof(Phones));
                 }
             }
         }

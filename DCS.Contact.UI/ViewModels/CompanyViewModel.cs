@@ -1,4 +1,5 @@
 ﻿using DCS.CoreLib.BaseClass;
+using System;
 using System.Collections.ObjectModel;
 
 namespace DCS.Contact.UI
@@ -18,6 +19,98 @@ namespace DCS.Contact.UI
         {
             this.Model = company;
             this.Collection = new ObservableCollection<Company>();
+        }
+
+        /// <summary>
+        /// Creates a new company based on the current model and adds it to the collection if successful.
+        /// </summary>
+        /// <remarks>
+        /// This method generates a new company using the properties of the <see cref="ViewModelBase{TKey, TModel}.Model"/>
+        /// object, assigns it a unique identifier, and attempts to save it using the company service. If the operation
+        /// succeeds, the new company is added to the <see cref="ViewModelBase{TKey, TModel}.Collection"/>. If the <see cref="ViewModelBase{TKey, TModel}.Model"/> is null or an
+        /// exception occurs during the operation, the method logs an error and returns <see langword="false"/>.
+        /// </remarks>
+        /// <returns><see langword="true"/> if the new company is successfully created and added to the collection; otherwise, <see langword="false"/>.</returns>
+        public bool CreateNewCompany()
+        {
+            if (Model != null)
+            {
+                try
+                {
+                    var newCompany = new Company
+                    {
+                        Guid = Guid.NewGuid(),
+                        Name = Model.Name,
+                        Description = Model.Description,
+                        Type = Model.Type,
+                        IsActive = Model.IsActive
+                    };
+
+                    if (service.New(newCompany))
+                    {
+                        Collection.Add(newCompany);
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.LogManager.Singleton.Error($"Exception occurred while creating new Company: {ex.Message}", "CompanyViewModel.CreateNewCompany");
+                    return false;
+                }
+            }
+
+            Log.LogManager.Singleton.Error("Model is null. Cannot create new Company.", "CompanyViewModel.CreateNewCompany");
+            return false;
+        }
+
+        /// <summary>
+        /// Updates the company information in the service based on the current model.
+        /// </summary>
+        /// <remarks>
+        /// This method attempts to update an existing company in the service using the data from
+        /// the current model. If the company does not exist, it attempts to create a new company. Logs are generated for any
+        /// errors or exceptional conditions encountered during the operation.
+        /// </remarks>
+        /// <returns><see langword="true"/> if the company was successfully updated or created; otherwise, <see langword="false"/>.</returns>
+        public bool UpdateCompany()
+        {
+            if (Model != null)
+            {
+                var company = service.Get(Model.Guid);
+                if (company != null)
+                {
+                    try
+                    {
+                        var updatedCompany = new Company
+                        {
+                            Guid = Model.Guid,
+                            Name = Model.Name,
+                            Description = Model.Description,
+                            Type = Model.Type,
+                            IsActive = Model.IsActive
+                        };
+
+                        if (service.Update(updatedCompany))
+                            return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.LogManager.Singleton.Error($"Exception occurred while updating Company: {ex.Message}", "CompanyViewModel.UpdateCompany");
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (CreateNewCompany())
+                        return true;
+                }
+
+                Log.LogManager.Singleton.Error("Company not found in service. Cannot update Company.", "CompanyViewModel.UpdateCompany");
+                return false;
+            }
+
+            Log.LogManager.Singleton.Error("Model is null. Cannot update Company.", "CompanyViewModel.UpdateCompany");
+            return false;
         }
 
         #region Public Props

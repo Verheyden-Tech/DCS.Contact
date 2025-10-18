@@ -39,7 +39,7 @@ namespace DCS.Contact.UI
         {
             if(Current.Model != null)
             {
-                if (viewModel.Save())
+                if (Current.UpdateType())
                     this.Close();
             }
         }

@@ -1,30 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-	  <Version>1.0.1201.0</Version>
-	  <AssemblyVersion>1.0.1201.0</AssemblyVersion>
-	  <ApplicationVersion>1.0.1201.0</ApplicationVersion>
-	  <OutputType>Library</OutputType>
-	  <Authors>Tobias Verheyden</Authors>
-	  <Company>Verheyden Tech</Company>
-	  <Description>Contact management for DCS.</Description>
-	  <RootNamespace>DCS.Contact</RootNamespace>
-	  <AssemblyName>DCS.Contact.Data</AssemblyName>
-	  <AssemblyType>Repository</AssemblyType>
-	  <PackageTags>DCS</PackageTags>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	  <UseWPF>true</UseWPF>
-	  <ImplicitUsings>enable</ImplicitUsings>
-	  <Nullable>enable</Nullable>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageOutputPath>Nuget</PackageOutputPath>
-	  <EnableNETAnalyzers>True</EnableNETAnalyzers>
-	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-	  <DocumentationFile>Documentation\API.Documentation</DocumentationFile>
+    <Version>1.0.1401.0</Version>
+    <AssemblyVersion>1.0.1201.0</AssemblyVersion>
+    <ApplicationVersion>1.0.1201.0</ApplicationVersion>
+    <OutputType>Library</OutputType>
+    <Authors>Tobias Verheyden</Authors>
+    <Company>Verheyden Tech</Company>
+    <Description>Contact management for DCS.</Description>
+    <RootNamespace>DCS.Contact</RootNamespace>
+    <AssemblyName>DCS.Contact.Data</AssemblyName>
+    <AssemblyType>Repository</AssemblyType>
+    <PackageTags>DCS</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>Nuget</PackageOutputPath>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>Documentation\API.Documentation</DocumentationFile>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Documentation\**" />
     <Compile Remove="Nuget\**" />
@@ -35,18 +34,15 @@
     <Page Remove="Documentation\**" />
     <Page Remove="Nuget\**" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="DCS.CoreLib" Version="1.1.401" />
-    <PackageReference Include="DCS.CoreLib.BaseClass" Version="1.1.501" />
-    <PackageReference Include="DCS.CoreLib.Collection" Version="1.1.401" />
-    <PackageReference Include="DCS.Data" Version="1.0.401" />
-    <PackageReference Include="DCS.User" Version="1.0.3501.1" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.3501.1" />
+    <PackageReference Include="DCS.CoreLib" Version="1.1.901" />
+    <PackageReference Include="DCS.CoreLib.BaseClass" Version="1.1.1001" />
+    <PackageReference Include="DCS.CoreLib.Collection" Version="1.1.1001" />
+    <PackageReference Include="DCS.Data" Version="1.0.701" />
+    <PackageReference Include="DCS.User" Version="1.0.4301.1" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.4101.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DCS.Contact\DCS.Contact.csproj" />
   </ItemGroup>
-
 </Project>
