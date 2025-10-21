@@ -14,6 +14,21 @@
             <c>PrimaryKeyColumn</c> constant (<c>Guid</c>) as the primary key. It leverages the provided <see
             cref="T:DCS.Data.ISqlService"/> to perform SQL-based operations.</remarks>
         </member>
+        <member name="F:DCS.Contact.Data.ContactAssignementRepository.TableName">
+            <summary>
+            Represents the name of the database table used for contact assignments.
+            </summary>
+            <remarks>This field is a constant string that specifies the table name
+            "VT_Contact_Assignement". It is intended for use in database operations where the table name is
+            required.</remarks>
+        </member>
+        <member name="F:DCS.Contact.Data.ContactAssignementRepository.PrimaryKeyColumn">
+            <summary>
+            Represents the name of the primary key column used in the database.
+            </summary>
+            <remarks>This field is set to "Guid" by default and is intended to be used as the identifier
+            for primary key operations.</remarks>
+        </member>
         <member name="M:DCS.Contact.Data.ContactAssignementRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
             Initializes a new instance of the <see cref="T:DCS.Contact.Data.ContactAssignementRepository"/> class,  providing access to the
@@ -26,35 +41,48 @@
         </member>
         <member name="T:DCS.Contact.Data.CompanyManagementRepository">
             <summary>
-            Company management repository to handle company data on the table.
+            Provides a repository for managing <see cref="T:DCS.Contact.Company"/> entities, including database operations such as
+            retrieval, insertion, and updates. This repository is specifically tailored to work with the
+            "dbo.VT_Contact_Company" database table.
+            </summary>
+            <remarks>This class extends <see cref="T:DCS.CoreLib.BaseClass.RepositoryBase`2"/> and implements <see
+            cref="T:DCS.Contact.ICompanyRepository"/>. It uses the provided <see cref="T:DCS.Data.ISqlService"/> to interact with the database. The
+            table name and primary key column are predefined as "dbo.VT_Contact_Company" and "Guid", respectively.</remarks>
+        </member>
+        <member name="F:DCS.Contact.Data.CompanyManagementRepository.TableName">
+            <summary>
+            Gets the name of the database table associated with the contact company.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.CompanyManagementRepository.tableName">
+        <member name="F:DCS.Contact.Data.CompanyManagementRepository.PrimaryKeyColumn">
             <summary>
-            Table name for the company data.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Data.CompanyManagementRepository.primaryKeyColumn">
-            <summary>
-            Primary key column for the company data.
+            Represents the name of the primary key column used in the database.
             </summary>
         </member>
         <member name="M:DCS.Contact.Data.CompanyManagementRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
-            Constructor for the company management repository.
+            Initializes a new instance of the <see cref="T:DCS.Contact.Data.CompanyManagementRepository"/> class.
             </summary>
+            <remarks>This constructor sets up the repository with the specified SQL service and
+            initializes the base repository with the table name and primary key column specific to the company
+            management data.</remarks>
+            <param name="sqlService">The SQL service used to interact with the database.</param>
         </member>
         <member name="T:DCS.Contact.Data.ContactRepository">
             <summary>
-            DCS ContactManagementRepository to manipulate contact data on the table.
+            Provides a repository for managing contact data, including operations for retrieving, updating, and deleting
+            contacts.
             </summary>
+            <remarks>This repository is built on top of the <see cref="T:DCS.CoreLib.BaseClass.RepositoryBase`2"/> class and
+            is tailored for managing contact entities identified by a <see cref="T:System.Guid"/> key. It uses the specified SQL
+            service to interact with the database.</remarks>
         </member>
-        <member name="P:DCS.Contact.Data.ContactRepository.tableName">
+        <member name="F:DCS.Contact.Data.ContactRepository.TableName">
             <summary>
             Table name for the contact data.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.ContactRepository.primaryKeyColumn">
+        <member name="F:DCS.Contact.Data.ContactRepository.PrimaryKeyColumn">
             <summary>
             Primary key column for the contact data.
             </summary>
@@ -66,103 +94,144 @@
         </member>
         <member name="T:DCS.Contact.Data.EmailRepository">
             <summary>
-            Repository for email data management on the table.
+            Provides functionality for managing email-related data in the database.
             </summary>
+            <remarks>The <see cref="T:DCS.Contact.Data.EmailRepository"/> class is responsible for interacting with the database to
+            perform operations related to email records. It uses the specified <see cref="T:DCS.Data.ISqlService"/> to execute database
+            queries and commands. This class extends <see cref="T:DCS.CoreLib.BaseClass.RepositoryBase`2"/> and implements <see
+            cref="T:DCS.Contact.IEmailAdressRepository"/> to provide a specialized repository for email data.</remarks>
         </member>
         <member name="F:DCS.Contact.Data.EmailRepository.TableName">
             <summary>
-            Table name for the repository.
+            Represents the name of the database table associated with contact email records.
             </summary>
+            <remarks>This field is a constant string that specifies the fully qualified name of the table 
+            in the database schema. It is intended to be used in database operations where the  table name is
+            required.</remarks>
         </member>
         <member name="F:DCS.Contact.Data.EmailRepository.PrimaryKeyColumn">
             <summary>
-            Primary key column for the repository.
+            Represents the name of the primary key column used in the database.
             </summary>
         </member>
         <member name="M:DCS.Contact.Data.EmailRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
-            Constructor for the repository.
+            Initializes a new instance of the <see cref="T:DCS.Contact.Data.EmailRepository"/> class.
             </summary>
+            <remarks>The <see cref="T:DCS.Contact.Data.EmailRepository"/> class provides functionality for managing
+            email-related data in the database. It relies on the specified <paramref name="sqlService"/> to perform
+            database operations.</remarks>
+            <param name="sqlService">The SQL service used to interact with the database. This parameter cannot be <see langword="null"/>.</param>
         </member>
         <member name="T:DCS.Contact.Data.GroupRepository">
             <summary>
-            Repository for group data management on the table.
+            Provides a repository for managing <see cref="T:DCS.Contact.Group"/> entities, including operations for retrieving, adding,
+            updating, and deleting groups in the database. This repository uses a SQL-based data store.
+            </summary>
+            <remarks>This class extends <see cref="T:DCS.CoreLib.BaseClass.RepositoryBase`2"/> to provide functionality
+            specific to <see cref="T:DCS.Contact.Group"/> entities. It relies on an <see cref="T:DCS.Data.ISqlService"/> implementation for database
+            interactions. The repository is configured to use the "dbo.VT_Contact_Group" table with "Guid" as the primary
+            key column.</remarks>
+        </member>
+        <member name="F:DCS.Contact.Data.GroupRepository.TableName">
+            <summary>
+            Specifies the name of the database table associated with the contact group.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.GroupRepository.tableName">
+        <member name="F:DCS.Contact.Data.GroupRepository.PrimaryKeyColumn">
             <summary>
-            Table name for the group repository.
+            Represents the name of the primary key column used in the database.
             </summary>
-        </member>
-        <member name="P:DCS.Contact.Data.GroupRepository.primaryKeyColumn">
-            <summary>
-            Primary key column for the repository.
-            </summary>
+            <remarks>The value of this field is a constant string, "Guid", which is typically used to
+            identify the primary key column in database tables.</remarks>
         </member>
         <member name="M:DCS.Contact.Data.GroupRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
-            Constructor for the repository.
+            Initializes a new instance of the <see cref="T:DCS.Contact.Data.GroupRepository"/> class with the specified SQL service.
             </summary>
+            <param name="sqlService">The SQL service used to interact with the database.</param>
         </member>
         <member name="T:DCS.Contact.Data.PhoneRepository">
             <summary>
-            Phone Management Repository to handle phone data on the table.
+            Provides data access functionality for managing phone records in the database.
             </summary>
+            <remarks>This repository is responsible for interacting with the <see cref="F:DCS.Contact.Data.PhoneRepository.TableName"/> table in the
+            database and uses the specified <see cref="F:DCS.Contact.Data.PhoneRepository.PrimaryKeyColumn"/> as the primary key. It extends the functionality
+            of <see cref="T:DCS.CoreLib.BaseClass.RepositoryBase`2"/> to provide operations specific to the <see cref="T:DCS.Contact.Phone"/>
+            entity.</remarks>
         </member>
         <member name="F:DCS.Contact.Data.PhoneRepository.TableName">
             <summary>
-            Table name for PhoneManagementRepository.
+            Specifies the name of the database table associated with contact phone records.
             </summary>
         </member>
         <member name="F:DCS.Contact.Data.PhoneRepository.PrimaryKeyColumn">
             <summary>
-            Primary key column for PhoneManagementRepository.
+            Represents the name of the primary key column used in the database.
             </summary>
         </member>
         <member name="M:DCS.Contact.Data.PhoneRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
-            Constructor for PhoneManagementRepository.
+            Initializes a new instance of the <see cref="T:DCS.Contact.Data.PhoneRepository"/> class, providing access to phone-related
+            data operations.
             </summary>
+            <remarks>This constructor sets up the repository with the specified SQL service, using
+            predefined table and primary key column names. Ensure that the <paramref name="sqlService"/> parameter is
+            properly configured before using this repository.</remarks>
+            <param name="sqlService">The <see cref="T:DCS.Data.ISqlService"/> instance used to interact with the database.</param>
         </member>
         <member name="T:DCS.Contact.Data.PhysicalAdressRepository">
             <summary>
-            PhysicalAdressManagementRepository to handle physical adress data on the table.
+            Provides data access functionality for managing physical addresses in the database.
             </summary>
+            <remarks>This repository is responsible for interacting with the <see cref="F:DCS.Contact.Data.PhysicalAdressRepository.TableName"/> table in the
+            database. It uses the specified <see cref="T:DCS.Data.ISqlService"/> to perform operations such as querying, inserting,
+            updating, and deleting records. The repository is initialized with the table name <c>dbo.VT_Contact_Adress</c>
+            and the primary key column <c>Guid</c>.</remarks>
         </member>
         <member name="F:DCS.Contact.Data.PhysicalAdressRepository.TableName">
             <summary>
-            Table name for PhysicalAdressManagementRepository.
+            Specifies the name of the database table associated with contact addresses.
             </summary>
+            <remarks>This field represents the fully qualified name of the table, including the
+            schema.</remarks>
         </member>
         <member name="F:DCS.Contact.Data.PhysicalAdressRepository.PrimaryKeyColumn">
             <summary>
-            Primary key column for PhysicalAdressManagementRepository.
+            Represents the name of the primary key column used in the database.
             </summary>
         </member>
         <member name="M:DCS.Contact.Data.PhysicalAdressRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
-            Constructor for PhysicalAdressManagementRepository.
+            Initializes a new instance of the <see cref="T:DCS.Contact.Data.PhysicalAdressRepository"/> class with the specified SQL
+            service.
             </summary>
+            <param name="sqlService">The SQL service used to interact with the database.</param>
         </member>
         <member name="T:DCS.Contact.Data.RoleRepository">
             <summary>
-            Repository class for Role data.
+            Provides data access functionality for managing roles in the system.
+            </summary>
+            <remarks>This repository is responsible for interacting with the database table <see
+            cref="F:DCS.Contact.Data.RoleRepository.TableName"/>  and performing operations related to roles. It uses the specified SQL service for database
+            communication.</remarks>
+        </member>
+        <member name="F:DCS.Contact.Data.RoleRepository.TableName">
+            <summary>
+            Represents the name of the database table associated with the contact role entity.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Data.RoleRepository.tableName">
+        <member name="F:DCS.Contact.Data.RoleRepository.PrimaryKeyColumn">
             <summary>
-            Table name for RoleManagementRepository.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Data.RoleRepository.primaryKeyColumn">
-            <summary>
-            Primary key column for RoleManagementRepository.
+            Represents the name of the primary key column used in the database.
             </summary>
         </member>
         <member name="M:DCS.Contact.Data.RoleRepository.#ctor(DCS.Data.ISqlService)">
             <summary>
-            Constructor for RoleManagementRepository.
+            Initializes a new instance of the <see cref="T:DCS.Contact.Data.RoleRepository"/> class, providing access to role-related data
+            operations.
             </summary>
+            <param name="sqlService">The SQL service used to interact with the database. This parameter cannot be null.</param>
         </member>
         <member name="T:DCS.Contact.Data.TypeRepository">
             <summary>
@@ -171,6 +240,20 @@
             <remarks>This repository is designed to interact with the database table <c>VT_Contact_Type</c>, using
             <see cref="T:System.Guid"/> as the primary key. It leverages the provided <see cref="T:DCS.Data.ISqlService"/> to execute database
             operations.</remarks>
+        </member>
+        <member name="F:DCS.Contact.Data.TypeRepository.TableName">
+            <summary>
+            Specifies the name of the database table associated with contact types.
+            </summary>
+            <remarks>This field is a constant string representing the table name "VT_Contact_Type". It is
+            intended for use in database operations where the table name is required.</remarks>
+        </member>
+        <member name="F:DCS.Contact.Data.TypeRepository.PrimaryKeyColumn">
+            <summary>
+            Represents the name of the primary key column used in the database.
+            </summary>
+            <remarks>This field is set to "Guid" by default and is intended to be used as the identifier
+            for primary key operations.</remarks>
         </member>
         <member name="M:DCS.Contact.Data.TypeRepository.#ctor(DCS.Data.ISqlService)">
             <summary>

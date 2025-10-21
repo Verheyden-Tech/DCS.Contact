@@ -6,8 +6,12 @@
     <members>
         <member name="T:DCS.Contact.ICompanyRepository">
             <summary>
-            Company management repository to handle company data on the table.
+            Defines a repository interface for managing <see cref="T:DCS.Contact.Company"/> entities, identified by a <see cref="T:System.Guid"/>
+            key.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IRepositoryBase`2"/> to provide a contract for
+            data access operations  specific to <see cref="T:DCS.Contact.Company"/> entities. Implementations of this interface should
+            handle the persistence and retrieval  of <see cref="T:DCS.Contact.Company"/> objects.</remarks>
         </member>
         <member name="T:DCS.Contact.IContactAssignementRepository">
             <summary>
@@ -20,33 +24,50 @@
         </member>
         <member name="T:DCS.Contact.IContactRepository">
             <summary>
-            DCS ContactManagementRepository to manipulate contact data on the table.
+            Defines a repository for managing <see cref="T:DCS.Contact.Contact"/> entities, identified by a <see cref="T:System.Guid"/>.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IRepositoryBase`2"/> to provide a contract for
+            operations specific to <see cref="T:DCS.Contact.Contact"/> entities. Implementations of this interface  should handle data
+            access and persistence for contacts.</remarks>
         </member>
         <member name="T:DCS.Contact.IEmailAdressRepository">
             <summary>
-            Repository for email data management on the table.
+            Defines a repository for managing email addresses, providing methods for data access and manipulation.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IRepositoryBase`2"/> with <see cref="T:System.Guid"/>
+            as the key type  and <see cref="T:DCS.Contact.Email"/> as the entity type. It is intended to handle operations specific to
+            email address entities.</remarks>
         </member>
         <member name="T:DCS.Contact.IGroupRepository">
             <summary>
-            Repository for group data management on the table.
+            Defines a repository for managing <see cref="T:DCS.Contact.Group"/> entities, identified by a <see cref="T:System.Guid"/> key.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IRepositoryBase`2"/> to provide functionality
+            specific to <see cref="T:DCS.Contact.Group"/> entities. It serves as a contract for implementing data access operations
+            related to groups.</remarks>
         </member>
         <member name="T:DCS.Contact.IPhoneRepository">
             <summary>
-            Phone Management Repository to handle phone data on the table.
+            Defines a repository for managing <see cref="T:DCS.Contact.Phone"/> entities, identified by a <see cref="T:System.Guid"/>.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IRepositoryBase`2"/> to provide functionality
+            specific to <see cref="T:DCS.Contact.Phone"/> entities. Implementations of this interface should handle data access operations
+            such as retrieving, adding, updating, and deleting <see cref="T:DCS.Contact.Phone"/> objects.</remarks>
         </member>
         <member name="T:DCS.Contact.IPhysicalAdressRepository">
             <summary>
-            Physical Adress Management Repository to handle physical adress data on the table.
+            Defines a repository for managing physical address entities.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IRepositoryBase`2"/> to provide functionality
+            specific to managing <see cref="T:DCS.Contact.Adress"/> entities identified by a <see cref="T:System.Guid"/>.</remarks>
         </member>
         <member name="T:DCS.Contact.IRoleRepository">
             <summary>
-            Interface for RoleManagementRepository to handle role data on the table.
+            Defines a repository for managing <see cref="T:DCS.Contact.Role"/> entities, identified by a <see cref="T:System.Guid"/> key.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IRepositoryBase`2"/> to provide functionality
+            specific to <see cref="T:DCS.Contact.Role"/> entities. It serves as a contract for implementing data access operations related
+            to roles.</remarks>
         </member>
         <member name="T:DCS.Contact.ITypeRepository">
             <summary>
@@ -59,8 +80,11 @@
         </member>
         <member name="T:DCS.Contact.ICompanyService">
             <summary>
-            Company service to handle company data.
+            Defines the contract for operations related to managing companies.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
+            functionality specific to the <see cref="T:DCS.Contact.Company"/> entity. It serves as a blueprint for implementing business
+            logic and data access for company-related operations.</remarks>
         </member>
         <member name="T:DCS.Contact.IContactAssignementService">
             <summary>
@@ -208,33 +232,53 @@
         </member>
         <member name="T:DCS.Contact.IContactService">
             <summary>
-            Represents the contact service to handle and manipulate contact data on the table.
+            Defines the contract for managing and interacting with contact entities.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
+            functionality specific to the <see cref="T:DCS.Contact.Contact"/> entity. It is intended to be implemented by services that
+            handle operations such as creating, updating, retrieving, and deleting contact records.</remarks>
         </member>
         <member name="T:DCS.Contact.IEmailAdressService">
             <summary>
-            EmailAdressService to manipulate emailadress data.
+            Defines the contract for managing email addresses within the application.
             </summary>
+            <remarks>This interface extends the <see cref="T:DCS.CoreLib.IServiceBase`3"/> interface, 
+            providing functionality specific to the handling of email addresses. It is designed to work  with a repository
+            implementation of type <see cref="T:DCS.Contact.IEmailAdressRepository"/>.</remarks>
         </member>
         <member name="T:DCS.Contact.IGroupService">
             <summary>
-            Service for group data management on the table.
+            Defines the contract for managing and interacting with groups within the application.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
+            group-specific functionality. It serves as the abstraction for operations related to the <see cref="T:DCS.Contact.Group"/>
+            entity, such as retrieval, creation, updating, and deletion.</remarks>
         </member>
         <member name="T:DCS.Contact.IPhoneService">
             <summary>
-            Phone Service to handle phone data on the table.
+            Defines the contract for managing phone entities, including operations for retrieving, creating, updating, and
+            deleting phones.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> with <see
+            cref="T:System.Guid"/> as the key type, <see cref="T:DCS.Contact.Phone"/> as the entity type, and <see cref="T:DCS.Contact.IPhoneRepository"/> as the
+            repository type. It provides a standardized way to interact with phone-related data.</remarks>
         </member>
         <member name="T:DCS.Contact.IPhysicalAdressService">
             <summary>
-            Physical Adress Service to handle contact adress data on the table.
+            Defines the contract for managing physical address entities, including operations for retrieving, creating,
+            updating, and deleting addresses.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide a
+            standardized set of operations for handling physical address data. Implementations of this service are expected
+            to interact with a repository of type <see cref="T:DCS.Contact.IPhysicalAdressRepository"/>.</remarks>
         </member>
         <member name="T:DCS.Contact.IRoleService">
             <summary>
-            DCS RoleService to manipulate role data.
+            Defines the contract for managing roles within the application.
             </summary>
+            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
+            role-specific operations. Implementations of this interface are responsible for handling role-related business
+            logic and data access through the associated repository.</remarks>
         </member>
         <member name="T:DCS.Contact.ITypeService">
             <summary>

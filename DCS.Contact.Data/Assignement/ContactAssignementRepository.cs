@@ -15,7 +15,19 @@ namespace DCS.Contact.Data
     {
         private readonly ISqlService sqlService = CommonServiceLocator.ServiceLocator.Current.GetInstance<ISqlService>();
 
+        /// <summary>
+        /// Represents the name of the database table used for contact assignments.
+        /// </summary>
+        /// <remarks>This field is a constant string that specifies the table name
+        /// "VT_Contact_Assignement". It is intended for use in database operations where the table name is
+        /// required.</remarks>
         private static readonly new string TableName = "VT_Contact_Assignement";
+
+        /// <summary>
+        /// Represents the name of the primary key column used in the database.
+        /// </summary>
+        /// <remarks>This field is set to "Guid" by default and is intended to be used as the identifier
+        /// for primary key operations.</remarks>
         private static readonly new string PrimaryKeyColumn = "Guid";
 
         /// <summary>

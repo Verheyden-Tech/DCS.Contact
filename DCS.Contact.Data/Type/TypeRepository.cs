@@ -13,7 +13,18 @@ namespace DCS.Contact.Data
     {
         private readonly ISqlService sqlService = CommonServiceLocator.ServiceLocator.Current.GetInstance<ISqlService>();
 
+        /// <summary>
+        /// Specifies the name of the database table associated with contact types.
+        /// </summary>
+        /// <remarks>This field is a constant string representing the table name "VT_Contact_Type". It is
+        /// intended for use in database operations where the table name is required.</remarks>
         private static readonly new string TableName = "VT_Contact_Type";
+
+        /// <summary>
+        /// Represents the name of the primary key column used in the database.
+        /// </summary>
+        /// <remarks>This field is set to "Guid" by default and is intended to be used as the identifier
+        /// for primary key operations.</remarks>
         private static readonly new string PrimaryKeyColumn = "Guid";
 
         /// <summary>

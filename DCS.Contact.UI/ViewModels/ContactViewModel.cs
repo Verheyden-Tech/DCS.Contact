@@ -9,9 +9,9 @@ namespace DCS.Contact.UI
     /// </summary>
     public class ContactViewModel : ViewModelBase<Guid, Contact>
     {
-        private IContactService service = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
-        private IEmailAdressService emailService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
-        private IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
+        private readonly IContactService service = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
+        private readonly IEmailAdressService emailService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IEmailAdressService>();
+        private readonly IPhoneService phoneService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhoneService>();
         private readonly IContactAssignementService contactAssignementService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactAssignementService>();
         private readonly IPhysicalAdressService adressService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IPhysicalAdressService>();
 
@@ -40,6 +40,7 @@ namespace DCS.Contact.UI
             }
         }
 
+        #region Create, Update, Delete Contact
         /// <summary>
         /// Creates a new contact based on the current model and adds it to the collection if successful.
         /// </summary>
@@ -133,6 +134,47 @@ namespace DCS.Contact.UI
         }
 
         /// <summary>
+        /// Deletes the current contact from the database and removes it from the collection.
+        /// </summary>
+        /// <remarks>This method attempts to delete the contact represented by the current <see
+        /// cref="Model"/> from the database. If the contact is successfully deleted, it is also removed from the <see
+        /// cref="Collection"/>. If the contact does not exist in the database, or if an error occurs during the
+        /// deletion process, the method logs the error and returns <see langword="false"/>.</remarks>
+        /// <returns><see langword="true"/> if the contact was successfully deleted from the database and removed from the
+        /// collection; otherwise, <see langword="false"/>.</returns>
+        public bool DeleteContact()
+        {
+            if (Model != null)
+            {
+                try
+                {
+                    var existingContact = service.Get(Model.Guid);
+                    if(existingContact != null)
+                    {
+                        if (service.Delete(Model.Guid))
+                        {
+                            Collection.Remove(Model);
+                            return true;
+                        }
+                    }
+                    
+                    Log.LogManager.Singleton.Error($"Contact {Model.FirstName} {Model.LastName} not found in database. Cannot delete Contact.", "ContactViewModel.DeleteContact");
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    Log.LogManager.Singleton.Error($"Exception occurred while deleting Contact: {ex.Message}", "ContactViewModel.DeleteContact");
+                    return false;
+                }
+            }
+
+            Log.LogManager.Singleton.Error("Model is null. Cannot delete Contact.", "ContactViewModel.DeleteContact");
+            return false;
+        }
+        #endregion
+
+        #region Add/Remove Email and Phone to/from Contact
+        /// <summary>
         /// Adds an email to the contact's email collection.
         /// </summary>
         /// <param name="email">The email to add.</param>
@@ -203,8 +245,9 @@ namespace DCS.Contact.UI
             }
             return false;
         }
+        #endregion
 
-        #region Public Props
+        #region Properties
         /// <summary>
         /// Gets or sets the unique identifier of the contact.
         /// </summary>
