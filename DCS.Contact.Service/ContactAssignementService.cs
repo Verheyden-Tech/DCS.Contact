@@ -34,7 +34,7 @@ namespace DCS.Contact.Service
                 AdressGuid = adressGuid
             };
 
-            if (New(assignement).Result)
+            if (New(assignement))
                 return true;
 
             return false;
@@ -43,9 +43,9 @@ namespace DCS.Contact.Service
         /// <inheritdoc/>
         public bool RemoveAdressFromContact(Guid contactGuid, Guid adressGuid)
         {
-            var assignement = GetAll().Result.FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.AdressGuid == adressGuid);
+            var assignement = GetAll().FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.AdressGuid == adressGuid);
 
-            if (assignement != null && Delete(assignement.Guid).Result)
+            if (assignement != null && Delete(assignement.Guid))
                 return true;
 
             return false;
@@ -60,7 +60,7 @@ namespace DCS.Contact.Service
                 EmailGuid = emailGuid
             };
 
-            if (New(assignement).Result)
+            if (New(assignement))
                 return true;
 
             return false;
@@ -69,9 +69,9 @@ namespace DCS.Contact.Service
         /// <inheritdoc/>
         public bool RemoveEmailFromContact(Guid contactGuid, Guid emailGuid)
         {
-            var assignement = GetAll().Result.FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.EmailGuid == emailGuid);
+            var assignement = GetAll().FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.EmailGuid == emailGuid);
 
-            if (assignement != null && Delete(assignement.Guid).Result)
+            if (assignement != null && Delete(assignement.Guid))
                 return true;
 
             return false;
@@ -86,7 +86,7 @@ namespace DCS.Contact.Service
                 PhoneGuid = phoneGuid
             };
 
-            if (New(assignement).Result)
+            if (New(assignement))
                 return true;
 
             return false;
@@ -95,9 +95,9 @@ namespace DCS.Contact.Service
         /// <inheritdoc/>
         public bool RemovePhoneFromContact(Guid contactGuid, Guid phoneGuid)
         {
-            var assignement = GetAll().Result.FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.PhoneGuid == phoneGuid);
+            var assignement = GetAll().FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.PhoneGuid == phoneGuid);
 
-            if (assignement != null && Delete(assignement.Guid).Result)
+            if (assignement != null && Delete(assignement.Guid))
                 return true;
 
             return false;
@@ -112,7 +112,7 @@ namespace DCS.Contact.Service
                 CompanyGuid = companyGuid
             };
 
-            if (New(assignement).Result)
+            if (New(assignement))
                 return true;
 
             return false;
@@ -121,9 +121,9 @@ namespace DCS.Contact.Service
         /// <inheritdoc/>
         public bool RemoveCompanyFromContact(Guid contactGuid, Guid companyGuid)
         {
-            var assignement = GetAll().Result.FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.CompanyGuid == companyGuid);
+            var assignement = GetAll().FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.CompanyGuid == companyGuid);
 
-            if (assignement != null && Delete(assignement.Guid).Result)
+            if (assignement != null && Delete(assignement.Guid))
                 return true;
 
             return false;
@@ -138,7 +138,7 @@ namespace DCS.Contact.Service
                 GroupGuid = groupGuid
             };
 
-            if (New(assignement).Result)
+            if (New(assignement))
                 return true;
 
             return false;
@@ -147,9 +147,9 @@ namespace DCS.Contact.Service
         /// <inheritdoc/>
         public bool RemoveGroupFromContact(Guid contactGuid, Guid groupGuid)
         {
-            var assignement = GetAll().Result.FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.GroupGuid == groupGuid);
+            var assignement = GetAll().FirstOrDefault(ca => ca.ContactGuid == contactGuid && ca.GroupGuid == groupGuid);
 
-            if (assignement != null && Delete(assignement.Guid).Result)
+            if (assignement != null && Delete(assignement.Guid))
                 return true;
 
             return false;
@@ -164,7 +164,7 @@ namespace DCS.Contact.Service
                 RoleGuid = roleGuid
             };
 
-            if (New(assignement).Result)
+            if (New(assignement))
                 return true;
 
             return false;
@@ -173,9 +173,9 @@ namespace DCS.Contact.Service
         /// <inheritdoc/>
         public bool RemoveRoleFromContact(Guid contactId, Guid roleGuid)
         {
-            var assignement = GetAll().Result.FirstOrDefault(ca => ca.ContactGuid == contactId && ca.RoleGuid == roleGuid);
+            var assignement = GetAll().FirstOrDefault(ca => ca.ContactGuid == contactId && ca.RoleGuid == roleGuid);
 
-            if (assignement != null && Delete(assignement.Guid).Result)
+            if (assignement != null && Delete(assignement.Guid))
                 return true;
 
             return false;

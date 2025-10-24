@@ -44,7 +44,7 @@ namespace DCS.Contact.UI
                         IsActive = true // Default to active
                     };
 
-                    if (emailAdressService.New(newEmail).Result)
+                    if (emailAdressService.New(newEmail))
                     {
                         Collection.Add(newEmail);
                         return true;
@@ -87,7 +87,7 @@ namespace DCS.Contact.UI
                             IsActive = Model.IsActive
                         };
 
-                        if (emailAdressService.Update(updatedEmail).Result)
+                        if (emailAdressService.Update(updatedEmail))
                             return true;
                     }
                     catch (Exception ex)

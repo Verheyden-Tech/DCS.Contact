@@ -29,10 +29,10 @@ namespace DCS.Contact.UI
             var adressObj = new Adress();
             adressViewModel = new PhysicalAdressViewModel(adressObj);
 
-            var contactAdress = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null).FirstOrDefault();
+            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null).FirstOrDefault();
             if (contactAdress != null)
             {
-                var adress = adressService.Get((Guid)contactAdress.AdressGuid).Result;
+                var adress = adressService.Get((Guid)contactAdress.AdressGuid);
                 if (adress != null)
                 {
                     adressViewModel = new PhysicalAdressViewModel(adress);
@@ -66,7 +66,7 @@ namespace DCS.Contact.UI
                         IsActive = Model.IsActive
                     };
 
-                    if (service.New(newContact).Result)
+                    if (service.New(newContact))
                     {
                         Collection.Add(newContact);
                         return true;
@@ -96,7 +96,7 @@ namespace DCS.Contact.UI
         {
             if (Model != null)
             {
-                var contact = service.Get(Model.Guid).Result;
+                var contact = service.Get(Model.Guid);
                 if (contact != null)
                 {
                     try
@@ -110,7 +110,7 @@ namespace DCS.Contact.UI
                             IsActive = Model.IsActive
                         };
 
-                        if (service.Update(updatedContact).Result)
+                        if (service.Update(updatedContact))
                             return true;
                     }
                     catch (Exception ex)
@@ -148,10 +148,10 @@ namespace DCS.Contact.UI
             {
                 try
                 {
-                    var existingContact = service.Get(Model.Guid).Result;
+                    var existingContact = service.Get(Model.Guid);
                     if(existingContact != null)
                     {
-                        if (service.Delete(Model.Guid).Result)
+                        if (service.Delete(Model.Guid))
                         {
                             Collection.Remove(Model);
                             return true;
@@ -183,7 +183,7 @@ namespace DCS.Contact.UI
         {
             if (email != null)
             {
-                if (emailService.New(email).Result)
+                if (emailService.New(email))
                 {
                     Emails.Add(email);
                     return true;
@@ -201,7 +201,7 @@ namespace DCS.Contact.UI
         {
             if (email != null)
             {
-                if (emailService.Delete(email.Guid).Result)
+                if (emailService.Delete(email.Guid))
                 {
                     Emails.Remove(email);
                     return true;
@@ -219,7 +219,7 @@ namespace DCS.Contact.UI
         {
             if (phone != null)
             {
-                if (phoneService.New(phone).Result)
+                if (phoneService.New(phone))
                 {
                     Phones.Add(phone);
                     return true;
@@ -237,7 +237,7 @@ namespace DCS.Contact.UI
         {
             if (phone != null)
             {
-                if (phoneService.Delete(phone.Guid).Result)
+                if (phoneService.Delete(phone.Guid))
                 {
                     Phones.Remove(phone);
                     return true;

@@ -38,7 +38,7 @@ namespace DCS.Contact.UI
             {
                 if (MessageBox.Show($"Möchten Sie den Kontakt {contact.FirstName} {contact.LastName} wirklich löschen?", "Kontakt löschen?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    if (contactService.Delete(contact.Guid).Result)
+                    if (contactService.Delete(contact.Guid))
                         MainGridView.Items.Refresh();
                 }
                 else

@@ -39,10 +39,10 @@ namespace DCS.Contact.UI
             this.DataContext = viewModel;
 
             //Get contact adress
-            var contactAdress = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == obj.Guid && ca.AdressGuid != null).FirstOrDefault();
+            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.AdressGuid != null).FirstOrDefault();
             if (contactAdress != null && contactAdress.AdressGuid != null && contactAdress.AdressGuid.HasValue == true)
             {
-                var adress = physicalAdressService.Get((Guid)contactAdress.AdressGuid).Result;
+                var adress = physicalAdressService.Get((Guid)contactAdress.AdressGuid);
                 if (adress != null)
                 {
                     StreetNameTextBox.Text = adress.StreetName;
@@ -54,27 +54,27 @@ namespace DCS.Contact.UI
             }
 
             //Get contact email adresses
-            var contactEmailAdresses = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == obj.Guid && ca.EmailGuid != null);
+            var contactEmailAdresses = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.EmailGuid != null);
             if (contactEmailAdresses != null && contactEmailAdresses.Count() >= 0)
             {
                 foreach (var email in contactEmailAdresses)
                 {
                     if (email.EmailGuid.HasValue != false)
                     {
-                        ContactEmailAdresses.Add(emailAdressService.Get((Guid)email.EmailGuid).Result);
+                        ContactEmailAdresses.Add(emailAdressService.Get((Guid)email.EmailGuid));
                     }
                 }
             }
 
             //Get contact phone numbers
-            var contactPhoneNumbers = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == obj.Guid && ca.PhoneGuid != null);
+            var contactPhoneNumbers = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == obj.Guid && ca.PhoneGuid != null);
             if (contactPhoneNumbers != null && contactPhoneNumbers.Count() >= 0)
             {
                 foreach (var phone in contactPhoneNumbers)
                 {
                     if (phone.PhoneGuid.HasValue != false)
                     {
-                        ContactPhoneNumbers.Add(phoneService.Get((Guid)phone.PhoneGuid).Result);
+                        ContactPhoneNumbers.Add(phoneService.Get((Guid)phone.PhoneGuid));
                     }
                 }
             }
@@ -130,10 +130,10 @@ namespace DCS.Contact.UI
                 switch (selectedItem)
                 {
                     case Email email:
-                        var mailAdressAssignement = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == Current.Model.Guid && ca.EmailGuid == email.Guid).FirstOrDefault();
+                        var mailAdressAssignement = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == Current.Model.Guid && ca.EmailGuid == email.Guid).FirstOrDefault();
                         if (mailAdressAssignement != null)
                         {
-                            if (contactAssignementService.Delete(mailAdressAssignement.Guid).Result)
+                            if (contactAssignementService.Delete(mailAdressAssignement.Guid))
                             {
                                 viewModel.RemoveEmailFromContact(email);
                             }
@@ -147,10 +147,10 @@ namespace DCS.Contact.UI
                         break;
 
                     case Phone phone:
-                        var phoneNumberAssignement = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == Current.Model.Guid && ca.PhoneGuid == phone.Guid).FirstOrDefault();
+                        var phoneNumberAssignement = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == Current.Model.Guid && ca.PhoneGuid == phone.Guid).FirstOrDefault();
                         if (phoneNumberAssignement != null)
                         {
-                            if (contactAssignementService.Delete(phoneNumberAssignement.Guid).Result)
+                            if (contactAssignementService.Delete(phoneNumberAssignement.Guid))
                             {
                                 viewModel.RemovePhoneFromContact(phone);
                             }
@@ -230,7 +230,7 @@ namespace DCS.Contact.UI
                     EmailGuid = email.Guid
                 };
 
-                if (contactAssignementService.New(assignement).Result)
+                if (contactAssignementService.New(assignement))
                 {
                     if (viewModel.AddEmailToContact(email))
                         EmailAdressTextBox.Text = string.Empty;
@@ -262,7 +262,7 @@ namespace DCS.Contact.UI
                     PhoneGuid = phone.Guid
                 };
 
-                if (contactAssignementService.New(assignement).Result)
+                if (contactAssignementService.New(assignement))
                 {
                     if (viewModel.AddPhoneToContact(phone))
                         PhoneNumberTextBox.Text = string.Empty;
@@ -279,10 +279,10 @@ namespace DCS.Contact.UI
         private void UpdateAdressButton_Click(object sender, RoutedEventArgs e)
         {
             var contact = Current.Collection.Where(ca => ca.Guid == Current.Model.Guid).First();
-            var contactAdress = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null).First();
+            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null).First();
             if(contactAdress != null && contactAdress.Guid != Guid.Empty)
             {
-                var adress = physicalAdressService.Get((Guid)contactAdress.AdressGuid).Result;
+                var adress = physicalAdressService.Get((Guid)contactAdress.AdressGuid);
                 if (adress != null)
                 {
                     adress.StreetName = StreetNameTextBox.Text;
@@ -291,7 +291,7 @@ namespace DCS.Contact.UI
                     adress.PostalCode = PostalCodeTextBox.Text;
                     adress.Country = CountryTextBox.Text;
 
-                    if (!physicalAdressService.Update(adress).Result)
+                    if (!physicalAdressService.Update(adress))
                     {
                         Log.LogManager.Singleton.Error("Fehler beim Aktualisieren der Adresse.", "ContactEditor.UpdateAdressButton_Click");
                         MessageBox.Show("Fehler beim Aktualisieren der Adresse.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);

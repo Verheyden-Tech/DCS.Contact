@@ -47,7 +47,7 @@ namespace DCS.Contact.UI
                         IsActive = true // Default to active
                     };
 
-                    if (physicalAdressService.New(newAdress).Result)
+                    if (physicalAdressService.New(newAdress))
                     {
                         Collection.Add(newAdress);
                         return true;
@@ -94,7 +94,7 @@ namespace DCS.Contact.UI
                             IsActive = Model.IsActive
                         };
 
-                        if (physicalAdressService.Update(updatedAdress).Result)
+                        if (physicalAdressService.Update(updatedAdress))
                             return true;
                     }
                     catch (Exception ex)

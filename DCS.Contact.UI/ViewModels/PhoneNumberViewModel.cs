@@ -44,7 +44,7 @@ namespace DCS.Contact.UI
                         IsActive = true // Default to active
                     };
 
-                    if (phoneService.New(newPhone).Result)
+                    if (phoneService.New(newPhone))
                     {
                         Collection.Add(newPhone);
                         return true;
@@ -87,7 +87,7 @@ namespace DCS.Contact.UI
                             IsActive = Model.IsActive
                         };
 
-                        if (phoneService.Update(updatedPhone).Result)
+                        if (phoneService.Update(updatedPhone))
                             return true;
                     }
                     catch (Exception ex)

@@ -46,7 +46,7 @@ namespace DCS.Contact.UI
                         IsActive = Model.IsActive
                     };
 
-                    if(typeService.New(newType).Result)
+                    if(typeService.New(newType))
                     {
                         Collection.Add(newType);
                         return true;
@@ -86,7 +86,7 @@ namespace DCS.Contact.UI
                             IsActive = Model.IsActive
                         };
 
-                        if (typeService.Update(updatedType).Result)
+                        if (typeService.Update(updatedType))
                             return true;
                     }
                     catch (Exception ex)
