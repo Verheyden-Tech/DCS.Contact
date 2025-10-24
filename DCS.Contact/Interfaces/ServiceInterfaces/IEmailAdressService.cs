@@ -1,14 +1,12 @@
-﻿using DCS.CoreLib;
-
-namespace DCS.Contact
+﻿namespace DCS.Contact
 {
     /// <summary>
-    /// Defines the contract for managing email addresses within the application.
+    /// Defines methods for managing and validating email addresses.
     /// </summary>
-    /// <remarks>This interface extends the <see cref="IServiceBase{TKey, TEntity, TRepository}"/> interface, 
-    /// providing functionality specific to the handling of email addresses. It is designed to work  with a repository
-    /// implementation of type <see cref="IEmailAdressRepository"/>.</remarks>
-    public interface IEmailAdressService : IServiceBase<Guid, Email, IEmailAdressRepository>
+    /// <remarks>This interface extends <see cref="IEmailAdressRepository"/> to provide additional
+    /// functionality  for handling email address-related operations. Implementations may include features such as 
+    /// email validation, formatting, or domain-specific logic.</remarks>
+    public interface IEmailAdressService : IEmailAdressRepository
     {
     }
 }

@@ -16,7 +16,7 @@ namespace DCS.Contact.UI
         public ContactManagementViewModel(Contact contact) : base()
         {
             this.Collection = new ObservableCollection<Contact>();
-            this.Collection = contactService.GetAll();
+            this.Collection = contactService.GetAll().Result;
         }
 
         #region Public Props

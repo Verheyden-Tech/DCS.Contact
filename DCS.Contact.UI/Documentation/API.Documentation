@@ -132,8 +132,8 @@
             Deletes the current contact from the database and removes it from the collection.
             </summary>
             <remarks>This method attempts to delete the contact represented by the current <see
-            cref="!:Model"/> from the database. If the contact is successfully deleted, it is also removed from the <see
-            cref="!:Collection"/>. If the contact does not exist in the database, or if an error occurs during the
+            cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Model"/> from the database. If the contact is successfully deleted, it is also removed from the <see
+            cref="P:DCS.CoreLib.BaseClass.ViewModelBase`2.Collection"/>. If the contact does not exist in the database, or if an error occurs during the
             deletion process, the method logs the error and returns <see langword="false"/>.</remarks>
             <returns><see langword="true"/> if the contact was successfully deleted from the database and removed from the
             collection; otherwise, <see langword="false"/>.</returns>

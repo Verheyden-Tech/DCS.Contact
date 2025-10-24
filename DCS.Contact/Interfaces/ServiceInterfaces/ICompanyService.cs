@@ -1,14 +1,12 @@
-﻿using DCS.CoreLib;
-
-namespace DCS.Contact
+﻿namespace DCS.Contact
 {
     /// <summary>
-    /// Defines the contract for operations related to managing companies.
+    /// Defines the contract for services that manage company-related operations.
     /// </summary>
-    /// <remarks>This interface extends <see cref="IServiceBase{TKey, TEntity, TRepository}"/> to provide
-    /// functionality specific to the <see cref="Company"/> entity. It serves as a blueprint for implementing business
-    /// logic and data access for company-related operations.</remarks>
-    public interface ICompanyService : IServiceBase<Guid, Company, ICompanyRepository>
+    /// <remarks>This interface extends <see cref="ICompanyRepository"/>, inheriting its data access methods,
+    /// and may include additional business logic specific to company management. Implementations of this interface
+    /// should encapsulate the business rules and workflows related to company operations.</remarks>
+    public interface ICompanyService : ICompanyRepository
     {
     }
 }

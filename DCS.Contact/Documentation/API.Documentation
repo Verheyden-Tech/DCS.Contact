@@ -80,11 +80,11 @@
         </member>
         <member name="T:DCS.Contact.ICompanyService">
             <summary>
-            Defines the contract for operations related to managing companies.
+            Defines the contract for services that manage company-related operations.
             </summary>
-            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
-            functionality specific to the <see cref="T:DCS.Contact.Company"/> entity. It serves as a blueprint for implementing business
-            logic and data access for company-related operations.</remarks>
+            <remarks>This interface extends <see cref="T:DCS.Contact.ICompanyRepository"/>, inheriting its data access methods,
+            and may include additional business logic specific to company management. Implementations of this interface
+            should encapsulate the business rules and workflows related to company operations.</remarks>
         </member>
         <member name="T:DCS.Contact.IContactAssignementService">
             <summary>
@@ -232,25 +232,25 @@
         </member>
         <member name="T:DCS.Contact.IContactService">
             <summary>
-            Defines the contract for managing and interacting with contact entities.
+            Defines a service for managing contact-related operations, extending the functionality of <see
+            cref="T:DCS.Contact.IContactRepository"/>.
             </summary>
-            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
-            functionality specific to the <see cref="T:DCS.Contact.Contact"/> entity. It is intended to be implemented by services that
-            handle operations such as creating, updating, retrieving, and deleting contact records.</remarks>
+            <remarks>This interface serves as a contract for implementing higher-level contact management features
+            that build upon the basic repository operations provided by <see cref="T:DCS.Contact.IContactRepository"/>.</remarks>
         </member>
         <member name="T:DCS.Contact.IEmailAdressService">
             <summary>
-            Defines the contract for managing email addresses within the application.
+            Defines methods for managing and validating email addresses.
             </summary>
-            <remarks>This interface extends the <see cref="T:DCS.CoreLib.IServiceBase`3"/> interface, 
-            providing functionality specific to the handling of email addresses. It is designed to work  with a repository
-            implementation of type <see cref="T:DCS.Contact.IEmailAdressRepository"/>.</remarks>
+            <remarks>This interface extends <see cref="T:DCS.Contact.IEmailAdressRepository"/> to provide additional
+            functionality  for handling email address-related operations. Implementations may include features such as 
+            email validation, formatting, or domain-specific logic.</remarks>
         </member>
         <member name="T:DCS.Contact.IGroupService">
             <summary>
             Defines the contract for managing and interacting with groups within the application.
             </summary>
-            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
+            <remarks>This interface extends <see cref="T:DCS.Contact.IGroupRepository"/> to provide
             group-specific functionality. It serves as the abstraction for operations related to the <see cref="T:DCS.Contact.Group"/>
             entity, such as retrieval, creation, updating, and deletion.</remarks>
         </member>
@@ -259,24 +259,15 @@
             Defines the contract for managing phone entities, including operations for retrieving, creating, updating, and
             deleting phones.
             </summary>
-            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> with <see
-            cref="T:System.Guid"/> as the key type, <see cref="T:DCS.Contact.Phone"/> as the entity type, and <see cref="T:DCS.Contact.IPhoneRepository"/> as the
-            repository type. It provides a standardized way to interact with phone-related data.</remarks>
+            <remarks>This interface extends <see cref="T:DCS.Contact.IPhoneRepository"/> with <see
+            cref="T:System.Guid"/> as the key type and <see cref="T:DCS.Contact.Phone"/> as the entity type.</remarks>
         </member>
-        <member name="T:DCS.Contact.IPhysicalAdressService">
-            <summary>
-            Defines the contract for managing physical address entities, including operations for retrieving, creating,
-            updating, and deleting addresses.
-            </summary>
-            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide a
-            standardized set of operations for handling physical address data. Implementations of this service are expected
-            to interact with a repository of type <see cref="T:DCS.Contact.IPhysicalAdressRepository"/>.</remarks>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:DCS.Contact.IPhysicalAdressService" -->
         <member name="T:DCS.Contact.IRoleService">
             <summary>
             Defines the contract for managing roles within the application.
             </summary>
-            <remarks>This interface extends <see cref="T:DCS.CoreLib.IServiceBase`3"/> to provide
+            <remarks>This interface extends <see cref="T:DCS.Contact.IRoleRepository"/> to provide
             role-specific operations. Implementations of this interface are responsible for handling role-related business
             logic and data access through the associated repository.</remarks>
         </member>

@@ -1,14 +1,12 @@
-﻿using DCS.CoreLib;
-
-namespace DCS.Contact
+﻿namespace DCS.Contact
 {
     /// <summary>
-    /// Defines the contract for managing and interacting with contact entities.
+    /// Defines a service for managing contact-related operations, extending the functionality of <see
+    /// cref="IContactRepository"/>.
     /// </summary>
-    /// <remarks>This interface extends <see cref="IServiceBase{TKey, TEntity, TRepository}"/> to provide
-    /// functionality specific to the <see cref="Contact"/> entity. It is intended to be implemented by services that
-    /// handle operations such as creating, updating, retrieving, and deleting contact records.</remarks>
-    public interface IContactService : IServiceBase<Guid, Contact, IContactRepository>
+    /// <remarks>This interface serves as a contract for implementing higher-level contact management features
+    /// that build upon the basic repository operations provided by <see cref="IContactRepository"/>.</remarks>
+    public interface IContactService : IContactRepository
     {
     }
 }

@@ -46,7 +46,7 @@ namespace DCS.Contact.UI
                         IsActive = Model.IsActive
                     };
 
-                    if (service.New(newCompany))
+                    if (service.New(newCompany).Result)
                     {
                         Collection.Add(newCompany);
                         return true;
@@ -76,7 +76,7 @@ namespace DCS.Contact.UI
         {
             if (Model != null)
             {
-                var company = service.Get(Model.Guid);
+                var company = service.Get(Model.Guid).Result;
                 if (company != null)
                 {
                     try
@@ -90,7 +90,7 @@ namespace DCS.Contact.UI
                             IsActive = Model.IsActive
                         };
 
-                        if (service.Update(updatedCompany))
+                        if (service.Update(updatedCompany).Result)
                             return true;
                     }
                     catch (Exception ex)

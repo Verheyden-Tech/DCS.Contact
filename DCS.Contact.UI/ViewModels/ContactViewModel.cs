@@ -29,10 +29,10 @@ namespace DCS.Contact.UI
             var adressObj = new Adress();
             adressViewModel = new PhysicalAdressViewModel(adressObj);
 
-            var contactAdress = contactAssignementService.GetAll().Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null).FirstOrDefault();
+            var contactAdress = contactAssignementService.GetAll().Result.Where(ca => ca.ContactGuid == contact.Guid && ca.AdressGuid != null).FirstOrDefault();
             if (contactAdress != null)
             {
-                var adress = adressService.Get((Guid)contactAdress.AdressGuid);
+                var adress = adressService.Get((Guid)contactAdress.AdressGuid).Result;
                 if (adress != null)
                 {
                     adressViewModel = new PhysicalAdressViewModel(adress);
@@ -66,7 +66,7 @@ namespace DCS.Contact.UI
                         IsActive = Model.IsActive
                     };
 
-                    if (service.New(newContact))
+                    if (service.New(newContact).Result)
                     {
                         Collection.Add(newContact);
                         return true;
@@ -96,7 +96,7 @@ namespace DCS.Contact.UI
         {
             if (Model != null)
             {
-                var contact = service.Get(Model.Guid);
+                var contact = service.Get(Model.Guid).Result;
                 if (contact != null)
                 {
                     try
@@ -110,7 +110,7 @@ namespace DCS.Contact.UI
                             IsActive = Model.IsActive
                         };
 
-                        if (service.Update(updatedContact))
+                        if (service.Update(updatedContact).Result)
                             return true;
                     }
                     catch (Exception ex)
@@ -137,8 +137,8 @@ namespace DCS.Contact.UI
         /// Deletes the current contact from the database and removes it from the collection.
         /// </summary>
         /// <remarks>This method attempts to delete the contact represented by the current <see
-        /// cref="Model"/> from the database. If the contact is successfully deleted, it is also removed from the <see
-        /// cref="Collection"/>. If the contact does not exist in the database, or if an error occurs during the
+        /// cref="ViewModelBase{TKey, TModel}.Model"/> from the database. If the contact is successfully deleted, it is also removed from the <see
+        /// cref="ViewModelBase{TKey, TModel}.Collection"/>. If the contact does not exist in the database, or if an error occurs during the
         /// deletion process, the method logs the error and returns <see langword="false"/>.</remarks>
         /// <returns><see langword="true"/> if the contact was successfully deleted from the database and removed from the
         /// collection; otherwise, <see langword="false"/>.</returns>
@@ -148,10 +148,10 @@ namespace DCS.Contact.UI
             {
                 try
                 {
-                    var existingContact = service.Get(Model.Guid);
+                    var existingContact = service.Get(Model.Guid).Result;
                     if(existingContact != null)
                     {
-                        if (service.Delete(Model.Guid))
+                        if (service.Delete(Model.Guid).Result)
                         {
                             Collection.Remove(Model);
                             return true;
@@ -183,7 +183,7 @@ namespace DCS.Contact.UI
         {
             if (email != null)
             {
-                if (emailService.New(email))
+                if (emailService.New(email).Result)
                 {
                     Emails.Add(email);
                     return true;
@@ -201,7 +201,7 @@ namespace DCS.Contact.UI
         {
             if (email != null)
             {
-                if (emailService.Delete(email.Guid))
+                if (emailService.Delete(email.Guid).Result)
                 {
                     Emails.Remove(email);
                     return true;
@@ -219,7 +219,7 @@ namespace DCS.Contact.UI
         {
             if (phone != null)
             {
-                if (phoneService.New(phone))
+                if (phoneService.New(phone).Result)
                 {
                     Phones.Add(phone);
                     return true;
@@ -237,7 +237,7 @@ namespace DCS.Contact.UI
         {
             if (phone != null)
             {
-                if (phoneService.Delete(phone.Guid))
+                if (phoneService.Delete(phone.Guid).Result)
                 {
                     Phones.Remove(phone);
                     return true;

@@ -1,6 +1,4 @@
-﻿using DCS.CoreLib;
-
-namespace DCS.Contact
+﻿namespace DCS.Contact
 {
     /// <summary>
     /// Defines the contract for managing contact assignments within the system.
@@ -8,7 +6,7 @@ namespace DCS.Contact
     /// <remarks>This service provides operations for creating, retrieving, updating, and deleting contact
     /// assignments. It extends the base service functionality with a focus on the <see cref="ContactAssignement"/>
     /// entity.</remarks>
-    public interface IContactAssignementService : IServiceBase<Guid, ContactAssignement, IContactAssignementRepository>
+    public interface IContactAssignementService : IContactAssignementRepository
     {
         /// <summary>
         /// Associates an address with a contact.
