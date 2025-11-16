@@ -8,7 +8,7 @@ namespace DCS.Contact.UI
     /// <summary>
     /// Interaction logic for ContactManagement.xaml
     /// </summary>
-    public partial class ContactManagement : DefaultAppControl
+    public partial class ContactManagement : DcsInternPage
     {
         private readonly IContactService contactService = CommonServiceLocator.ServiceLocator.Current.GetInstance<IContactService>();
 
@@ -23,9 +23,14 @@ namespace DCS.Contact.UI
         /// available address and phone number as the default display values.  The constructor retrieves contact
         /// assignments from the <c>contactAssignementService</c> and uses the <c>contactAdressService</c> and
         /// <c>phoneService</c> to fetch detailed address and phone information.</remarks>
-        public ContactManagement()
+        public ContactManagement() : base()
         {
             InitializeComponent();
+
+            Title = "Kontaktverwaltung";
+            DisplayName = "Kontaktverwaltung";
+            Name = "ContactManagement";
+            GroupName = "Contact";
 
             var obj = new Contact();
             viewModel = new ContactViewModel(obj);

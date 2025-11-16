@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-    <Version>1.0.2101.0</Version>
+    <Version>1.0.2201.0</Version>
     <AssemblyVersion>1.0.1001.0</AssemblyVersion>
     <ApplicationVersion>1.0.1001.0</ApplicationVersion>
     <ProjectGuid>{92928B41-155D-45DF-B72A-8C100867442F}</ProjectGuid>
@@ -46,12 +46,12 @@
     <None Remove=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DCS.CoreLib" Version="1.1.2401" />
-    <PackageReference Include="DCS.CoreLib.Collection" Version="1.1.2301" />
+    <PackageReference Include="DCS.CoreLib" Version="1.1.2901" />
+    <PackageReference Include="DCS.CoreLib.Collection" Version="1.1.2701" />
     <PackageReference Include="DCS.Data" Version="1.0.2701" />
-    <PackageReference Include="DCS.Resource" Version="1.0.1201" />
-    <PackageReference Include="DCS.User" Version="1.0.6601.1" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.6501.1" />
+    <PackageReference Include="DCS.Resource" Version="1.0.2001" />
+    <PackageReference Include="DCS.User" Version="1.0.7701.1" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.7601.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
