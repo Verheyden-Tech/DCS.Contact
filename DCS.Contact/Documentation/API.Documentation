@@ -289,11 +289,6 @@
             Initializes a new instance of the <see cref="T:DCS.Contact.Adress"/> class.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Adress.Guid">
-            <summary>
-            Gets or sets the unique identifier of the adress.
-            </summary>
-        </member>
         <member name="P:DCS.Contact.Adress.StreetName">
             <summary>
             Gets or sets the street name of the adress.
@@ -324,11 +319,6 @@
             Gets or sets the country of a adress.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Adress.IsActive">
-            <summary>
-            Indicates whether the adress is active.
-            </summary>
-        </member>
         <member name="T:DCS.Contact.Company">
             <summary>
             Represents a company.
@@ -337,16 +327,6 @@
         <member name="M:DCS.Contact.Company.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:DCS.Contact.Company"/> class.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Company.Guid">
-            <summary>
-            Gets or sets the unique identifier of the company.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Company.Name">
-            <summary>
-            Gets or sets the name of the company.
             </summary>
         </member>
         <member name="P:DCS.Contact.Company.Description">
@@ -359,11 +339,6 @@
             Gets or sets the type of the company.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Company.IsActive">
-            <summary>
-            Indicates whether the company is active.
-            </summary>
-        </member>
         <member name="T:DCS.Contact.Contact">
             <summary>
             Represents a contact.
@@ -374,11 +349,6 @@
             Initializes a new instance of the <see cref="T:DCS.Contact.Contact"/> class.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Contact.Guid">
-            <summary>
-            Gets or sets the unique identifier of the contact.
-            </summary>
-        </member>
         <member name="P:DCS.Contact.Contact.FirstName">
             <summary>
             Gets or sets the first name of the contact.
@@ -387,11 +357,6 @@
         <member name="P:DCS.Contact.Contact.LastName">
             <summary>
             Gets or sets the last name of the contact.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Contact.IsActive">
-            <summary>
-            Indicates whether the contact is active.
             </summary>
         </member>
         <member name="P:DCS.Contact.Contact.CreationDate">
@@ -426,11 +391,6 @@
         <member name="M:DCS.Contact.ContactAssignement.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:DCS.Contact.ContactAssignement"/> class.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.ContactAssignement.Guid">
-            <summary>
-            Gets or sets the unique identifier for the object.
             </summary>
         </member>
         <member name="P:DCS.Contact.ContactAssignement.ContactGuid">
@@ -478,11 +438,6 @@
             Constructor for the email class.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Email.Guid">
-            <summary>
-            Gets or sets the Guid of the email.
-            </summary>
-        </member>
         <member name="P:DCS.Contact.Email.Type">
             <summary>
             Gets or sets the type of the email address.
@@ -491,11 +446,6 @@
         <member name="P:DCS.Contact.Email.MailAdress">
             <summary>
             Gets or sets the email address.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Email.IsActive">
-            <summary>
-            Indicates wether the email address is active or not.
             </summary>
         </member>
         <member name="T:DCS.Contact.Group">
@@ -508,24 +458,9 @@
             Default constructor for Group class.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Group.Guid">
-            <summary>
-            Gets or sets the Guid of the group.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Group.Name">
-            <summary>
-            Gets or sets the name of the group.
-            </summary>
-        </member>
         <member name="P:DCS.Contact.Group.Description">
             <summary>
             Gets or sets the description of the group.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Group.IsActive">
-            <summary>
-            Indicates wether the group is active.
             </summary>
         </member>
         <member name="T:DCS.Contact.Phone">
@@ -538,11 +473,6 @@
             Constructor for the Phone class.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Phone.Guid">
-            <summary>
-            Gets or sets the Guid of the phone number.
-            </summary>
-        </member>
         <member name="P:DCS.Contact.Phone.Type">
             <summary>
             Gets or sets the type of the phone number.
@@ -553,14 +483,9 @@
             Gets or sets the phone number.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Phone.IsActive">
-            <summary>
-            Gets or sets wether the phone number is active.
-            </summary>
-        </member>
         <member name="T:DCS.Contact.Role">
             <summary>
-            Represents a role for users in the system.
+            Represents a user role with a unique identifier and description.
             </summary>
         </member>
         <member name="M:DCS.Contact.Role.#ctor">
@@ -568,24 +493,9 @@
             Initializes a new instance of the <see cref="T:DCS.Contact.Role"/> class.
             </summary>
         </member>
-        <member name="P:DCS.Contact.Role.Guid">
-            <summary>
-            Gets or sets the unique identifier for the role.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Role.Name">
-            <summary>
-            Gets or sets the name of the role.
-            </summary>
-        </member>
         <member name="P:DCS.Contact.Role.Description">
             <summary>
             Gets or sets the description of the role.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Role.IsActive">
-            <summary>
-            Gets or sets a value indicating whether the role is active.
             </summary>
         </member>
         <member name="T:DCS.Contact.Type">
@@ -598,21 +508,6 @@
         <member name="M:DCS.Contact.Type.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:DCS.Contact.Type"/> class.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Type.Guid">
-            <summary>
-            Gets or sets the unique identifier for the type.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Type.Name">
-            <summary>
-            Gets or sets the name for the type.
-            </summary>
-        </member>
-        <member name="P:DCS.Contact.Type.IsActive">
-            <summary>
-            Gets or sets a value indicating whether the type is currently active.
             </summary>
         </member>
     </members>

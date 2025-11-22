@@ -1,19 +1,16 @@
-﻿namespace DCS.Contact
+﻿using DCS.CoreLib.BaseClass;
+
+namespace DCS.Contact
 {
     /// <summary>
     /// Represents an physical adress.
     /// </summary>
-    public class Adress
+    public class Adress : ModelBase<Guid>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Adress"/> class.
         /// </summary>
         public Adress() { }
-
-        /// <summary>
-        /// Gets or sets the unique identifier of the adress.
-        /// </summary>
-        public Guid Guid { get; set; }
 
         /// <summary>
         /// Gets or sets the street name of the adress.
@@ -44,10 +41,5 @@
         /// Gets or sets the country of a adress.
         /// </summary>
         public string Country { get; set; }
-
-        /// <summary>
-        /// Indicates whether the adress is active.
-        /// </summary>
-        public bool IsActive { get; set; }
     }
 }

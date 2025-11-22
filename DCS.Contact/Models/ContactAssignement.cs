@@ -1,4 +1,6 @@
-﻿namespace DCS.Contact
+﻿using DCS.CoreLib.BaseClass;
+
+namespace DCS.Contact
 {
     /// <summary>
     /// Represents the assignment of various identifiers associated with a contact,  including their address, email,
@@ -7,17 +9,12 @@
     /// <remarks>This class serves as a container for linking a contact to multiple related entities  through
     /// their respective unique identifiers. Each property corresponds to a specific  entity or attribute associated
     /// with the contact.</remarks>
-    public class ContactAssignement
+    public class ContactAssignement : ModelBase<Guid>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactAssignement"/> class.
         /// </summary>
         public ContactAssignement() { }
-
-        /// <summary>
-        /// Gets or sets the unique identifier for the object.
-        /// </summary>
-        public Guid Guid { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the contact.
