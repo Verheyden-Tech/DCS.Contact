@@ -1,11 +1,12 @@
-﻿using DCS.CoreLib.BaseClass;
+﻿using DCS.CoreLib;
+using DCS.CoreLib.BaseClass;
 
 namespace DCS.Contact
 {
     /// <summary>
     /// Phone class model for phone number data on the table.
     /// </summary>
-    public class Phone : ModelBase<Guid>
+    public class Phone : ModelBase, IEntity<Guid>
     {
         /// <summary>
         /// Constructor for the Phone class.

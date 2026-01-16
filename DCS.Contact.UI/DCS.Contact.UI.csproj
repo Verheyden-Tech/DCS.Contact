@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
-    <Version>1.0.2701.0</Version>
+    <Version>1.0.2801.0</Version>
     <AssemblyVersion>1.0.1701.0</AssemblyVersion>
     <ApplicationVersion>1.0.1701.0</ApplicationVersion>
     <OutputType>Library</OutputType>
@@ -39,12 +39,12 @@
     <Page Remove="SharedDLLs\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DCS.CoreLib" Version="1.1.3501" />
+    <PackageReference Include="DCS.CoreLib" Version="1.1.3601" />
     <PackageReference Include="DCS.CoreLib.Collection" Version="1.1.3001" />
-    <PackageReference Include="DCS.CoreLib.View" Version="1.1.7301" />
+    <PackageReference Include="DCS.CoreLib.View" Version="1.1.7401" />
     <PackageReference Include="DCS.Data" Version="1.0.2701" />
-    <PackageReference Include="DCS.User" Version="1.0.8101.1" />
-    <PackageReference Include="DCS.User.Service" Version="1.0.8001.1" />
+    <PackageReference Include="DCS.User" Version="1.0.8301.1" />
+    <PackageReference Include="DCS.User.Service" Version="1.0.8101.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DCS.Contact.Service\DCS.Contact.Service.csproj" />

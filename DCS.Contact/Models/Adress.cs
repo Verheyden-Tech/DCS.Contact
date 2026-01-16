@@ -1,11 +1,12 @@
-﻿using DCS.CoreLib.BaseClass;
+﻿using DCS.CoreLib;
+using DCS.CoreLib.BaseClass;
 
 namespace DCS.Contact
 {
     /// <summary>
     /// Represents an physical adress.
     /// </summary>
-    public class Adress : ModelBase<Guid>
+    public class Adress : ModelBase, IEntity<Guid>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Adress"/> class.

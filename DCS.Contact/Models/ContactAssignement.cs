@@ -1,4 +1,5 @@
-﻿using DCS.CoreLib.BaseClass;
+﻿using DCS.CoreLib;
+using DCS.CoreLib.BaseClass;
 
 namespace DCS.Contact
 {
@@ -9,7 +10,7 @@ namespace DCS.Contact
     /// <remarks>This class serves as a container for linking a contact to multiple related entities  through
     /// their respective unique identifiers. Each property corresponds to a specific  entity or attribute associated
     /// with the contact.</remarks>
-    public class ContactAssignement : ModelBase<Guid>
+    public class ContactAssignement : ModelBase, IEntity<Guid>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactAssignement"/> class.

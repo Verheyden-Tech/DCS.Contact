@@ -1,11 +1,12 @@
-﻿using DCS.CoreLib.BaseClass;
+﻿using DCS.CoreLib;
+using DCS.CoreLib.BaseClass;
 
 namespace DCS.Contact
 {
     /// <summary>
     /// Group class for group assignements of contacts and users.
     /// </summary>
-    public class Group : ModelBase<Guid>
+    public class Group : ModelBase, IEntity<Guid>
     {
         /// <summary>
         /// Default constructor for Group class.

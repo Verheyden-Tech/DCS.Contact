@@ -1,11 +1,12 @@
-﻿using DCS.CoreLib.BaseClass;
+﻿using DCS.CoreLib;
+using DCS.CoreLib.BaseClass;
 
 namespace DCS.Contact
 {
     /// <summary>
     /// Email class for the email model.
     /// </summary>
-    public class Email : ModelBase<Guid>
+    public class Email : ModelBase, IEntity<Guid>
     {
         /// <summary>
         /// Constructor for the email class.
